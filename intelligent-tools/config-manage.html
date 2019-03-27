@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>瀚云智能运维管理平台</title>
+  <link href="../assets/css/base.css" rel="stylesheet" />
+  <link href="../assets/js/element-ui/index.css" rel="stylesheet" />
+  <link href="../assets/css/style.css" rel="stylesheet" />
+  <!-- <link href="../assets/css/theme/main-theme.css" rel="stylesheet" /> -->
+  <link href="../assets/css/theme/light-theme.css" rel="stylesheet" />
+  <link href="./index.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/font-awesome.css">
+</head>
+
+<body class="app">
+  <div id="homeIndex" style="height: 100%;">
+    <div class="loc-app-menu">
+      <div class="loc-logo-form"><img src="../assets/images/logo.png" /></div>
+      <div class="loc-menu-list">
+        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}" @click="toRoute(menu)">
+          <img class="loc-menu-default" :src="menu.img + '.png'" />
+          <img class="loc-menu-active" :src="menu.img + '-active.png'" />
+          <span class="loc-menu-name com-txt-overflow">{{ menu.name }}</span>
+        </div>
+      </div>
+      <div class="loc-user-form">
+        <div class="loc-alarm-form"><i class="fa fa-bell-o com-hover" style="color:#fff;"></i></div>
+        <div class="loc-user">
+          <img class="loc-user-icon" src="../assets/images/logo.png" />
+          <el-dropdown trigger="click">
+            <span class="el-dropdown-link">
+              {{'Ronin'}} <span class="menu-drop-img"></span>
+            </span>
+            <el-dropdown-menu slot="dropdown" class="home-drop">
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="loc-index-content">
+      <div class="loc-left-menu" :class="{'loc-menu-hide': !showMenu}">
+        <div class="loc-transform-left" @click="toggleShowMenu">
+          <i class="el-icon-caret-left"></i>
+          <i class="el-icon-caret-right"></i>
+        </div>
+        <div class="my-menu">
+          <div class="my-menu-item" v-for="menu of leftMenuList.list" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === menu.id || leftMenuList.openMenu.indexOf(menu.id + '-') !== -1)}">
+            <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === menu || leftMenuList.selectMenu.id.indexOf(menu.id + '-') !== -1)}"
+              @click="selectedLeftMenu(menu)">
+              <i class="loc-left-icon" :class="menu.iconClass"></i>
+              <span>{{ menu.name }}</span>
+              <i v-if="menu.children" class="loc-drop-icon el-icon-arrow-right"></i>
+            </div>
+            <div class="my-submenu-item">
+              <div class="my-menu-item" v-for="subMenu of menu.children" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === subMenu.id || leftMenuList.openMenu.indexOf(subMenu.id + '-') !== -1)}">
+                <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === subMenu || leftMenuList.selectMenu.id.indexOf(subMenu.id + '-') !== -1)}"
+                  @click="selectedLeftMenu(subMenu)">
+                  <i class="loc-left-icon"></i>
+                  <span><i class="loc-left-subicon el-icon-caret-right" v-if="subMenu.children"></i>{{ subMenu.name }}</span>
+                </div>
+                <div class="my-submenu-item">
+                  <div class="my-menu-item" v-for="mSubMenu of subMenu.children">
+                    <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === mSubMenu || leftMenuList.selectMenu.id.indexOf(mSubMenu.id + '-') !== -1)}"
+                      @click="selectedLeftMenu(mSubMenu)">
+                      <i class="loc-left-icon"></i>
+                      <span><i class="loc-left-subicon"></i>{{ mSubMenu.name }}</span>
+                      <div class="my-menu-other" v-if="mSubMenu.num">
+                        {{ mSubMenu.num }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="loc-right-content">
+        <div class="loc-manage-content">
+          <div class="loc-opera-group equip-top-margin">
+            <el-button type="primary" class="loc-btn icon-btn" @click="showDialog"><i class="fa fa-plus-circle"></i><span>新建配置组</span></el-button>
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-trash"></i><span>删除配置组</span></el-button>
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-play-circle"></i><span>启用配置组</span></el-button>
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-pause-circle"></i><span>停用配置组</span></el-button>
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-eraser"></i><span>清除配置组</span></el-button>
+          </div>
+          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+            <el-table-column class-name="my-checkbox" type="selection" width="46"></el-table-column>
+            <el-table-column prop="name" label="名称" min-width="101px">
+              <template slot-scope="scope">
+                <span class="loc-table-color">{{ scope.row.name }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="describe" label="描述" min-width="197px"></el-table-column>
+            <el-table-column prop="status" label="状态" min-width="100px" class-name="com-txt-center no-padding">
+              <template slot-scope="scope">
+                <i class="fa fa-check-circle" v-if="scope.row.status === 0" style="color:#69F0AE;"></i>
+                <i class="fa fa-exclamation-circle" v-if="scope.row.status === 1" style="color:#FF9E54;"></i>
+                <i class="fa fa-times-circle" v-if="scope.row.status === 2" style="color:#f00;"></i>
+                <!-- <img :src="scope.row.status === 0 ? '../assets/images/icon/normal.png' : scope.row.accessStatus === 1 ? '../assets/images/icon/warning.png' : '../assets/images/icon/error.png'" /> -->
+              </template>
+            </el-table-column>
+            <el-table-column prop="time" label="创建时间" min-width="173px"></el-table-column>
+            <el-table-column prop="people" label="用户" min-width="125px"></el-table-column>
+            <el-table-column prop="num" label="管理资源数" min-width="244px"></el-table-column>
+            <el-table-column prop="" label="操作" min-width="98px">
+              <template slot-scope="scope">
+                <el-popover placement="bottom" trigger="click" class="my-popover" popper-class="my-popover-content my-popover-left">
+                  <div>
+                    <div @click="toDetail" class="my-popover-item com-hover">查看</div>
+                    <div class="my-popover-item com-hover">编辑</div>
+                    <div class="my-popover-item com-hover">删除</div>
+                    <div class="my-popover-item com-hover">
+                      <el-popover placement="left" trigger="hover" class="my-popover" popper-class="my-popover-content">
+                        <div>
+                          <div @click="toDetail" class="my-popover-item com-hover">查看</div>
+                          <div class="my-popover-item com-hover">编辑</div>
+                          <div class="my-popover-item com-hover">删除</div>
+                          <div class="my-popover-item com-hover">删除</div>
+                        </div>
+                        <div slot="reference">
+                          设置
+                          <span style="float: right;line-height: 16px;" class="el-icon-arrow-right"></span>
+                        </div>
+                      </el-popover>
+                    </div>
+                  </div>
+                  <i slot="reference" class="fa fa-cog com-hover" style="margin: 6px 0 0 2px;"></i>
+                  <!-- <div slot="reference" style="margin: 6px 0 0 2px;" class="com-hover loc-img-form loc-opera-img"></div> -->
+                </el-popover>
+              </template>
+            </el-table-column>
+          </el-table>
+          <div class="loc-pagination">
+            <div class="my-pagination-group">
+              <div class="my-pagination-btn my-pagination-first com-hover">
+                首页
+              </div>
+              <el-pagination :pager-count="5" layout="prev, pager, next" :total="1000">
+              </el-pagination>
+              <div class="my-pagination-btn my-pagination-last com-hover">
+                尾页
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <el-dialog title="新建配置组" :visible.sync="dialogVisible" width="1080px" :show-close="false" :before-close="handleClose"
+      class="blue-dialog my-edit-dialog">
+      <div class="equip-dialog">
+        <div class="my-edit-form">
+          <p class="my-edit-title">基本信息</p>
+          <div class="my-edit-group">
+            <span class="my-group-title"><i class="required-icon">*</i>名称</span>
+            <div class="my-group-content">
+              <input type="text" @blur="onBlurInput($event, '')" placeholder="配置组名称" />
+            </div>
+          </div>
+          <div class="my-edit-group">
+            <span class="my-group-title"><i class="required-icon">*</i>描述</span>
+            <div class="my-group-content">
+              <input type="text" @blur="onBlurInput($event, '')" placeholder="厂商" />
+            </div>
+          </div>
+          <div class="my-edit-group">
+            <span class="my-group-title">启用</span>
+            <div class="my-group-content equip-group-content">
+              <el-checkbox class="my-checkbox alarm-checkbox" v-model="checked"></el-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="my-edit-form">
+          <p class="my-edit-title">策略备份</p>
+          <div class="my-edit-group my-fill-line">
+            <span class="my-group-title">日备份</span>
+            <span class="my-group-title">启用<el-checkbox class="my-checkbox equip-checkbox" v-model="checked"></el-checkbox></span>
+            <span class="my-group-title">每天</span>
+            <div class="my-group-content">
+              <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                placeholder="请选择">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <span class="equip-group-tip">时</span>
+            <div class="my-group-content">
+              <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                placeholder="请选择">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <span class="equip-group-tip">分，备份设置配置</span>
+          </div>
+          <div class="my-edit-group my-fill-line">
+            <span class="my-group-title">周备份</span>
+            <span class="my-group-title">启用<el-checkbox class="my-checkbox equip-checkbox" v-model="checked"></el-checkbox></span>
+            <span class="my-group-title">每周</span>
+            <div class="my-group-content">
+              <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                placeholder="请选择">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <div class="my-group-content">
+              <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                placeholder="请选择">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <span class="equip-group-tip">时</span>
+            <div class="my-group-content">
+              <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                placeholder="请选择">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <span class="equip-group-tip">分，备份设置配置</span>
+          </div>
+          <div class="my-edit-group my-fill-line">
+            <span class="my-group-title">年备份</span>
+            <span class="my-group-title">启用<el-checkbox class="my-checkbox equip-checkbox" v-model="checked"></el-checkbox></span>
+            <span class="my-group-title">每月</span>
+            <div class="my-group-content">
+              <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                placeholder="请选择">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <div class="my-group-content">
+              <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                placeholder="请选择">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <span class="equip-group-tip">时</span>
+            <div class="my-group-content">
+              <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                placeholder="请选择">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <span class="equip-group-tip">分，备份设置配置</span>
+          </div>
+        </div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button class="dialog-btn cancel-btn" @click="dialogVisible = false">取消</el-button>
+        <el-button class="dialog-btn submit-btn" type="primary" @click="submitDialog()">确认</el-button>
+      </span>
+    </el-dialog>
+  </div>
+</body>
+<!-- <script src="../assets/js/lodash/lodash.js"></script> -->
+<!-- <script src="../assets/js/echart/echarts.min.js"></script> -->
+<script src="../assets/js/vue/vue.dev.js"></script>
+<!-- <script src="../assets/js/echart/vue-echart.js"></script> -->
+<script src="../assets/js/element-ui/index.js"></script>
+<script src="./config-manage/config-manage.js"></script>
+
+</html>

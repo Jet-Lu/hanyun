@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>瀚云智能运维管理平台</title>
+  <link href="../assets/css/base.css" rel="stylesheet" />
+  <link href="../assets/js/element-ui/index.css" rel="stylesheet" />
+  <link href="../assets/css/style.css" rel="stylesheet" />
+  <link href="../assets/css/theme/main-theme.css" rel="stylesheet" />
+  <!-- <link href="../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
+  <link href="./index.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/font-awesome.css">
+</head>
+
+<body class="app">
+  <div id="homeIndex" style="height: 100%;">
+    <div class="loc-app-menu">
+      <div class="loc-logo-form"><img src="../assets/images/logo.png" /></div>
+      <div class="loc-menu-list">
+        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}" @click="toRoute(menu)">
+          <img class="loc-menu-default" :src="menu.img + '.png'" />
+          <img class="loc-menu-active" :src="menu.img + '-active.png'" />
+          <span class="loc-menu-name com-txt-overflow">{{ menu.name }}</span>
+        </div>
+      </div>
+      <div class="loc-user-form">
+        <div class="loc-alarm-form"><i class="fa fa-bell-o com-hover" style="color:#fff;"></i></div>
+        <div class="loc-user">
+          <img class="loc-user-icon" src="../assets/images/logo.png" />
+          <el-dropdown trigger="click">
+            <span class="el-dropdown-link">
+              {{'Ronin'}} <span class="menu-drop-img"></span>
+            </span>
+            <el-dropdown-menu slot="dropdown" class="home-drop">
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="loc-index-content">
+      <div class="loc-left-menu" :class="{'loc-menu-hide': !showMenu}">
+        <div class="loc-transform-left" @click="toggleShowMenu">
+          <i class="el-icon-caret-left"></i>
+          <i class="el-icon-caret-right"></i>
+        </div>
+        <div class="my-menu">
+          <div class="my-menu-item" v-for="menu of leftMenuList.list" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === menu.id || leftMenuList.openMenu.indexOf(menu.id + '-') !== -1)}">
+            <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === menu || leftMenuList.selectMenu.id.indexOf(menu.id + '-') !== -1)}"
+              @click="selectedLeftMenu(menu)">
+              <i class="loc-left-icon" :class="menu.iconClass"></i>
+              <span>{{ menu.name }}</span>
+              <i v-if="menu.children" class="loc-drop-icon el-icon-arrow-right"></i>
+            </div>
+            <div class="my-submenu-item">
+              <div class="my-menu-item" v-for="subMenu of menu.children" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === subMenu.id || leftMenuList.openMenu.indexOf(subMenu.id + '-') !== -1)}">
+                <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === subMenu || leftMenuList.selectMenu.id.indexOf(subMenu.id + '-') !== -1)}"
+                  @click="selectedLeftMenu(subMenu)">
+                  <i class="loc-left-icon"></i>
+                  <span><i class="loc-left-subicon el-icon-caret-right" v-if="subMenu.children"></i>{{ subMenu.name }}</span>
+                </div>
+                <div class="my-submenu-item">
+                  <div class="my-menu-item" v-for="mSubMenu of subMenu.children">
+                    <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === mSubMenu || leftMenuList.selectMenu.id.indexOf(mSubMenu.id + '-') !== -1)}"
+                      @click="selectedLeftMenu(mSubMenu)">
+                      <i class="loc-left-icon"></i>
+                      <span><i class="loc-left-subicon"></i>{{ mSubMenu.name }}</span>
+                      <div class="my-menu-other" v-if="mSubMenu.num">
+                        {{ mSubMenu.num }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="loc-right-content">
+        <div class="patrol-top-content loc-main-background">
+          <div class="loc-query-form">
+            <span class="loc-query-name">开始时间</span>
+            <el-date-picker class="patrol-content loc-date-picker" v-model="value1" type="date" placeholder="-请选择-">
+            </el-date-picker>
+          </div>
+          <div class="loc-query-form">
+            <span class="loc-query-name">结束时间</span>
+            <el-date-picker class="patrol-content loc-date-picker" v-model="value1" type="date" placeholder="-请选择-">
+            </el-date-picker>
+          </div>
+          <div class="loc-query-form patrol-btn-form">
+            <el-button class="loc-btn submit-btn" type="primary">搜索</el-button>
+            <el-button class="loc-btn reset-btn" type="primary">重置</el-button>
+          </div>
+        </div>
+        <div class="loc-manage-content">
+          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+            <el-table-column prop="name" class-name="com-txt-overflow" label="巡检报告名称" min-width="120px">
+              <template slot-scope="scope">
+                <span class="loc-table-color">{{ scope.row.name }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="people" class-name="com-txt-overflow" label="巡检人" min-width="96px">
+            </el-table-column>
+            <el-table-column prop="reportTime" class-name="com-txt-overflow" label="报告提交时间" min-width="160px">
+            </el-table-column>
+            <el-table-column prop="creater" label="计划创建人" min-width="108px" class-name="com-txt-overflow">
+            </el-table-column>
+            <el-table-column prop="planName" label="巡检计划名称" min-width="120px" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="time" label="巡检时间" min-width="157px" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="status" class-name="com-txt-overflow" label="状态" min-width="241px">
+            </el-table-column>
+            <el-table-column prop="" label="操作" min-width="104px">
+              <template slot-scope="scope">
+                <i class="fa fa-file-excel-o com-hover" @click="showDialog(1)"></i>
+                <i class="fa fa-file-word-o com-hover" @click="showDialog(2)"></i>
+                <i class="fa fa-send com-hover"></i>
+                <!-- <div @click="showDialog(1)" style="margin: 6px 0 0 2px;" class="com-hover loc-img-form loc-xml-img"></div>
+                <div @click="showDialog(2)" style="margin: 6px 0 0 2px;" class="com-hover loc-img-form loc-file-img"></div>
+                <div style="margin: 6px 0 0 2px;" class="com-hover loc-img-form loc-fly-img"></div> -->
+              </template>
+            </el-table-column>
+          </el-table>
+          <div class="loc-pagination">
+            <div class="my-pagination-group">
+              <div class="my-pagination-btn my-pagination-first com-hover">
+                首页
+              </div>
+              <el-pagination :pager-count="5" layout="prev, pager, next" :total="1000">
+              </el-pagination>
+              <div class="my-pagination-btn my-pagination-last com-hover">
+                尾页
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <el-dialog :title="dialogFlag === 1 ? '编辑配置组' : '巡检报告详情'" :visible.sync="dialogVisible" width="1080px" :show-close="false"
+      :before-close="handleClose" class="blue-dialog my-edit-dialog">
+      <div class="patrol-dialog">
+        <div class="patrol-data-top">
+          <span>报告名称：巡检报告</span>
+          <span>巡检时间：2018-05-01 00:00:00</span>
+          <span>巡检人：演示用户</span>
+          <span>计划创建人：系统管理员</span>
+        </div>
+        <el-collapse class="my-collapse" v-model="activeNames" @change="handleChange">
+          <el-collapse-item class="my-collapse-item" title="1.机房环境：检查机房环境相关项" name="1">
+            <el-table :data="dialogTable" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+              <el-table-column prop="name" class-name="com-txt-overflow" label="巡检项" width="92px">
+              </el-table-column>
+              <el-table-column prop="describe" class-name="com-txt-overflow" label="描述" width="224px">
+              </el-table-column>
+              <el-table-column prop="reference" class-name="com-txt-overflow" label="参考值" width="92px">
+              </el-table-column>
+              <el-table-column prop="value" label="巡检值" width="92px" class-name="com-txt-overflow">
+                <template slot-scope="scope">
+                  <span v-if="dialogFlag === 1">{{ scope.row.value }}</span>
+                  <input v-if="dialogFlag === 2" type="text" class="patrol-input patrol-min-input" />
+                </template>
+              </el-table-column>
+              <el-table-column prop="unit" label="单位" width="82px" class-name="com-txt-overflow"></el-table-column>
+              <el-table-column prop="type" label="巡检方式" width="104px" class-name="com-txt-overflow"></el-table-column>
+              <el-table-column prop="detail" class-name="com-txt-overflow" label="情况概要" :min-width="dialogFlag === 1 ? '80px' : '135px'">
+                <template slot-scope="scope">
+                  <span v-if="dialogFlag === 1">{{ scope.row.value }}</span>
+                  <input v-if="dialogFlag === 2" type="text" class="patrol-input" />
+                </template>
+              </el-table-column>
+              <el-table-column prop="result" label="结果" :width="dialogFlag === 1 ? '80px' : '165px'">
+                <template slot-scope="scope">
+                  <span v-if="dialogFlag === 1 && scope.row.result === 1" style="color: #69f0ae;">正常</span>
+                  <span v-if="dialogFlag === 1 && scope.row.result === 2" style="color: #f44;">异常</span>
+                  <div v-if="dialogFlag === 2" class="patrol-table-radio">
+                    <el-radio class="my-simple-radio" v-model="scope.row.result" :label="1">正常</el-radio>
+                    <el-radio class="my-simple-radio" v-model="scope.row.result" :label="2">异常</el-radio>
+                  </div>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-collapse-item>
+          <el-collapse-item class="my-collapse-item" title="2.周边设备：检查机房配套设备" name="2">
+          </el-collapse-item>
+          <el-collapse-item class="my-collapse-item" title="3.网络设备：检查机房内网络设备健康情况" name="3">
+          </el-collapse-item>
+          <el-collapse-item class="my-collapse-item" title="4.服务器：检查机房内服务器健康情况" name="4">
+          </el-collapse-item>
+        </el-collapse>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button class="dialog-btn cancel-btn" @click="dialogVisible = false">取消</el-button>
+        <el-button class="dialog-btn submit-btn" type="primary" @click="submitDialog()">确认</el-button>
+      </span>
+    </el-dialog>
+  </div>
+</body>
+<!-- <script src="../assets/js/lodash/lodash.js"></script> -->
+<!-- <script src="../assets/js/echart/echarts.min.js"></script> -->
+<script src="../assets/js/vue/vue.dev.js"></script>
+<!-- <script src="../assets/js/echart/vue-echart.js"></script> -->
+<script src="../assets/js/element-ui/index.js"></script>
+<script src="./patrol-report/patrol-report.js"></script>
+
+</html>

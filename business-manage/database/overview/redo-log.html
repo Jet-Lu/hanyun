@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>瀚云智能运维管理平台</title>
+  <link href="../../../assets/css/base.css" rel="stylesheet" />
+  <link href="../../../assets/js/element-ui/index.css" rel="stylesheet" />
+  <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
+  <link href="../../../assets/css/style.css" rel="stylesheet" />
+  <!-- <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
+  <link rel="stylesheet" href="./../../common-business.css">
+  <link href="./resource-overview/web-service.css" rel="stylesheet" />
+  <link href="./redo-log/redo-log.css" rel="stylesheet" />
+</head>
+
+<body class="app">
+  <div id="homeIndex">
+    <div class="top-tab-toggle">
+      <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
+    </div>
+    <el-row>
+      <el-col :span="24">
+        <el-table :data="tableData5" :class="'transparent-table warning-special-table-tree'" style="width: 100%">
+          <el-table-column type="expand" width="70px">
+            <template slot-scope="props">
+              <el-table :data="tableData5" :show-header="false" style="width: 100%">
+                <el-table-column width="70px"></el-table-column>
+                <el-table-column label="组" prop="id"></el-table-column>
+                <el-table-column label="状态" prop="name"></el-table-column>
+                <el-table-column label="成员数" prop="desc"></el-table-column>
+                <el-table-column label="已归档" prop="desc"></el-table-column>
+                <el-table-column label="大小" prop="desc"></el-table-column>
+              </el-table>
+            </template>
+          </el-table-column>
+          <el-table-column label="组" sortable prop="id"></el-table-column>
+          <el-table-column label="状态" sortable prop="name"></el-table-column>
+          <el-table-column label="成员数" sortable prop="desc"></el-table-column>
+          <el-table-column label="已归档" sortable prop="desc"></el-table-column>
+          <el-table-column label="大小" sortable prop="desc"></el-table-column>
+        </el-table>
+      </el-col>
+    </el-row>
+  </div>
+</body>
+<script src="../../../assets/js/vue/vue.dev.js"></script>
+<script src="../../../assets/js/echart/echarts.new.js"></script>
+<script src="../../../assets/js/echart/vue-echart.js"></script>
+<script src="../../../assets/js/element-ui/index.js"></script>
+<script src="./redo-log/redo-log.js"></script>
+
+</html>

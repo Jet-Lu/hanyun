@@ -1,0 +1,53 @@
+.sysyem-picture-form .system-picture-content {
+  background: #1f2c60;
+}
+.sysyem-picture-form .system-picture-content .system-picture-name .my-content-checkbox {
+  color: rgba(255, 255, 255, 0.6);
+}
+.system-active.loc-btn.icon-btn {
+  background: #4054BF;
+  border-color: #4054BF;
+  box-shadow: 0px 0px 33px -4px #000;
+}
+.system-min-dialog .system-checkbox-form .my-group-content {
+  background: rgba(0, 0, 0, 0.1);
+}
+.system-min-dialog .system-checkbox-form .my-group-content .system-checkbox-content .system-checkbox-text .my-content-checkbox .el-checkbox__label {
+  color: rgba(255, 255, 255, 0.8);
+}
+.system-min-dialog .system-checkbox-form .my-group-content .system-checkbox-content + .system-checkbox-content {
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+.system-blue-back {
+  background-color: #5172cd;
+}
+.system-blue-back .system-blue-top {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.system-blue-back .system-blue-form {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.system-blue-back .system-blue-form .system-blue-group {
+  color: rgba(255, 255, 255, 0.6);
+}
+.system-blue-back .system-blue-footer {
+  color: rgba(255, 255, 255, 0.6);
+}
+.system-blue-back .system-blue-footer .system-blue-btn + .system-blue-btn {
+  border-left: 1px solid rgba(255, 255, 255, 0.6);
+}
+.my-upload .el-upload .el-button {
+  color: #666;
+  background-color: #fff;
+  border-color: #fff;
+}
+.my-upload .el-upload-list li a {
+  color: rgba(255, 255, 255, 0.8);
+}
+.loc-config-layput .loc-left-layout .loc-config-name {
+  background: #5172df;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.16);
+}
+.loc-config-layput ~ .loc-config-layput {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>瀚云智能运维管理平台</title>
+  <link href="../../../assets/css/base.css" rel="stylesheet" />
+  <link href="../../../assets/js/element-ui/index.css" rel="stylesheet" />
+  <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
+  <link href="../../../assets/css/style.css" rel="stylesheet" />
+  <!-- <link href="../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
+  <link rel="stylesheet" href="./../../common-business.css">
+</head>
+
+<body class="app">
+  <div id="homeIndex">
+    <el-row>
+      <el-col>
+        <div class="grid-content bg-purple">
+          <el-table :data="alarm_tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+            <el-table-column label="级别" sortable class-name="com-txt-overflow" width="88px">
+              <template slot-scope="scope">
+                <img v-if="scope.row.alarm_status === '1'" src="../../../assets/images/icon/normal.png" />
+                <img v-if="scope.row.alarm_status === '2'" src="../../../assets/images/icon/warning.png" />
+                <img v-if="scope.row.alarm_status === '0'" src="../../../assets/images/icon/error.png" />
+              </template>
+            </el-table-column>
+            <el-table-column prop="alarm_name" sortable sortable label="告警名称" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="alarm_type" sortable label="告警类型" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="alarm_status" sortable label="告警状态" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="safety_level" sortable label="保障等级" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="product_time" sortable label="产生时间" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="continued_time" sortable label="已持续时间" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="confirmor" sortable label="确认人" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="confirm_time" sortable label="确认时间" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="alarm_content" label="告警内容" class-name="com-txt-overflow"></el-table-column>
+          </el-table>
+          <div class="loc-pagination">
+            <div class="my-pagination-group">
+              <div class="my-pagination-btn my-pagination-first com-hover">
+                首页
+              </div>
+              <el-pagination :pager-count="5" layout="prev, pager, next" :total="1000">
+              </el-pagination>
+              <div class="my-pagination-btn my-pagination-last com-hover">
+                尾页
+              </div>
+            </div>
+          </div>
+        </div>
+      </el-col>
+    </el-row>
+
+    <div class="toggle-page">
+      <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)" :class="{active: page.active}">{{page.label}}</span>
+    </div>
+  </div>
+</body>
+<script src="../../../assets/js/vue/vue.dev.js"></script>
+<script src="../../../assets/js/echart/echarts.min.js"></script>
+<script src="../../../assets/js/echart/vue-echart.js"></script>
+<script src="../../../assets/js/element-ui/index.js"></script>
+<script src="./resource-alarm.js"></script>
+
+</html>

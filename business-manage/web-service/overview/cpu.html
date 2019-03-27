@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>瀚云智能运维管理平台</title>
+  <link href="../../../assets/css/base.css" rel="stylesheet" />
+  <link href="../../../assets/js/element-ui/index.css" rel="stylesheet" />
+  <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
+  <link href="../../../assets/css/style.css" rel="stylesheet" />
+  <!-- <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
+  <link rel="stylesheet" href="./../../common-business.css">
+  <link href="./resource-overview/web-service.css" rel="stylesheet" />
+</head>
+
+<body class="app">
+  <div id="homeIndex">
+    <div class="top-tab-toggle">
+      <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
+    </div>
+    <el-row>
+      <el-col :span="24">
+        <div v-if="init_page.show_cpu">
+          <div class="grid-content bg-purple">
+            <el-table :data="cpu_tableData" :key="1" size="mini" class="transparent-table transparent-white-table"
+              style="width: 100%">
+              <el-table-column type="index" label="序号" width="120"></el-table-column>
+              <el-table-column prop="name" sortable label="CPU名称" class-name="com-txt-overflow">
+                <template slot-scope="scope">
+                  <span @click="showPage_cpu(scope.row);" style="color:#97C1FF;cursor:pointer;">{{scope.row.name}}</span>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+        </div>
+        <div v-else>
+          <div class="grid-content bg-purple">
+            <el-row style="margin-top:0;">
+              <el-col :span="6">
+                CPU名称 : {{business_data.label}}
+              </el-col>
+              <el-col :span="6">
+                当前频率 : Tomcat的
+              </el-col>
+              <el-col :span="6">
+                最大频率 : {{business_data.label}}
+              </el-col>
+              <el-col :span="6">
+                CPU核心数 : {{business_data.mttr}}
+              </el-col>
+            </el-row>
+            <el-row style="margin-top:10px;">
+              <el-col :span="6">
+                逻辑CPU个数 :8
+              </el-col>
+              <el-col :span="6">
+                厂商 : 工商局的
+              </el-col>
+              <el-col :span="6">
+                使用率 : 23%
+              </el-col>
+              <el-col :span="6">
+                二级缓存 :56MB
+              </el-col>
+            </el-row>
+            <el-row style="margin-top:10px;">
+              <el-col :span="6">
+                三级缓存 :56MB
+              </el-col>
+            </el-row>
+          </div>
+          <el-row :gutter="20">
+            <el-col :span="6">
+              <div class="grid-content bg-purple" style="height:576px;">
+                <input placeholder="搜索" suffix-icon="el-icon-search" class="loc-input" />
+                <ul class="left-list-right-echart">
+                  <li v-for="cpu in cpu_tableData">{{cpu.name}}</li>
+                </ul>
+              </div>
+            </el-col>
+            <el-col :span="18">
+              <div class="grid-content bg-purple" style="height:576px;">
+                <div class="top-tab-toggle">
+                  <span v-for="tab in echart_toggle" @click="toggleEcharts(tab)" :class="{active: tab.label == cpuData.echart_title}">{{tab.label}}</span>
+                </div>
+                <div class="time-toggle" style="float: right;margin-bottom: 20px;">
+                  <span v-for="time in time_array" @click="toggleTime(time.name)" :class="{active: cpuData.isActice === time.name}">{{time.name}}</span>
+                </div>
+                <v-chart style="width:100%; height:450px" :autoresize="true" :options="multiple_pie.line"></v-chart>
+              </div>
+            </el-col>
+          </el-row>
+        </div>
+      </el-col>
+    </el-row>
+    <div class="toggle-page">
+      <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)" :class="{active: page.active}">{{page.label}}</span>
+    </div>
+
+    <el-dialog title="自定义时间段" :visible.sync="editTimeDialog" width="400px" class="blue-dialog">
+      <div style="margin-bottom:15px;">
+        <span>开始时间</span>
+        <el-date-picker v-model="time.value1" type="datetime" size="mini" placeholder="选择日期时间"></el-date-picker>
+      </div>
+      <div>
+        <span>结束时间</span>
+        <el-date-picker v-model="time.value2" type="datetime" size="mini" placeholder="选择日期时间"></el-date-picker>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button class="dialog-btn cancel-btn" @click="editTimeDialog = false" size="small">取 消</el-button>
+        <el-button class="dialog-btn submit-btn" type="primary" size="small">确 认</el-button>
+      </span>
+    </el-dialog>
+  </div>
+</body>
+<script src="../../../assets/js/vue/vue.dev.js"></script>
+<script src="../../../assets/js/echart/echarts.new.js"></script>
+<script src="../../../assets/js/echart/vue-echart.js"></script>
+<script src="../../../assets/js/element-ui/index.js"></script>
+<script src="./cpu/cpu.js"></script>
+
+</html>

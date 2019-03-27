@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>瀚云智能运维管理平台</title>
+  <link href="../assets/css/base.css" rel="stylesheet" />
+  <link href="../assets/js/element-ui/index.css" rel="stylesheet" />
+  <link href="../assets/css/style.css" rel="stylesheet" />
+  <!-- <link href="../assets/css/theme/main-theme.css" rel="stylesheet" /> -->
+  <link href="../assets/css/theme/light-theme.css" rel="stylesheet" />
+  <link href="./index.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/font-awesome.css">
+</head>
+
+<body class="app">
+  <div id="homeIndex" style="height: 100%;">
+    <div class="loc-app-menu">
+      <div class="loc-logo-form"><img src="../assets/images/logo.png" /></div>
+      <div class="loc-menu-list">
+        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}" @click="toRoute(menu)">
+          <img class="loc-menu-default" :src="menu.img + '.png'" />
+          <img class="loc-menu-active" :src="menu.img + '-active.png'" />
+          <span class="loc-menu-name com-txt-overflow">{{ menu.name }}</span>
+        </div>
+      </div>
+      <div class="loc-user-form">
+        <div class="loc-alarm-form"><i class="fa fa-bell-o com-hover" style="color:#fff;"></i></div>
+        <div class="loc-user">
+          <img class="loc-user-icon" src="../assets/images/logo.png" />
+          <el-dropdown trigger="click">
+            <span class="el-dropdown-link">
+              {{'Ronin'}} <span class="menu-drop-img"></span>
+            </span>
+            <el-dropdown-menu slot="dropdown" class="home-drop">
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="loc-index-content">
+      <div class="loc-left-menu" :class="{'loc-menu-hide': !showMenu}">
+        <div class="loc-transform-left" @click="toggleShowMenu">
+          <i class="el-icon-caret-left"></i>
+          <i class="el-icon-caret-right"></i>
+        </div>
+        <div class="my-menu">
+          <div class="my-menu-item" v-for="menu of leftMenuList.list" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === menu.id || leftMenuList.openMenu.indexOf(menu.id + '-') !== -1)}">
+            <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === menu || leftMenuList.selectMenu.id.indexOf(menu.id + '-') !== -1)}"
+              @click="selectedLeftMenu(menu)">
+              <i class="loc-left-icon" :class="menu.iconClass"></i>
+              <span>{{ menu.name }}</span>
+              <i v-if="menu.children" class="loc-drop-icon el-icon-arrow-right"></i>
+            </div>
+            <div class="my-submenu-item">
+              <div class="my-menu-item" v-for="subMenu of menu.children" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === subMenu.id || leftMenuList.openMenu.indexOf(subMenu.id + '-') !== -1)}">
+                <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === subMenu || leftMenuList.selectMenu.id.indexOf(subMenu.id + '-') !== -1)}"
+                  @click="selectedLeftMenu(subMenu)">
+                  <i class="loc-left-icon"></i>
+                  <span><i class="loc-left-subicon el-icon-caret-right" v-if="subMenu.children"></i>{{ subMenu.name }}</span>
+                </div>
+                <div class="my-submenu-item">
+                  <div class="my-menu-item" v-for="mSubMenu of subMenu.children">
+                    <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === mSubMenu || leftMenuList.selectMenu.id.indexOf(mSubMenu.id + '-') !== -1)}"
+                      @click="selectedLeftMenu(mSubMenu)">
+                      <i class="loc-left-icon"></i>
+                      <span><i class="loc-left-subicon"></i>{{ mSubMenu.name }}</span>
+                      <div class="my-menu-other" v-if="mSubMenu.num">
+                        {{ mSubMenu.num }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="loc-right-content">
+        <div class="loc-equip-bread">
+          <span class="equip-bread-name">配置组</span>
+          <span class="equip-bread-split el-icon-arrow-right"></span>
+          <span class="equip-bread-name">test</span>
+        </div>
+        <div class="loc-manage-content">
+          <div class="loc-search-form">
+            <div class="loc-query-form">
+              <p class="loc-query-name">资源名称</p>
+              <input placeholder="资源名称" class="loc-input" v-model="text1" :class="{'loc-input-active': text1}" />
+            </div>
+            <div class="loc-query-form">
+              <p class="loc-query-name">资源类型</p>
+              <el-select v-model="value" popper-class="loc-main-selectbox" class="loc-main-select" placeholder="-请选择-">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <div class="loc-query-form">
+              <p class="loc-query-name">资源组</p>
+              <el-select v-model="value" popper-class="loc-main-selectbox" class="loc-main-select" placeholder="-请选择-">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <div class="loc-query-form">
+              <p class="loc-query-name">管理域</p>
+              <el-select v-model="value" popper-class="loc-main-selectbox" class="loc-main-select" placeholder="-请选择-">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <div class="loc-query-form"></div>
+            <div class="loc-query-btn">
+              <el-button class="loc-btn submit-btn" type="primary">搜索</el-button>
+              <el-button class="loc-btn reset-btn" type="primary">重置</el-button>
+            </div>
+          </div>
+          <div class="loc-opera-group">
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-plus-circle"></i><span>添加至配置组</span></el-button>
+
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-trash"></i><span>从配置组移除</span></el-button>
+
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-eraser"></i><span>清除设备基准</span></el-button>
+          </div>
+          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+            <el-table-column class-name="my-checkbox" type="selection" width="46"></el-table-column>
+            <el-table-column prop="time" label="告警时间" min-width="277px" class-name="com-txt-overflow">
+            </el-table-column>
+            <el-table-column prop="name" class-name="com-txt-overflow" label="设备名称" min-width="248px">
+            </el-table-column>
+            <el-table-column prop="alarmStatus" label="告警状态" min-width="230px">
+              <template slot="header" slot-scope="scope">
+                <span>通断状态</span>
+                <el-popover placement="bottom-end" trigger="click" class="my-popover" popper-class="my-popover-content">
+                  <div>
+                    <div class="my-popover-item com-hover">全部</div>
+                    <div class="my-popover-item com-hover">
+                      正常
+                      <el-checkbox class="my-content-checkbox"></el-checkbox>
+                    </div>
+                  </div>
+                  <i slot="reference" class="com-hover el-icon-arrow-down"></i>
+                </el-popover>
+              </template>
+              <template slot-scope="scope">
+                <i class="fa fa-check-circle" v-if="scope.row.alarmStatus === 0" style="color:#69F0AE;"></i>
+                <i class="fa fa-exclamation-circle" v-if="scope.row.alarmStatus === 1" style="color:#FF9E54;"></i>
+                <i class="fa fa-times-circle" v-if="scope.row.alarmStatus === 2" style="color:#f00;"></i>
+                <!-- <img :src="scope.row.accessStatus === 0 ? '../assets/images/icon/normal.png' : scope.row.accessStatus === 1 ? '../assets/images/icon/warning.png' : '../assets/images/icon/error.png'" /> -->
+              </template>
+            </el-table-column>
+            <el-table-column prop="content" label="告警内容" min-width="296px" class-name="com-txt-overflow"></el-table-column>
+          </el-table>
+          <div class="loc-pagination">
+            <div class="my-pagination-group">
+              <div class="my-pagination-btn my-pagination-first com-hover">
+                首页
+              </div>
+              <el-pagination :pager-count="5" layout="prev, pager, next" :total="1000">
+              </el-pagination>
+              <div class="my-pagination-btn my-pagination-last com-hover">
+                尾页
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<!-- <script src="../assets/js/lodash/lodash.js"></script> -->
+<!-- <script src="../assets/js/echart/echarts.min.js"></script> -->
+<script src="../assets/js/vue/vue.dev.js"></script>
+<!-- <script src="../assets/js/echart/vue-echart.js"></script> -->
+<script src="../assets/js/element-ui/index.js"></script>
+<script src="./alarm-manage/alarm-manage.js"></script>
+
+</html>

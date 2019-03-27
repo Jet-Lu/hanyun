@@ -1,0 +1,9 @@
+.warning-special-table-tree td.el-table__expanded-cell {
+  padding: 0;
+}
+.warning-special-table-tree .el-table__expand-icon > .el-icon {
+  color: #fff;
+}
+.warning-special-table-tree .el-table .cell {
+  cursor: pointer;
+}

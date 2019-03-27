@@ -1,0 +1,25 @@
+.loc-line-form .loc-col-form {
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 15px 0px rgba(14, 21, 42, 0.15);
+}
+.home-progress .el-progress-bar__outer {
+  background: rgba(0, 0, 0, 0.2);
+}
+.home-progress.is-exception .el-progress-bar__inner {
+  background: linear-gradient(to right, #ff9e54, #ff8529);
+}
+.home-progress.is-success .el-progress-bar__inner {
+  background: #69f0ae;
+}
+.home-progress.is-success .el-progress-bar__inner .el-progress-bar__innerText {
+  color: #69f0ae;
+}
+.home-content-form .loc-form {
+  background: rgba(0, 0, 0, 0.2);
+}
+.home-content-form .loc-form .loc-drag-form .loc-drag-bar {
+  background: rgba(0, 0, 0, 0.3);
+}
+.home-drop {
+  background: #1d285d;
+}

@@ -1,0 +1,257 @@
+
+.system-margin-top {
+  margin-top: 0;
+}
+
+.system-opera-group {
+  margin: 0 0 12px;
+}
+
+.sysyem-picture-form {
+  margin: 0 -12px;
+  height: calc(100% - 108px);
+  .system-picture-content {
+    display: inline-block;
+    margin: 11px;
+    padding: 8px 8px 0;
+    > .system-picture-img {
+      width: 147px;
+      height: 138px;
+    }
+    .system-picture-name {
+      line-height: 34px;
+      .my-content-checkbox {
+        font-size: 12px;
+        .el-checkbox__label {
+          font-size: 100%;
+        }
+      }
+    }
+  }
+}
+
+.system-can-drag {
+  cursor: move;
+}
+
+.my-group-content.system-textarea {
+  width: 360px;
+  textarea {
+    width: 360px;
+    height: 60px;
+  }
+}
+
+.system-picture-dialog {
+  .my-edit-form {
+    padding-top: 0;
+  }
+  .my-edit-group.my-fill-line {
+    margin: 12px;
+  }
+}
+
+.system-upload-icon {
+  margin: 0 4px 0 0;
+  font-size: 14px;
+}
+
+.system-content-fill {
+  width: 80% !important;
+}
+
+.system-margin-top {
+  margin-top: 0;
+}
+
+.system-message-overflow {
+  overflow: auto;
+  margin: -20px;
+  padding: 20px 0 20px 20px;
+  height: calc(100% - 40px);
+}
+
+.system-edit-form {
+  padding: 0 30px;
+}
+
+.system-min-dialog {
+  .my-edit-group {
+    margin-bottom: 4px;
+    .my-content-checkbox {
+      margin-top: 7px;
+    }
+  }
+  .system-checkbox-form {
+    .my-group-title {
+      vertical-align: top;
+      line-height: 28px;
+    }
+    .my-group-content {
+      overflow: auto;
+      width: 748px;
+      max-height: 382px;
+      .system-checkbox-content {
+        padding: 8px 0;
+        .system-checkbox-title {
+          vertical-align: top;
+          display: inline-block;
+          margin: 8px 40px 8px 0;
+          width: 44px;
+          text-align: right;
+        }
+        .system-checkbox-text {
+          vertical-align: top;
+          display: inline-block;
+          width: calc(100% - 88px);
+          .system-checkbox {
+            display: inline-block;
+            margin: 6px 0;
+            min-width: 148px;
+          }
+          .my-content-checkbox {
+            margin-top: 0;
+            .el-checkbox__label {
+              font-size: 12px;
+            }
+          }
+        }
+        & + .system-checkbox-content {
+          border-top: 1px solid rgba(0, 0, 0, .05)
+        }
+      }
+    }
+    &.system-new-checkbox {
+      .my-group-content {
+        .system-checkbox-content {
+          .system-checkbox-title {
+            min-width: 86px;
+            margin-right: 24px;
+          }
+          .system-checkbox-text {
+            width: calc(100% - 114px);
+          }
+        }
+      }
+    }
+  }
+}
+
+.system-blue-back {
+  margin: 8px 0;
+  width: 348px;
+  border-radius: 4px;
+  .system-blue-top {
+    padding: 16px 24px;
+  }
+  .system-blue-form {
+    .system-blue-group {
+      margin: 16px 0;
+      font-size: 12px;
+      .system-blue-name {
+        vertical-align: middle;
+        display: inline-block;
+        width: 122px;
+        line-height: 16px;
+        text-align: right;
+      }
+      .system-blue-text {
+        vertical-align: middle;
+        display: inline-block;
+        line-height: 16px;
+        max-width: 190px;
+        > img {
+          margin-right: 2px;
+          vertical-align: sub;
+        }
+      }
+    }
+  }
+  .system-blue-footer {
+    padding: 16px 8px;
+    font-size: 12px;
+    .system-blue-btn {
+      display: inline-block;
+      float: left;
+      padding: 0 16px;
+      cursor: pointer;
+    }
+  }
+}
+
+.my-upload {
+  .el-upload {
+    .el-button {
+      padding: 6px 15px;
+    }
+  }
+  .el-upload-list {
+    vertical-align: middle;
+    display: inline-block;
+    li {
+      margin: 0 20px;
+      width: fit-content;
+      &:hover {
+        background: none;
+      }
+      .el-icon-document,
+      .el-icon-close,
+      a {
+        font-size: 12px;
+      }
+      .el-icon-close {
+        display: block;
+      }
+    }
+  }
+}
+
+.loc-config-layput {
+  margin: 10px 0 30px 14.5%;
+  .loc-left-layout {
+    vertical-align: middle;
+    display: inline-block;
+    width: 30%;
+    .loc-config-name {
+      display: inline-block;
+      margin: 18px 0;
+      width: 160px;
+      height: 160px;
+      line-height: 160px;
+      font-size: 12px;
+      border-radius: 50%;
+    }
+  }
+  .loc-right-layout {
+    vertical-align: middle;
+    display: inline-block;
+    width: 64%;
+    .my-edit-group {
+      margin: 10px 0;
+    }
+    .my-group-title {
+      min-width: 180px;
+      color: inherit;
+    }
+    .my-group-content {
+      width: 160px;
+      &.loc-double-length {
+        width: 328px;
+      }
+      .my-content-checkbox {
+        margin-top: 8px;
+      }
+    }
+  }
+  & ~ .loc-config-layput {
+    padding-top: 30px;
+  }
+}
+
+.loc-content-footer {
+  position: absolute;
+  right: 0;
+  bottom: 30px;
+  left: 0;
+  text-align: center;
+}

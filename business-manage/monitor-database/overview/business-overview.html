@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>瀚云智能运维管理平台</title>
+  <link href="../../../assets/css/base.css" rel="stylesheet" />
+  <link href="../../../assets/js/element-ui/index.css" rel="stylesheet" />
+  <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
+  <link href="../../../assets/css/style.css" rel="stylesheet" />
+  <!-- <link href="../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
+  <link rel="stylesheet" href="./../../common-business.css">
+  <link href="./business-overview/business-overview.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../assets/css/font-awesome.css">
+</head>
+
+<body class="app">
+  <div id="homeIndex">
+    <div>
+      <div class="top-tab-toggle">
+        <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
+      </div>
+      <div>
+        <div class="overview-header">
+          <table>
+            <tr>
+              <td>业务名称 : {{business_data.label}}</td>
+              <td>
+                当前健康等级 :
+              <i class="fa fa-check-circle" v-if="business_data.safety_level === '1'" style="color:#69F0AE;"></i>
+              <i class="fa fa-exclamation-circle" v-if="business_data.safety_level === '2'" style="color:#FF9E54;"></i>
+              <i class="fa fa-times-circle" v-if="business_data.safety_level === '0'" style="color:#f00;"></i>
+              </td>
+              <td>宕机次数 : {{business_data.label}}</td>
+              <td>MTTR : {{business_data.mttr}}</td>
+              <td>MTBF : {{business_data.mtbf}}</td>
+            </tr>
+            <tr>
+              <td>业务名称 : {{business_data.label}}</td>
+              <td>当前健康等级 :
+                <i class="fa fa-check-circle" v-if="business_data.safety_level === '1'" style="color:#69F0AE;"></i>
+                <i class="fa fa-exclamation-circle" v-if="business_data.safety_level === '2'" style="color:#FF9E54;"></i>
+                <i class="fa fa-times-circle" v-if="business_data.safety_level === '0'" style="color:#f00;"></i>
+              </td>
+              <td>宕机次 : {{business_data.label}}</td>
+              <td>MTTR : {{business_data.mttr}}</td>
+              <td> MTBF : {{business_data.mtbf}}</td>
+            </tr>
+          </table>
+        </div>
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <div class="grid-content bg-purple" style="height:285px; text-align: center;">
+              <div class="image-font">
+                <div class="top-font">接收（秒）1.29KB</div>
+                <img src="../../../assets/images/icon/zygj.png" alt="">
+                <div class="middle-font">
+                  <p>总接收字节：2.54GB</p>
+                  <p>总发送字节：3.39GB</p>
+                </div>
+                <div class="bottom-font">
+                  <p>发送（秒）：3.39GB</p>
+                </div>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div class="grid-content bg-purple" style="height:285px; text-align: center;">
+              <el-row :gutter="20" style="margin-top:83px;">
+                <el-col :span="8">
+                  <div class="circle bg-green">55</div>
+                  <p class="bottom-text">数据库总数</p>
+                </el-col>
+                <el-col :span="8">
+                  <div class="circle bg-orange">3.0G</div>
+                  <p class="bottom-text">数据库大小</p>
+                </el-col>
+                <el-col :span="8">
+                  <div class="circle bg-skyblue">77</div>
+                  <p class="bottom-text">表总数</p>
+                </el-col>
+              </el-row>
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div class="grid-content bg-purple" style="height:285px;">
+              <p class="p-title" style="margin-bottom:20px;">指示信息</p>
+              <div style="height:211px; overflow:auto;">
+                <table class="left-right-table" border="1" width="100%">
+                  <tr>
+                    <td>健康状态</td>
+                    <td>
+                      <i class="fa fa-check-circle" v-if="signal_info.baseInfo.status === '1'" style="color:#69F0AE;"></i>
+                      <i class="fa fa-exclamation-circle" v-if="signal_info.baseInfo.status === '2'" style="color:#FF9E54;"></i>
+                      <i class="fa fa-times-circle" v-if="signal_info.baseInfo.status === '0'" style="color:#f00;"></i>
+                      <!-- <img v-if="signal_info.baseInfo.status === '1'" src="../../../assets/images/icon/normal.png" />
+                      <img v-if="signal_info.baseInfo.status === '2'" src="../../../assets/images/icon/warning.png" />
+                      <img v-if="signal_info.baseInfo.status === '0'" src="../../../assets/images/icon/error.png" /> -->
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>版本</td>
+                    <td>{{signal_info.baseInfo.version}}</td>
+                  </tr>
+                  <tr>
+                    <td>启动时长</td>
+                    <td>{{signal_info.baseInfo.start_time}}</td>
+                  </tr>
+                  <tr>
+                    <td>主机名</td>
+                    <td>{{signal_info.baseInfo.main_name}}</td>
+                  </tr>
+                  <tr>
+                    <td>安装目录</td>
+                    <td>{{signal_info.baseInfo.setup_folder}}</td>
+                  </tr>
+                  <tr>
+                    <td>操作系统</td>
+                    <td>{{signal_info.baseInfo.system}}</td>
+                  </tr>
+                </table>
+
+                <p style="margin:8px 0;">线程池</p>
+                <table class="left-right-table" border="1" width="100%">
+                  <tr>
+                    <td>当前线程数</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>处理请求线程数</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>缓存线程数</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>缓存大小</td>
+                    <td>0</td>
+                  </tr>
+                </table>
+
+                <p style="margin:8px 0;">表锁统计</p>
+                <table class="left-right-table" border="1" width="100%">
+                  <tr>
+                    <td>直接锁</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>等待锁</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>获取行锁平均时间</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>获取行锁最大时间</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>行锁等待次数</td>
+                    <td>0</td>
+                  </tr>
+                </table>
+
+                <p style="margin:8px 0;">缓冲池</p>
+                <table class="left-right-table" border="1" width="100%">
+                  <tr>
+                    <td>缓冲池总页数</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>缓冲池数据页</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>缓冲池脏数据页</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>缓冲池剩余空间页</td>
+                    <td>0</td>
+                  </tr>
+                </table>
+
+                <p style="margin:8px 0;">查询统计</p>
+                <table class="left-right-table" border="1" width="100%">
+                  <tr>
+                    <td>删除的查询数/分</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>插入的查询数/分</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>选择的查询数/分</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>更新的查询数/分</td>
+                    <td>0</td>
+                  </tr>
+                </table>
+
+                <p style="margin:8px 0;">连接统计</p>
+                <table class="left-right-table" border="1" width="100%">
+                  <tr>
+                    <td>打开连接数/分</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>失败连接数/分</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>中断客户端连接数/分</td>
+                    <td>0</td>
+                  </tr>
+                </table>
+
+                <p style="margin:8px 0;">事务处理</p>
+                <table class="left-right-table" border="1" width="100%">
+                  <tr>
+                    <td>提交事务数/分</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>回滚事务数/分</td>
+                    <td>0</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <div class="grid-content bg-purple" style="height:285px">
+              <div style="margin-bottom:20px;">
+                <el-select v-model="value" popper-class="loc-main-selectbox" size="mini" class="loc-main-select"
+                  placeholder="请选择">
+                  <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+                <div class="time-toggle" style="float: right;">
+                  <span v-for="time in time_array" @click="toggleTime(time.name)" :class="{active: isActice === time.name}">{{time.name}}</span>
+                </div>
+              </div>
+              <v-chart style="width:100%; height:200px" :autoresize="true" :options="multiple_pie.line"></v-chart>
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="grid-content bg-purple" style="height:285px">
+              <p class="p-title" style="margin-bottom:20px;">提示信息</p>
+              <div style="height:211px; overflow:auto;">
+                <el-row :gutter="20">
+                  <el-col :span="8" v-for="(item, index) in database_array" :key="index">
+                    <div class="left-img-right-text">
+                      <img src="../../../assets/images/icon/database.png" />
+                      <ul>
+                        <li>{{item.label}}</li>
+                        <li>表数据 : {{item.count}}</li>
+                        <li>大小 : {{item.size}}</li>
+                      </ul>
+                    </div>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </div>
+    <div class="toggle-page">
+      <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)" :class="{active: page.active}">{{page.label}}</span>
+    </div>
+
+    <el-dialog title="自定义时间段" :visible.sync="editTimeDialog" width="400px" class="blue-dialog">
+      <div style="margin-bottom:15px;">
+        <span>开始时间</span>
+        <el-date-picker v-model="time.value1" type="datetime" size="mini" placeholder="选择日期时间"></el-date-picker>
+      </div>
+      <div>
+        <span>结束时间</span>
+        <el-date-picker v-model="time.value2" type="datetime" size="mini" placeholder="选择日期时间"></el-date-picker>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editTimeDialog = false" size="small">取 消</el-button>
+        <el-button type="primary" size="small">确 认</el-button>
+      </span>
+    </el-dialog>
+  </div>
+</body>
+<script src="../../../assets/js/vue/vue.dev.js"></script>
+<script src="../../../assets/js/echart/echarts.min.js"></script>
+<script src="../../../assets/js/echart/vue-echart.js"></script>
+<script src="../../../assets/js/element-ui/index.js"></script>
+<script src="./business-overview/business-overview.js"></script>
+
+</html>

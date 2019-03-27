@@ -1,0 +1,92 @@
+.alarm-search-form {
+  margin-bottom: 4px;
+}
+.alarm-search-form .loc-query-btn,
+.alarm-search-form .loc-query-form {
+  margin-bottom: 16px;
+}
+.alarm-table.el-table .cell {
+  padding-left: 40px;
+}
+.alarm-mini-table.el-table .cell {
+  padding-left: 14px;
+}
+.alarm-tip {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+.alarm-dialog {
+  padding: 12px 24px;
+}
+.alarm-dialog textarea {
+  height: 50px;
+}
+.alarm-dialog .alarm-textarea textarea {
+  width: 360px;
+  height: 60px;
+}
+.alarm-dialog .loc-select-tip .loc-tip-form .loc-select-item {
+  padding: 0 12px;
+}
+.alarm-opera-group {
+  margin-top: 20px;
+}
+.alarm-radio-content.my-group-content {
+  padding-left: 8px;
+  line-height: 28px;
+  color: rgba(255, 255, 255, 0.8);
+}
+.alarm-radio-content.my-group-content > .my-simple-radio {
+  vertical-align: middle;
+  width: auto;
+}
+.alarm-group-content {
+  line-height: 28px;
+}
+.alarm-edit-group {
+  margin-bottom: 8px;
+}
+.alarm-dialog-select .el-input__inner {
+  height: 24px;
+}
+.alarm-dialog-select input {
+  padding: 4px 8px;
+}
+.alarm-dialog-select .el-input__suffix-inner i {
+  line-height: 24px;
+}
+.alarm-top-margin {
+  margin-top: 0;
+}
+.alarm-tab-form {
+  padding: 8px 25px;
+}
+.alarm-tab-form .my-tab-btn {
+  margin: 0 3px;
+  width: 68px;
+}
+.alarm-checkbox {
+  margin-left: 8px;
+}
+.alarm-content-last {
+  display: inline-block;
+  width: 36px;
+  height: 28px;
+  line-height: 28px;
+}
+.alarm-position-title {
+  position: relative;
+}
+.alarm-position-title > .alarm-absolute {
+  position: absolute;
+  top: 24px;
+}
+.alarm-position-title .my-edit-group:not(.alarm-absolute) {
+  margin-left: 78px;
+}
+.alarm-table-form {
+  margin: 8px 30px;
+  width: 872px;
+}

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>瀚云智能运维管理平台</title>
+  <link href="../assets/css/base.css" rel="stylesheet" />
+  <link href="../assets/js/element-ui/index.css" rel="stylesheet" />
+  <link href="../assets/css/style.css" rel="stylesheet" />
+  <!-- <link href="../assets/css/theme/main-theme.css" rel="stylesheet" />
+  <link href="./theme/main-theme.css" rel="stylesheet" /> -->
+  <link href="../assets/css/theme/light-theme.css" rel="stylesheet" />
+  <link href="./theme/light-theme.css" rel="stylesheet" />
+  <link href="./index.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/font-awesome.css">
+</head>
+
+<body class="app">
+  <div id="homeIndex" style="height: 100%;">
+    <div class="loc-app-menu">
+      <div class="loc-logo-form"><img src="../assets/images/logo.png" /></div>
+      <div class="loc-menu-list">
+        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}" @click="toRoute(menu)">
+          <img class="loc-menu-default" :src="menu.img + '.png'" />
+          <img class="loc-menu-active" :src="menu.img + '-active.png'" />
+          <span class="loc-menu-name com-txt-overflow">{{ menu.name }}</span>
+        </div>
+      </div>
+      <div class="loc-user-form">
+        <div class="loc-alarm-form"><i class="fa fa-bell-o com-hover" style="color:#fff;"></i></div>
+        <div class="loc-user">
+          <img class="loc-user-icon" src="../assets/images/logo.png" />
+          <el-dropdown trigger="click">
+            <span class="el-dropdown-link">
+              {{'Ronin'}} <span class="menu-drop-img"></span>
+            </span>
+            <el-dropdown-menu slot="dropdown" class="home-drop">
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="loc-index-content">
+      <div class="loc-left-menu" :class="{'loc-menu-hide': !showMenu}">
+        <div class="loc-transform-left" @click="toggleShowMenu">
+          <i class="el-icon-caret-left"></i>
+          <i class="el-icon-caret-right"></i>
+        </div>
+        <div class="my-menu">
+          <div class="my-menu-item" v-for="menu of leftMenuList.list" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === menu.id || leftMenuList.openMenu.indexOf(menu.id + '-') !== -1)}">
+            <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === menu || leftMenuList.selectMenu.id.indexOf(menu.id + '-') !== -1)}"
+              @click="selectedLeftMenu(menu)">
+              <i class="loc-left-icon" :class="menu.iconClass"></i>
+              <span>{{ menu.name }}</span>
+              <i v-if="menu.children" class="loc-drop-icon el-icon-arrow-right"></i>
+            </div>
+            <div class="my-submenu-item">
+              <div class="my-menu-item" v-for="subMenu of menu.children" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === subMenu.id || leftMenuList.openMenu.indexOf(subMenu.id + '-') !== -1)}">
+                <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === subMenu || leftMenuList.selectMenu.id.indexOf(subMenu.id + '-') !== -1)}"
+                  @click="selectedLeftMenu(subMenu)">
+                  <i class="loc-left-icon"></i>
+                  <span><i class="loc-left-subicon el-icon-caret-right" v-if="subMenu.children"></i>{{ subMenu.name }}</span>
+                </div>
+                <div class="my-submenu-item">
+                  <div class="my-menu-item" v-for="mSubMenu of subMenu.children">
+                    <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === mSubMenu || leftMenuList.selectMenu.id.indexOf(mSubMenu.id + '-') !== -1)}"
+                      @click="selectedLeftMenu(mSubMenu)">
+                      <i class="loc-left-icon"></i>
+                      <span><i class="loc-left-subicon"></i>{{ mSubMenu.name }}</span>
+                      <div class="my-menu-other" v-if="mSubMenu.num">
+                        {{ mSubMenu.num }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="loc-right-content" v-if="showDetail === 0">
+        <div class="loc-manage-content">
+          <div class="loc-opera-group report-margin-top">
+            <el-button type="primary" class="loc-btn icon-btn" @click="setShowDetail(1)"><i class="fa fa-plus-circle"></i><span>新建报告策略</span></el-button>
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-trash"></i><span>删除</span></el-button>
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-play-circle"></i><span>启用策略</span></el-button>
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-pause-circle"></i><span>停用策略</span></el-button>
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-bookmark"></i><span>订阅报告</span></el-button>
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-bookmark-o"></i><span>取消订阅</span></el-button>
+          </div>
+          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+            <el-table-column class-name="my-checkbox" type="selection" width="62px"></el-table-column>
+            <el-table-column prop="name" label="名称" min-width="141px">
+              <template slot-scope="scope">
+                <p class="loc-table-color">{{ scope.row.name }}</p>
+              </template>
+            </el-table-column>
+            <el-table-column prop="describe" label="描述" min-width="93px"></el-table-column>
+            <el-table-column prop="status" label="策略状态" min-width="117px">
+              <template slot-scope="scope">
+                <i class="fa fa-check-circle" v-if="scope.row.status === 0" style="color:#69F0AE;"></i>
+                <i class="fa fa-exclamation-circle" v-if="scope.row.status === 1" style="color:#FF9E54;"></i>
+                <i class="fa fa-times-circle" v-if="scope.row.status === 2" style="color:#f00;"></i>
+                <!-- <img :src="scope.row.status === 0 ? '../assets/images/icon/normal.png' : scope.row.status === 1 ? '../assets/images/icon/warning.png' : '../assets/images/icon/error.png'" /> -->
+              </template>
+            </el-table-column>
+            <el-table-column prop="type" label="订阅状态" min-width="117px"></el-table-column>
+            <el-table-column prop="createTime" label="创建时间" min-width="178px"></el-table-column>
+            <el-table-column prop="time" label="更新时间" min-width="294px"></el-table-column>
+            <el-table-column prop="" label="操作" min-width="104px">
+              <template slot-scope="scope">
+                <i class="fa fa-th-list com-hover"></i>
+                <i class="fa fa-edit com-hover"></i>
+                <i class="fa fa-trash com-hover"></i>
+                <!-- <div style="margin: 6px 0 0 2px;" class="com-hover loc-img-form loc-app-img"></div>
+                <div style="margin: 6px 0 0 2px;" class="com-hover loc-img-form loc-write-img"></div>
+                <div style="margin: 6px 0 0 2px;" class="com-hover loc-img-form loc-del-img"></div> -->
+              </template>
+            </el-table-column>
+          </el-table>
+          <div class="loc-pagination">
+            <div class="my-pagination-group">
+              <div class="my-pagination-btn my-pagination-first com-hover">首页</div>
+              <el-pagination :pager-count="5" layout="prev, pager, next" :total="1000">
+              </el-pagination>
+              <div class="my-pagination-btn my-pagination-last com-hover">尾页</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="loc-right-content" v-if="showDetail === 1">
+        <div class="loc-equip-bread">
+          <span class="report-bread-name">资源告警统计报告</span>
+          <span class="report-bread-split el-icon-arrow-right"></span>
+          <span class="report-bread-name">资源告警统计</span>
+          <span class="report-bread-split el-icon-arrow-right"></span>
+          <span class="report-bread-name">资源报告统计</span>
+        </div>
+        <div class="loc-manage-content report-manage-content report-auto-height">
+          <div class="my-edit-form">
+            <p class="my-edit-title">基本信息</p>
+            <div class="my-edit-group">
+              <span class="my-group-title"><i class="required-icon">*</i>报告策略名称</span>
+              <div class="my-group-content">
+                <input placeholder="报告策略名称" @blur="onBlurInput($event, '')" class="loc-input" v-model="text1" />
+              </div>
+            </div>
+            <div class="my-edit-group">
+              <span class="my-group-title"><i class="required-icon">*</i>报告策略描述</span>
+              <div class="my-group-content my-long-content">
+                <input placeholder="报告策略名称" @blur="onBlurInput($event, '')" class="loc-input" v-model="text1" />
+              </div>
+            </div>
+            <div class="my-edit-group">
+              <span class="my-group-title">启用状态</span>
+              <div class="my-group-content">
+                <el-checkbox class="my-checkbox report-checkbox" v-model="checked"></el-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="my-edit-form">
+            <p class="my-edit-title">资源配置</p>
+            <div class="report-tab-form report-tab-div">
+              <div class="my-tab-btn com-hover com-txt-center" :class="{'active': tabNum1 === 0}" @click="changeTab1(0)">服务器</div>
+              <div class="my-tab-btn com-hover com-txt-center" :class="{'active': tabNum1 === 1}" @click="changeTab1(1)">网络设备</div>
+              <div class="my-tab-btn com-hover com-txt-center" :class="{'active': tabNum1 === 2}" @click="changeTab1(2)">应用中间件</div>
+              <div class="my-tab-btn com-hover com-txt-center" :class="{'active': tabNum1 === 3}" @click="changeTab1(3)">光纤交换机</div>
+            </div>
+            <div class="report-opera-group">
+              <el-button type="primary" @click="showDialog" class="loc-btn icon-btn"><i class="fa fa-plus-circle"></i><span>选择资源</span></el-button>
+            </div>
+            <div class="my-show-list-form loc-main-background">
+              <div class="my-show-item">
+                <span>WEB(172.16.154.125)</span>
+                <i class="my-show-icon el-icon-close com-hover"></i>
+              </div>
+              <div class="my-show-item">
+                <span>WEB(172.16.154.125)</span>
+                <i class="my-show-icon el-icon-close com-hover"></i>
+              </div>
+              <div class="my-show-item">
+                <span>WEB(172.16.154.125)</span>
+                <i class="my-show-icon el-icon-close com-hover"></i>
+              </div>
+              <div class="my-show-item">
+                <span>WEB(172.16.154.125)</span>
+                <i class="my-show-icon el-icon-close com-hover"></i>
+              </div>
+              <div class="my-show-item">
+                <span>WEB(172.16.154.125)</span>
+                <i class="my-show-icon el-icon-close com-hover"></i>
+              </div>
+              <div class="my-show-item">
+                <span>WEB(172.16.154.125)</span>
+                <i class="my-show-icon el-icon-close com-hover"></i>
+              </div>
+              <div class="my-show-item">
+                <span>WEB(172.16.154.125)</span>
+                <i class="my-show-icon el-icon-close com-hover"></i>
+              </div>
+              <div class="my-show-item">
+                <span>WEB(172.16.154.125)</span>
+                <i class="my-show-icon el-icon-close com-hover"></i>
+              </div>
+              <div class="my-show-item">
+                <span>WEB(172.16.154.125)</span>
+                <i class="my-show-icon el-icon-close com-hover"></i>
+              </div>
+              <div class="my-show-item">
+                <span>WEB(172.16.154.125)</span>
+                <i class="my-show-icon el-icon-close com-hover"></i>
+              </div>
+              <div class="my-show-item">
+                <span>WEB(172.16.154.125)</span>
+                <i class="my-show-icon el-icon-close com-hover"></i>
+              </div>
+              <div class="my-show-item">
+                <span>WEB(172.16.154.125)</span>
+                <i class="my-show-icon el-icon-close com-hover"></i>
+              </div>
+              <div class="my-show-item">
+                <span>WEB(172.16.154.125)</span>
+                <i class="my-show-icon el-icon-close com-hover"></i>
+              </div>
+              <div class="my-show-item">
+                <span>WEB(172.16.154.125)</span>
+                <i class="my-show-icon el-icon-close com-hover"></i>
+              </div>
+            </div>
+          </div>
+          <div class="my-edit-form">
+            <p class="my-edit-title">资源配置</p>
+            <div class="report-tab-form">
+              <span>服务器总览指标集合</span>
+            </div>
+            <div class="report-margin-table">
+              <el-table :data="tableData1" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+                <el-table-column class-name="my-checkbox" type="selection" width="54px"></el-table-column>
+                <el-table-column prop="name" label="指标名称" min-width="172px"></el-table-column>
+                <el-table-column prop="attr" label="指标属性" min-width="172px"></el-table-column>
+                <el-table-column prop="topn" label="TOPN数" min-width="162px">
+                  <template slot-scope="scope">
+                    <input type="text" v-model="scope.row.topn" />
+                  </template>
+                </el-table-column>
+                <el-table-column prop="max" label="最大值" min-width="134px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.max"></el-checkbox>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="min" label="最小值" min-width="134px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.min"></el-checkbox>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="maxAvg" label="最大均值" min-width="144px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.maxAvg"></el-checkbox>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="minAvg" label="最小均值" min-width="128px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.minAvg"></el-checkbox>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+            <div class="report-tab-form">
+              <span>光纤交换机端口性能检测指标集合</span>
+            </div>
+            <div class="report-margin-table">
+              <el-table :data="tableData2" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+                <el-table-column class-name="my-checkbox" type="selection" width="54px"></el-table-column>
+                <el-table-column prop="name" label="指标名称" min-width="172px"></el-table-column>
+                <el-table-column prop="attr" label="指标属性" min-width="172px"></el-table-column>
+                <el-table-column prop="topn" label="TOPN数" min-width="162px">
+                  <template slot-scope="scope">
+                    <input type="text" v-model="scope.row.topn" />
+                  </template>
+                </el-table-column>
+                <el-table-column prop="max" label="最大值" min-width="134px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.max"></el-checkbox>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="min" label="最小值" min-width="134px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.min"></el-checkbox>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="maxAvg" label="最大均值" min-width="144px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.maxAvg"></el-checkbox>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="minAvg" label="最小均值" min-width="128px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.minAvg"></el-checkbox>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+            <div class="report-tab-form">
+              <span>服务器磁盘性能检测指示集合</span>
+            </div>
+            <div class="report-margin-table">
+              <el-table :data="tableData3" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+                <el-table-column class-name="my-checkbox" type="selection" width="54px"></el-table-column>
+                <el-table-column prop="name" label="指标名称" min-width="172px"></el-table-column>
+                <el-table-column prop="attr" label="指标属性" min-width="172px"></el-table-column>
+                <el-table-column prop="topn" label="TOPN数" min-width="162px">
+                  <template slot-scope="scope">
+                    <input type="text" v-model="scope.row.topn" />
+                  </template>
+                </el-table-column>
+                <el-table-column prop="max" label="最大值" min-width="134px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.max"></el-checkbox>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="min" label="最小值" min-width="134px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.min"></el-checkbox>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="maxAvg" label="最大均值" min-width="144px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.maxAvg"></el-checkbox>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="minAvg" label="最小均值" min-width="128px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.minAvg"></el-checkbox>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+            <div class="report-tab-form">
+              <span>服务器进程性能检测只是集合</span>
+            </div>
+            <div class="report-margin-table">
+              <el-table :data="tableData3" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+                <el-table-column class-name="my-checkbox" type="selection" width="54px"></el-table-column>
+                <el-table-column prop="name" label="指标名称" min-width="172px"></el-table-column>
+                <el-table-column prop="attr" label="指标属性" min-width="172px"></el-table-column>
+                <el-table-column prop="topn" label="TOPN数" min-width="162px">
+                  <template slot-scope="scope">
+                    <input type="text" v-model="scope.row.topn" />
+                  </template>
+                </el-table-column>
+                <el-table-column prop="max" label="最大值" min-width="134px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.max"></el-checkbox>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="min" label="最小值" min-width="134px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.min"></el-checkbox>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="maxAvg" label="最大均值" min-width="144px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.maxAvg"></el-checkbox>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="minAvg" label="最小均值" min-width="128px">
+                  <template slot-scope="scope">
+                    <el-checkbox class="my-checkbox report-checkbox" v-model="scope.row.minAvg"></el-checkbox>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+          </div>
+          <div class="my-edit-form">
+            <p class="my-edit-title">生成策略</p>
+            <div class="report-tab-form">
+              <div class="my-tab-btn com-hover com-txt-center" :class="{'active': tabNum === 0}" @click="changeTab(0)">时报策略</div>
+              <div class="my-tab-btn com-hover com-txt-center" :class="{'active': tabNum === 1}" @click="changeTab(1)">日报策略</div>
+              <div class="my-tab-btn com-hover com-txt-center" :class="{'active': tabNum === 2}" @click="changeTab(2)">周报策略</div>
+              <div class="my-tab-btn com-hover com-txt-center" :class="{'active': tabNum === 3}" @click="changeTab(3)">月报策略</div>
+              <div class="my-tab-btn com-hover com-txt-center" :class="{'active': tabNum === 4}" @click="changeTab(4)">季报策略</div>
+              <div class="my-tab-btn com-hover com-txt-center" :class="{'active': tabNum === 5}" @click="changeTab(5)">年报策略</div>
+            </div>
+          </div>
+          <div class="my-edit-form" v-if="tabNum === 0">
+            <div class="report-edit-left">
+              <el-checkbox class="my-checkbox report-checkbox" v-model="checked">启用</el-checkbox>
+            </div>
+            <div class="report-edit-right" :class="{'report-inactive': !checked}">
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio" :disabled="!checked" :label="1"></el-radio>
+                <span class="report-content-name">不启用环比分析</span>
+              </div>
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio" :disabled="!checked" :label="2"></el-radio>
+                <span class="report-content-name">连续<input :disabled="!checked || radio !== 2" type="text" class="com-txt-center"
+                    style="width: 48px;" />小时的环比数据</span>
+              </div>
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio" :disabled="!checked" :label="3"></el-radio>
+                <span class="report-content-name">每
+                  <el-select v-model="value" :disabled="!checked || radio !== 3" popper-class="loc-main-selectbox loc-white-selectbox"
+                    class="loc-main-select report-select loc-white-select" placeholder="-请选择-">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                  </el-select>相同时段的环比数据，<input :disabled="!checked || radio !== 3" type="text" class="report-input com-txt-center"
+                    style="width: 78px;" />个环比数</span>
+              </div>
+            </div>
+          </div>
+          <div class="my-edit-form" v-if="tabNum === 1">
+            <div class="report-edit-left">
+              <el-checkbox class="my-checkbox report-checkbox" v-model="checked1">启用</el-checkbox>
+            </div>
+            <div class="report-edit-right" :class="{'report-inactive': !checked1}">
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio1" :disabled="!checked1" :label="1"></el-radio>
+                <span class="report-content-name">不启用环比分析</span>
+              </div>
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio1" :disabled="!checked1" :label="2"></el-radio>
+                <span class="report-content-name">连续<input :disabled="!checked1 || radio1 !== 2" type="text" class="com-txt-center"
+                    style="width: 48px;" />小时的环比数据</span>
+              </div>
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio1" :disabled="!checked1" :label="3"></el-radio>
+                <span class="report-content-name">每
+                  <el-select v-model="value" :disabled="!checked1 || radio1 !== 3" popper-class="loc-main-selectbox loc-white-selectbox"
+                    class="loc-main-select report-select loc-white-select" placeholder="-请选择-">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                  </el-select>相同时段的环比数据，<input :disabled="!checked1 || radio1 !== 3" type="text" class="report-input com-txt-center"
+                    style="width: 78px;" />个环比数</span>
+              </div>
+            </div>
+          </div>
+          <div class="my-edit-form" v-if="tabNum === 2">
+            <div class="report-edit-left">
+              <el-checkbox class="my-checkbox report-checkbox" v-model="checked2">启用</el-checkbox>
+            </div>
+            <div class="report-edit-right" :class="{'report-inactive': !checked2}">
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio2" :disabled="!checked2" :label="1"></el-radio>
+                <span class="report-content-name">不启用环比分析</span>
+              </div>
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio2" :disabled="!checked2" :label="2"></el-radio>
+                <span class="report-content-name">连续<input :disabled="!checked2 || radio2 !== 2" type="text" class="com-txt-center"
+                    style="width: 48px;" />小时的环比数据</span>
+              </div>
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio2" :disabled="!checked2" :label="3"></el-radio>
+                <span class="report-content-name">每
+                  <el-select v-model="value" :disabled="!checked2 || radio2 !== 3" popper-class="loc-main-selectbox loc-white-selectbox"
+                    class="loc-main-select report-select loc-white-select" placeholder="-请选择-">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                  </el-select>相同时段的环比数据，<input :disabled="!checked2 || radio2 !== 3" type="text" class="report-input com-txt-center"
+                    style="width: 78px;" />个环比数</span>
+              </div>
+            </div>
+          </div>
+          <div class="my-edit-form" v-if="tabNum === 3">
+            <div class="report-edit-left">
+              <el-checkbox class="my-checkbox report-checkbox" v-model="checked3">启用</el-checkbox>
+            </div>
+            <div class="report-edit-right" :class="{'report-inactive': !checked3}">
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio3" :disabled="!checked3" :label="1"></el-radio>
+                <span class="report-content-name">不启用环比分析</span>
+              </div>
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio3" :disabled="!checked3" :label="2"></el-radio>
+                <span class="report-content-name">连续<input :disabled="!checked3 || radio3 !== 2" type="text" class="com-txt-center"
+                    style="width: 48px;" />小时的环比数据</span>
+              </div>
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio3" :disabled="!checked3" :label="3"></el-radio>
+                <span class="report-content-name">每
+                  <el-select v-model="value" :disabled="!checked3 || radio3 !== 3" popper-class="loc-main-selectbox loc-white-selectbox"
+                    class="loc-main-select report-select loc-white-select" placeholder="-请选择-">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                  </el-select>相同时段的环比数据，<input :disabled="!checked3 || radio3 !== 3" type="text" class="report-input com-txt-center"
+                    style="width: 78px;" />个环比数</span>
+              </div>
+            </div>
+          </div>
+          <div class="my-edit-form" v-if="tabNum === 4">
+            <div class="report-edit-left">
+              <el-checkbox class="my-checkbox report-checkbox" v-model="checked4">启用</el-checkbox>
+            </div>
+            <div class="report-edit-right" :class="{'report-inactive': !checked4}">
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio4" :disabled="!checked4" :label="1"></el-radio>
+                <span class="report-content-name">不启用环比分析</span>
+              </div>
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio4" :disabled="!checked4" :label="2"></el-radio>
+                <span class="report-content-name">连续<input :disabled="!checked4 || radio4 !== 2" type="text" class="com-txt-center"
+                    style="width: 48px;" />小时的环比数据</span>
+              </div>
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio4" :disabled="!checked4" :label="3"></el-radio>
+                <span class="report-content-name">每
+                  <el-select v-model="value" :disabled="!checked4 || radio4 !== 3" popper-class="loc-main-selectbox loc-white-selectbox"
+                    class="loc-main-select report-select loc-white-select" placeholder="-请选择-">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                  </el-select>相同时段的环比数据，<input :disabled="!checked4 || radio4 !== 3" type="text" class="report-input com-txt-center"
+                    style="width: 78px;" />个环比数</span>
+              </div>
+            </div>
+          </div>
+          <div class="my-edit-form" v-if="tabNum === 5">
+            <div class="report-edit-left">
+              <el-checkbox class="my-checkbox report-checkbox" v-model="checked5">启用</el-checkbox>
+            </div>
+            <div class="report-edit-right" :class="{'report-inactive': !checked5}">
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio5" :disabled="!checked5" :label="1"></el-radio>
+                <span class="report-content-name">不启用环比分析</span>
+              </div>
+              <div class="report-edit-content">
+                <el-radio class="my-radio" v-model="radio5" :disabled="!checked5" :label="2"></el-radio>
+                <span class="report-content-name">连续<input :disabled="!checked5 || radio5 !== 2" type="text" class="com-txt-center"
+                    style="width: 48px;" />小时的环比数据</span>
+              </div>
+            </div>
+          </div>
+          <div class="blue-dialog report-ava-footer">
+            <span class="dialog-footer">
+              <el-button class="dialog-btn cancel-btn" @click="showDetail = 0">取消</el-button>
+              <el-button class="dialog-btn submit-btn" type="primary" @click="showDetail = 2">确认</el-button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <el-dialog title="选择资源" :visible.sync="dialogVisible" width="1080px" :show-close="false" :before-close="handleClose"
+      class="blue-dialog my-edit-dialog">
+      <div class="resource-dialog">
+        <div>
+          <div class="my-edit-group">
+            <span class="my-group-title">资源名称</span>
+            <div class="my-group-content">
+              <input type="text" placeholder="资源名称" />
+            </div>
+          </div>
+          <div class="my-edit-group">
+            <span class="my-group-title">IP地址</span>
+            <div class="my-group-content">
+              <input type="text" placeholder="IP地址" />
+            </div>
+          </div>
+          <el-button class="loc-btn reset-btn report-ava-reset">重置</el-button>
+        </div>
+        <div class="report-dialog-table">
+          <el-table :data="dialogTableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+            <el-table-column class-name="my-checkbox" type="selection" width="46"></el-table-column>
+            <el-table-column prop="name" label="资源名称" min-width="124px"></el-table-column>
+            <el-table-column prop="IP" label="IP地址" min-width="119px"></el-table-column>
+            <el-table-column prop="resType" label="资源类别" min-width="76px"></el-table-column>
+            <el-table-column prop="reportType" label="报告类型" min-width="90px"></el-table-column>
+            <el-table-column prop="healthStatus" label="健康状态" min-width="81px" class-name="com-txt-center no-padding">
+              <template slot-scope="scope">
+                <img :src="scope.row.healthStatus === 0 ? '../assets/images/icon/normal.png' : scope.row.healthStatus === 1 ? '../assets/images/icon/warning.png' : '../assets/images/icon/error.png'" />
+              </template>
+            </el-table-column>
+            <el-table-column prop="manageStatus" label="管理状态" min-width="81px" class-name="com-txt-center no-padding">
+              <template slot-scope="scope">
+                <img :src="scope.row.manageStatus === 0 ? '../assets/images/icon/normal.png' : scope.row.manageStatus === 1 ? '../assets/images/icon/warning.png' : '../assets/images/icon/error.png'" />
+              </template>
+            </el-table-column>
+            <el-table-column prop="accessStatus" label="通断状态" min-width="81px" class-name="com-txt-center no-padding">
+              <template slot-scope="scope">
+                <img :src="scope.row.accessStatus === 0 ? '../assets/images/icon/normal.png' : scope.row.accessStatus === 1 ? '../assets/images/icon/warning.png' : '../assets/images/icon/error.png'" />
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button class="dialog-btn cancel-btn" @click="dialogVisible = false">取消</el-button>
+        <el-button class="dialog-btn submit-btn" type="primary" @click="submitDialog()">确认</el-button>
+      </span>
+    </el-dialog>
+  </div>
+</body>
+<!-- <script src="../assets/js/lodash/lodash.js"></script> -->
+<!-- <script src="../assets/js/echart/echarts.min.js"></script> -->
+<script src="../assets/js/vue/vue.dev.js"></script>
+<!-- <script src="../assets/js/echart/vue-echart.js"></script> -->
+<script src="../assets/js/element-ui/index.js"></script>
+<script src="./report-topn/report-topn.js"></script>
+
+</html>

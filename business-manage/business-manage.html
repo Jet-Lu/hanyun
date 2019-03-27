@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>业务管理</title>
+  <link href="../assets/css/base.css" rel="stylesheet" />
+  <link href="../assets/css/style.css" rel="stylesheet" />
+  <link href="../assets/js/element-ui/index.css" rel="stylesheet" />
+  <link href="../assets/css/theme/main-theme.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./business-manage.css">
+  <link rel="stylesheet" href="../assets/css/font-awesome.css">
+
+</head>
+
+<body class="app">
+  <div id="homeIndex" style="position: relative;">
+    <div class="loc-app-menu">
+      <div class="loc-logo-form"><img src="../assets/images/logo.png" /></div>
+      <div class="loc-menu-list">
+        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}" @click="toRoute(menu)">
+          <img class="loc-menu-default" :src="menu.img + '.png'" />
+          <img class="loc-menu-active" :src="menu.img + '-active.png'" />
+          <span class="loc-menu-name com-txt-overflow">{{ menu.name }}</span>
+        </div>
+      </div>
+      <div class="loc-user-form">
+        <div class="loc-alarm-form">
+          <i class="fa fa-bell-o com-hover" style="color:#fff;"></i>
+        </div>
+        <div class="loc-user">
+          <img class="loc-user-icon" src="../assets/images/logo.png" />
+          <el-dropdown trigger="click">
+            <span class="el-dropdown-link">
+              {{'Ronin'}} <span class="menu-drop-img"></span>
+            </span>
+            <el-dropdown-menu slot="dropdown" class="home-drop">
+              <div class="dropdown-detail">
+                <div class="user-info">
+                  <img src="../assets/images/header.jpg" alt="">
+                  <div class="user-name">
+                    <p>Ronin</p>
+                    <p>系统管理员</p>
+                  </div>
+                </div>
+                <span><i class="fa fa-desktop"></i>展示大屏</span>
+                <span><i class="fa fa-info-circle"></i>授权信息</span>
+                <span><i class="fa fa-lock"></i>修改密码</span>
+                <span><i class="fa fa-sign-out"></i>退出</span>
+              </div>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <div class="loc-group-btn">
+      <img v-if="page_init" src="../assets/images/menu/group-1.png" usemap="#switchBtn1" class="group-btn com-hover">
+      <img v-else src="../assets/images/menu/group--1.png" usemap="#switchBtn2" class="group-btn com-hover">
+      <map id="switchBtn1" name="switchBtn1">
+        <area shape="rect" coords="0,0,44,40" @click="showDialog('dialog')" alt="">
+        <area shape="rect" coords="44,0,88,40" @click="showDialog('list')" alt="">
+      </map>
+      <map id="switchBtn2" name="switchBtn2">
+        <area shape="rect" coords="0,0,44,40" @click="showDialog('dialog')" alt="">
+        <area shape="rect" coords="44,0,88,40" @click="showDialog('charts')" alt="">
+      </map>
+    </div>
+
+    <!-- 图表 -->
+    <div class="aside-main" v-if="page_init">
+      <div class="aside-left">
+        <div class="bus-response-speed">
+          <span>业务响应速度</span>
+          <v-chart class="single-bar" :autoresize="true" :options="bus_responseSpeed"></v-chart>
+        </div>
+        <div style="margin-top:20px; padding-bottom:40px;" class="bus-alarm-time">
+          <span>业务告警次数</span>
+          <v-chart class="single-pie" :autoresize="true" :options="bus_alarmTime"></v-chart>
+        </div>
+      </div>
+      <div class="aside-center">
+        <div class="bus-health" style="padding:0px;">
+          <span>业务健康</span>
+          <div style="position:relative;">
+            <div class="line-path" id="line_path"></div>
+            <div class="big-cicle">
+              <div class="line-value">
+                {{ball_data.healthy}}
+                <span class="down-triangle"></span>
+              </div>
+              <ul class="run-ball">
+                <li v-for="ball in business_tableData" @click="openNewWindow(ball);" :style="{left: ball.left, top: ball.top, cursor:'pointer'}">
+                  <img :src="ball.img_url" alt="" :style="{width: ball.width, height: ball.height}">
+                  <p>{{ball.label}}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:20px;" class="bus-runing-state">
+          <span>业务运行情况</span>
+          <div style="height:240px; overflow:auto;">
+            <table>
+              <tr>
+                <th>名称</th>
+                <th>健康度</th>
+                <th>状态</th>
+                <th>响应时间</th>
+                <th>繁忙度</th>
+                <th>可用率</th>
+              </tr>
+              <tr v-for="state in business_tableData">
+                <td>
+                  <span style="cursor:pointer;" @click="openNewWindow(state)">{{state.label}}</span>
+                </td>
+                <td>{{state.health}}</td>
+                <td>
+                  <i class="fa fa-check-circle" v-if="state.status === '1'" style="color:#69F0AE;" aria-hidden="true"></i>
+                  <i class="fa fa-exclamation-circle" v-if="state.status === '2'" style="color:#FF9E54;" aria-hidden="true"></i>
+                  <i class="fa fa-times-circle" v-if="state.status === '0'" style="color:#f00;" aria-hidden="true"></i>
+                  <!-- <img v-if="state.status === '1'" src="../assets/images/icon/normal.png" />
+                  <img v-if="state.status === '2'" src="../assets/images/icon/warning.png" />
+                  <img v-if="state.status === '0'" src="../assets/images/icon/error.png" /> -->
+                </td>
+                <td>{{state.response}}</td>
+                <td>{{state.busyness}}</td>
+                <td>{{state.using}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="aside-right">
+        <div class="alarm-statics">
+          <span>告警统计</span>
+          <div class="toggle-btn">
+            <el-radio-group v-model="radio1" @change="toggleBtn" size="small">
+              <el-radio-button label="储存容量"></el-radio-button>
+              <el-radio-button label="计算容量"></el-radio-button>
+            </el-radio-group>
+            <div class="business-multiple-pie" v-if="radio1==='储存容量'">
+              <v-chart style="width: 50%;height:80px;" :autoresize="true" :options="single_pie"></v-chart>
+              <v-chart style="width: 50%;height:80px;" :autoresize="true" :options="single_pie"></v-chart>
+              <v-chart style="width: 50%;height:80px;" :autoresize="true" :options="single_pie"></v-chart>
+            </div>
+            <div class="business-multiple-pie" v-else>
+              <v-chart style="width: 50%;height:80px;" :autoresize="true" :options="single_pie"></v-chart>
+              <v-chart style="width: 50%;height:80px;" :autoresize="true" :options="single_pie"></v-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 列表 -->
+    <div v-else style="padding:20px;">
+      <div class="table-list">
+        <el-table :data="business_tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+          <el-table-column class-name="my-checkbox" type="selection" width="42px"></el-table-column>
+          <el-table-column label="业务名称" class-name="com-txt-overflow">
+            <template slot-scope="scope">
+              <span style="cursor:pointer;" @click="openNewWindow(scope.row)">{{scope.row.label}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="healthy" label="健康度" class-name="com-txt-overflow"></el-table-column>
+          <el-table-column label="健康状态" sortable class-name="com-txt-overflow">
+            <template slot-scope="scope">
+              <i class="fa fa-check-circle" v-if="scope.row.status === '1'" style="color:#69F0AE;"></i>
+              <i class="fa fa-exclamation-circle" v-if="scope.row.status === '2'" style="color:#FF9E54;"></i>
+              <i class="fa fa-times-circle" v-if="scope.row.status === '0'" style="color:#f00;"></i>
+              <!-- <img v-if="scope.row.status === '1'" src="../assets/images/icon/normal.png" />
+              <img v-if="scope.row.status === '2'" src="../assets/images/icon/warning.png" />
+              <img v-if="scope.row.status === '0'" src="../assets/images/icon/error.png" /> -->
+            </template>
+          </el-table-column>
+          <el-table-column prop="response" label="响应时间" class-name="com-txt-overflow"></el-table-column>
+          <el-table-column prop="busyness" label="繁忙度" class-name="com-txt-overflow"></el-table-column>
+          <el-table-column prop="using" label="可用率" class-name="com-txt-overflow"></el-table-column>
+          <el-table-column label="宕机次数" class-name="com-txt-overflow">
+            <template slot-scope="scope">
+              <span>{{scope.row.downtime_cs}}</span>次
+            </template>
+          </el-table-column>
+          <el-table-column prop="downtime_sc" label="宕机时长" class-name="com-txt-overflow"></el-table-column>
+          <el-table-column prop="mttr" label="MTTR" class-name="com-txt-overflow"></el-table-column>
+          <el-table-column prop="mtbf" label="MTBF" class-name="com-txt-overflow"></el-table-column>
+          <el-table-column prop="used_capacity" label="存储容量/已用" class-name="com-txt-overflow"></el-table-column>
+          <el-table-column prop="calc_capacity" label="计算容量" class-name="com-txt-overflow"></el-table-column>
+          <el-table-column label="操作" class-name="com-txt-overflow">
+            <template slot-scope="scope">
+              <el-popover placement="bottom" trigger="click" class="my-popover" popper-class="my-popover-content my-popover-left">
+                <div>
+                  <div class="my-popover-item com-hover">查看</div>
+                  <div class="my-popover-item com-hover">编辑</div>
+                  <div class="my-popover-item com-hover">删除</div>
+                </div>
+                <i slot="reference" class="fa fa-cog com-hover"></i>
+                <!-- <img slot="reference" class="com-hover" style="margin: 6px 0 0 2px;" src="../assets/images/icon/opera.png" /> -->
+              </el-popover>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="loc-pagination">
+          <div class="my-pagination-group">
+            <div class="my-pagination-btn my-pagination-first com-hover">
+              首页
+            </div>
+            <el-pagination :pager-count="5" layout="prev, pager, next" :total="1000">
+            </el-pagination>
+            <div class="my-pagination-btn my-pagination-last com-hover">
+              尾页
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- dialog -->
+    <!-- 新建业务 -->
+    <el-dialog title="新建业务" :visible.sync="addBusiDialog" width="1080px" class="blue-dialog">
+      <el-form ref="business_form" size="mini" :model="business_form" :rules="business_rules" class="demo-ruleForm common-addForm-table">
+        <el-form-item label="">
+          <table>
+            <tr>
+              <td><i class="required-icon">*</i>名称</td>
+              <td width="8"></td>
+              <!-- <el-input v-model="business_form.name"></el-input> -->
+              <td>
+                <input v-model="business_form.name" @blur="onBlurInput($event, business_form.name)" placeholder="名称">
+              </td>
+              <td width="40"></td>
+              <td><i class="required-icon">*</i>厂商</td>
+              <td width="8"></td>
+              <td>
+                <input v-model="business_form.name" @blur="onBlurInput($event, business_form.name)" placeholder="厂商">
+              </td>
+              <td width="40"></td>
+              <td><i class="required-icon">*</i>厂商</td>
+              <td width="8"></td>
+              <td>
+                <input v-model="business_form.name" @blur="onBlurInput($event, business_form.name)" placeholder="厂商">
+              </td>
+              <td width="40"></td>
+              <td><i class="required-icon">*</i>责任人</td>
+              <td width="8"></td>
+              <td>
+                <input v-model="business_form.name" @blur="onBlurInput($event, business_form.name)" placeholder="责任人">
+              </td>
+              <td width="40"></td>
+            </tr>
+          </table>
+        </el-form-item>
+        <el-form-item label="">
+          <span>资源</span>
+        </el-form-item>
+        <el-form-item>
+          <table>
+            <tr v-for="resource in resource_list">
+              <td class="text-right"><i class="required-icon">*</i>{{resource.label1}}</td>
+              <td width="32"></td>
+              <td>权值</td>
+              <td width="8"></td>
+              <td>
+                <input v-model="resource.value1" @blur="onBlurInput($event, resource.value1)" placeholder="权值">
+                <!-- <input v-model="business_form.name" placeholder="权值"> -->
+              </td>
+              <td width="120"></td>
+              <td class="text-right"><i class="required-icon">*</i>{{resource.label2}}</td>
+              <td width="32"></td>
+              <td>权值</td>
+              <td width="8"></td>
+              <td>
+                <input v-model="resource.value2" @blur="onBlurInput($event, resource.value2)" placeholder="权值">
+              </td>
+            </tr>
+          </table>
+        </el-form-item>
+        <el-form-item label="">
+          <span>健康等级</span>
+        </el-form-item>
+        <el-form-item label="">
+          <table>
+            <tr v-for="level in health_levels">
+              <td class="text-center"><i class="required-icon">*</i>{{level.label1}}</td>
+              <td width="32"></td>
+              <td>健康度小于</td>
+              <td width="8"></td>
+              <td>
+                <input v-model="level.value1" @blur="onBlurInput($event, level.value1)" :placeholder="level.label1"> %
+              </td>
+              <td width="120"></td>
+              <td class="text-center"><i class="required-icon">*</i>{{level.label2}}</td>
+              <td width="32"></td>
+              <td>健康小于</td>
+              <td width="8"></td>
+              <td>
+                <input v-model="level.value2" @blur="onBlurInput($event, level.value2)" :placeholder="level.label2"> %
+              </td>
+            </tr>
+          </table>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="addBusiDialog = false" size="small">取 消</el-button>
+        <el-button type="primary" @click="confirmAddBus" size="small">确 认</el-button>
+      </span>
+    </el-dialog>
+
+  </div>
+</body>
+<script src="../assets/js/vue/vue.dev.js"></script>
+<!-- <script src="../assets/js/vue/vue-router.js"></script> -->
+<script src="../assets/js/echart/echarts.min.js"></script>
+<script src="../assets/js/echart/vue-echart.js"></script>
+<script src="../assets/js/element-ui/index.js"></script>
+<script src="./business-manage.js"></script>
+
+</html>

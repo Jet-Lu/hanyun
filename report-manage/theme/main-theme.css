@@ -1,0 +1,27 @@
+.loc-index-content .loc-right-content div.report-manage-content .my-edit-group .my-group-title {
+  color: #fff;
+}
+.loc-index-content .loc-right-content div.report-manage-content .report-opera-group {
+  color: #fff;
+}
+.report-main-background {
+  background: rgba(0, 0, 0, 0.2);
+}
+.my-show-list-form .my-show-item {
+  background: #9DB1FF;
+}
+.loc-progress-form .loc-progress-group {
+  color: rgba(255, 255, 255, 0.6);
+}
+.my-progress .el-progress-bar__inner {
+  background: linear-gradient(270deg, #54e8ff 0%, #3760ff 100%);
+}
+.my-progress .el-progress-bar__outer {
+  background: rgba(0, 0, 0, 0.2);
+}
+.report-edit-left .report-checkbox {
+  color: #fff;
+}
+.report-edit-content .report-content-name {
+  color: rgba(255, 255, 255, 0.8);
+}

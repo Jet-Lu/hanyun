@@ -1,0 +1,89 @@
+.com-hover {
+  outline: none;
+  cursor: pointer;
+}
+
+.com-txt-center {
+  text-align: center !important;
+}
+
+.com-txt-right {
+  text-align: right !important;
+}
+
+.com-txt-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.com-float-right {
+  float: right;
+}
+
+.com-clear {
+  clear: both;
+}
+
+// font-awesome字体设置
+.fa {
+  font-size:10px;
+  margin-right: 5px;
+  .fa-asterisk {
+    color: #f00;
+  }
+}
+
+.required-icon {
+  // font-size:20px;
+  margin-right: 3px;
+  color: #f00;
+  .com-txt-important {
+    margin: 0 4px 0 0;
+    color: #ff5555;
+  }
+  .is-require {
+    border: 1px solid #f56c6c;
+  }
+}
+.home-drop.el-dropdown-menu {
+  padding:0;
+  border: none;
+}
+.dropdown-detail {
+  width:220px;
+  .user-info {
+    display: flex;
+    padding:18px;
+    align-items:center;
+    background:#4364BD;
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius:50%;
+    }
+    .user-name {
+      margin-left:15px;
+      p {
+        font-size:12px;
+        &:first-child {
+          margin-bottom:5px;
+          font-size:18px;
+        }
+      }
+    }
+  }
+  >span {
+    padding:16px;
+    display: block;
+    font-size:12px;
+    border-bottom:1px solid #fff;
+    cursor: pointer;
+    i {
+      margin-right:10px;
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}

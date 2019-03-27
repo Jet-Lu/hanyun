@@ -1,0 +1,147 @@
+.loc-div-menu {
+  line-height: 19px;
+}
+.loc-menu-btn {
+  position: relative;
+  float: right;
+}
+.loc-group-btn {
+  position: absolute;
+  top: 20px;
+  right: 0px;
+  width: 44px;
+  height: 40px;
+  z-index: 10;
+  padding-left: 8px;
+  line-height: 50px;
+  border-radius: 30px 0px 0px 30px;
+  text-align: center;
+}
+.loc-line-form {
+  position: relative;
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.loc-line-form app-home-div-menu {
+  position: relative;
+  z-index: 5;
+  display: block;
+}
+.loc-line-form .loc-col-form {
+  position: relative;
+  flex-grow: 1;
+  flex-shrink: 0;
+  margin: 10px;
+  padding: 20px 20px 10px;
+  width: calc(50% - 30px);
+  height: 316px;
+}
+.loc-line-form .loc-fill-form {
+  position: absolute;
+  top: 39px;
+  right: 0px;
+  bottom: 0;
+  left: 0px;
+}
+.loc-line-form .loc-fill-form .loc-chart {
+  width: 100%;
+  height: 100%;
+}
+.loc-line-form .loc-fill-form .loc-table {
+  margin: 20px 10px 16px;
+  padding: 0 10px;
+  height: calc(100% - 37px);
+  font-size: 12px;
+  overflow: auto;
+}
+.loc-no-data {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  transform: translateY('-50%');
+  text-align: center;
+  font-size: 12px;
+}
+div.echarts {
+  width: 100%;
+  height: 100%;
+}
+.loc-icon-circle {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.loc-icon-circle.loc-icon-1 {
+  background: #ff5252;
+}
+.loc-icon-circle.loc-icon-2 {
+  background: #ff9e54;
+}
+.loc-icon-circle.loc-icon-3 {
+  background: #fff954;
+}
+.loc-icon-circle.loc-icon-4 {
+  background: #1cefef;
+}
+.home-progress .el-progress-bar__outer,
+.home-progress .el-progress-bar__inner {
+  border-radius: 0;
+}
+.home-progress .el-progress-bar__inner {
+  border-radius: 0;
+}
+.home-progress .el-progress-bar__inner .el-progress-bar__innerText {
+  vertical-align: top;
+}
+.home-progress .el-progress-bar__outer {
+  background: rgba(0, 0, 0, 0.2);
+}
+.home-progress.is-exception .el-progress-bar__inner {
+  text-align: center;
+}
+.home-progress.is-success .el-progress-bar__inner .el-progress-bar__innerText {
+  margin-left: 100%;
+}
+.home-content-form .loc-form {
+  vertical-align: top;
+  display: inline-block;
+  padding: 16px;
+  height: 460px;
+  font-size: 12px;
+}
+.home-content-form .loc-form .loc-form-title {
+  margin-bottom: 10px;
+  line-height: 16px;
+  text-align: center;
+}
+.home-content-form .loc-form .loc-drag-form {
+  overflow: auto;
+  padding: 0 20px;
+  max-height: calc(100% - 28px);
+  cursor: pointer;
+}
+.home-content-form .loc-form .loc-drag-form .loc-drag-bar {
+  display: inline-block;
+  text-align: center;
+  margin: 6px 12px;
+  height: 28px;
+  line-height: 28px;
+  border-radius: 4px;
+}
+.home-content-form .loc-left {
+  margin-right: 32px;
+  width: 284px;
+}
+.home-content-form .loc-left .loc-drag-bar {
+  width: calc(100% - 24px);
+}
+.home-content-form .loc-right {
+  width: 496px;
+}
+.home-content-form .loc-right .loc-drag-bar {
+  width: calc(50% - 24px);
+}

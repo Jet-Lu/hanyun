@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>瀚云智能运维管理平台</title>
+  <link href="../../../assets/css/base.css" rel="stylesheet" />
+  <link href="../../../assets/js/element-ui/index.css" rel="stylesheet" />
+  <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
+  <link href="../../../assets/css/style.css" rel="stylesheet" />
+  <!-- <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
+  <link rel="stylesheet" href="./../../common-business.css">
+  <link href="./resource-overview/web-service.css" rel="stylesheet" />
+</head>
+
+<body class="app">
+  <div id="homeIndex">
+    <div class="top-tab-toggle">
+      <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
+    </div>
+    <el-row>
+      <el-col :span="24">
+        <div class="grid-content bg-purple">
+          <el-table :data="process_tableData" :key="3" size="mini" class="transparent-table transparent-white-table"
+            style="width: 100%">
+            <el-table-column prop="pid" sortable label="PID" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="name" sortable label="名称" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="cpu_using" sortable label="CPU使用率" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="memory" sortable label="内存大小" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="memory_using" sortable label="内存使用率" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="line_count" sortable label="线程数" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="handle" sortable label="句柄数" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="ghost_route" sortable label="映像路径" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="command_line" sortable label="命令行" class-name="com-txt-overflow"></el-table-column>
+          </el-table>
+          <div class="loc-pagination">
+            <div class="my-pagination-group">
+              <div class="my-pagination-btn my-pagination-first com-hover">
+                首页
+              </div>
+              <el-pagination :pager-count="5" layout="prev, pager, next" :total="1000">
+              </el-pagination>
+              <div class="my-pagination-btn my-pagination-last com-hover">
+                尾页
+              </div>
+            </div>
+          </div>
+        </div>
+      </el-col>
+    </el-row>
+    <div class="toggle-page">
+      <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)" :class="{active: page.active}">{{page.label}}</span>
+    </div>
+  </div>
+</body>
+<script src="../../../assets/js/vue/vue.dev.js"></script>
+<script src="../../../assets/js/echart/echarts.new.js"></script>
+<script src="../../../assets/js/echart/vue-echart.js"></script>
+<script src="../../../assets/js/element-ui/index.js"></script>
+<script src="./process/process.js"></script>
+
+</html>

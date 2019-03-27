@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>瀚云智能运维管理平台</title>
+  <link href="../assets/css/base.css" rel="stylesheet" />
+  <link href="../assets/js/element-ui/index.css" rel="stylesheet" />
+  <link href="../assets/css/style.css" rel="stylesheet" />
+  <!-- <link href="../assets/css/theme/main-theme.css" rel="stylesheet" /> -->
+  <link href="../assets/css/theme/light-theme.css" rel="stylesheet" />
+  <link href="./index.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/font-awesome.css">
+</head>
+
+<body class="app">
+  <div id="homeIndex" style="height: 100%;">
+    <div class="loc-app-menu">
+      <div class="loc-logo-form"><img src="../assets/images/logo.png" /></div>
+      <div class="loc-menu-list">
+        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}" @click="toRoute(menu)">
+          <img class="loc-menu-default" :src="menu.img + '.png'" />
+          <img class="loc-menu-active" :src="menu.img + '-active.png'" />
+          <span class="loc-menu-name com-txt-overflow">{{ menu.name }}</span>
+        </div>
+      </div>
+      <div class="loc-user-form">
+        <div class="loc-alarm-form"><i class="fa fa-bell-o com-hover" style="color:#fff;"></i></div>
+        <div class="loc-user">
+          <img class="loc-user-icon" src="../assets/images/logo.png" />
+          <el-dropdown trigger="click">
+            <span class="el-dropdown-link">
+              {{'Ronin'}} <span class="menu-drop-img"></span>
+            </span>
+            <el-dropdown-menu slot="dropdown" class="home-drop">
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="loc-index-content">
+      <div class="loc-left-menu" :class="{'loc-menu-hide': !showMenu}">
+        <div class="loc-transform-left" @click="toggleShowMenu">
+          <i class="el-icon-caret-left"></i>
+          <i class="el-icon-caret-right"></i>
+        </div>
+        <div class="my-menu">
+          <div class="my-menu-item" v-for="menu of leftMenuList.list" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === menu.id || leftMenuList.openMenu.indexOf(menu.id + '-') !== -1)}">
+            <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === menu || leftMenuList.selectMenu.id.indexOf(menu.id + '-') !== -1)}"
+              @click="selectedLeftMenu(menu)">
+              <i class="loc-left-icon" :class="menu.iconClass"></i>
+              <span>{{ menu.name }}</span>
+              <i v-if="menu.children" class="loc-drop-icon el-icon-arrow-right"></i>
+            </div>
+            <div class="my-submenu-item">
+              <div class="my-menu-item" v-for="subMenu of menu.children" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === subMenu.id || leftMenuList.openMenu.indexOf(subMenu.id + '-') !== -1)}">
+                <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === subMenu || leftMenuList.selectMenu.id.indexOf(subMenu.id + '-') !== -1)}"
+                  @click="selectedLeftMenu(subMenu)">
+                  <i class="loc-left-icon"></i>
+                  <span><i class="loc-left-subicon el-icon-caret-right" v-if="subMenu.children"></i>{{ subMenu.name }}</span>
+                </div>
+                <div class="my-submenu-item">
+                  <div class="my-menu-item" v-for="mSubMenu of subMenu.children">
+                    <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === mSubMenu || leftMenuList.selectMenu.id.indexOf(mSubMenu.id + '-') !== -1)}"
+                      @click="selectedLeftMenu(mSubMenu)">
+                      <i class="loc-left-icon"></i>
+                      <span><i class="loc-left-subicon"></i>{{ mSubMenu.name }}</span>
+                      <div class="my-menu-other" v-if="mSubMenu.num">
+                        {{ mSubMenu.num }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="loc-right-content">
+        <div class="loc-manage-content">
+          <div class="loc-search-form oper-search-form">
+            <div class="loc-query-form">
+              <p class="loc-query-name">资源名称</p>
+              <input placeholder="资源名称" class="loc-input" v-model="text1" :class="{'loc-input-active': text1}" />
+            </div>
+            <div class="loc-query-form">
+              <p class="loc-query-name">IP地址</p>
+              <input placeholder="IP地址" class="loc-input" v-model="text1" />
+            </div>
+            <div class="loc-query-form">
+              <p class="loc-query-name">资源类型</p>
+              <el-select v-model="value" popper-class="loc-main-selectbox" class="loc-main-select" placeholder="-请选择-">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <div class="loc-query-form">
+              <p class="loc-query-name">资源状态</p>
+              <el-select v-model="value" popper-class="loc-main-selectbox" class="loc-main-select" placeholder="-请选择-">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <div class="loc-query-btn">
+              <el-button class="loc-btn submit-btn" type="primary">搜索</el-button>
+              <el-button class="loc-btn reset-btn" type="primary">重置</el-button>
+            </div>
+          </div>
+          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table port-table" style="width: 100%">
+            <el-table-column class-name="com-txt-overflow" prop="name" label="名称" sortable min-width="161px">
+              <template slot-scope="scope">
+                <p class="com-txt-overflow loc-table-color" style="cursor: pointer;" @click="openWindow(scope.row)">{{
+                  scope.row.name }}</p>
+              </template>
+            </el-table-column>
+            <el-table-column class-name="com-txt-overflow" prop="portName" label="端口别名" sortable min-width="161px">
+              <template slot-scope="scope">
+                <p class="com-txt-overflow loc-table-color" style="cursor: pointer;" @click="openWindow(scope.row)">{{
+                  scope.row.portName }}</p>
+              </template>
+            </el-table-column>
+            <el-table-column class-name="com-txt-overflow" prop="resName" label="资源名称" min-width="100px">
+              <template slot-scope="scope">
+                <p class="com-txt-overflow loc-table-color" style="cursor: pointer;" @click="openWindow(scope.row)">{{
+                  scope.row.type1 }}</p>
+              </template>
+            </el-table-column>
+            <el-table-column class-name="com-txt-overflow" prop="type2" label="IP地址" min-width="95px">
+              <template slot-scope="scope">
+                <p class="com-txt-overflow loc-table-color" style="cursor: pointer;" @click="openWindow(scope.row)">{{
+                  scope.row.type2 }}</p>
+              </template>
+            </el-table-column>
+            <el-table-column class-name="com-txt-overflow" prop="type1" label="资源类型" min-width="68px"></el-table-column>
+            <el-table-column class-name="com-txt-overflow" prop="type2" label="端口类型" min-width="76px"></el-table-column>
+            <el-table-column class-name="com-txt-overflow" prop="type3" label="端口类型" min-width="64px"></el-table-column>
+            <el-table-column class-name="com-txt-overflow" prop="MAC" label="MAC地址" min-width="160px"></el-table-column>
+            <el-table-column prop="manageStatus" label="管理状态" min-width="81px" class-name="com-txt-center no-padding">
+              <template slot="header" slot-scope="scope">
+                <span>管理状态</span>
+              </template>
+              <template slot-scope="scope">
+                <i class="fa fa-check-circle" v-if="scope.row.manageStatus === 0" style="color:#69F0AE;"></i>
+                <i class="fa fa-exclamation-circle" v-if="scope.row.manageStatus === 1" style="color:#FF9E54;"></i>
+                <i class="fa fa-times-circle" v-if="scope.row.manageStatus === 2" style="color:#f00;"></i>
+                <!-- <img :src="scope.row.manageStatus === 0 ? '../assets/images/icon/normal.png' : scope.row.manageStatus === 1 ? '../assets/images/icon/warning.png' : '../assets/images/icon/error.png'" /> -->
+              </template>
+            </el-table-column>
+            <el-table-column prop="runStatus" label="运行状态" min-width="64px" class-name="com-txt-center no-padding">
+              <template slot="header" slot-scope="scope">
+                <span>通断状态</span>
+                <el-popover placement="bottom-end" trigger="click" class="my-popover" popper-class="my-popover-content">
+                  <div>
+                    <div class="my-popover-item com-hover">全部</div>
+                    <div class="my-popover-item com-hover">正常
+                      <el-checkbox class="my-content-checkbox"></el-checkbox>
+                    </div>
+                  </div>
+                  <i slot="reference" class="com-hover el-icon-arrow-down"></i>
+                </el-popover>
+              </template>
+              <template slot-scope="scope">
+                <i class="fa fa-check-circle" v-if="scope.row.manageStatus === 0" style="color:#69F0AE;"></i>
+                <i class="fa fa-exclamation-circle" v-if="scope.row.manageStatus === 1" style="color:#FF9E54;"></i>
+                <i class="fa fa-times-circle" v-if="scope.row.manageStatus === 2" style="color:#f00;"></i>
+                <!-- <img :src="scope.row.accessStatus === 0 ? '../assets/images/icon/normal.png' : scope.row.accessStatus === 1 ? '../assets/images/icon/warning.png' : '../assets/images/icon/error.png'" @click="clickImg(scope.row)" /> -->
+              </template>
+            </el-table-column>
+            <el-table-column prop="" label="操作" min-width="64px">
+              <template slot-scope="scope">
+                <el-popover placement="bottom" trigger="click" class="my-popover" popper-class="my-popover-content my-popover-left">
+                  <div>
+                    <div class="my-popover-item com-hover">查看</div>
+                    <div class="my-popover-item com-hover">编辑</div>
+                    <div class="my-popover-item com-hover">删除</div>
+                    <div class="my-popover-item com-hover">
+                      <el-popover placement="left" trigger="hover" class="my-popover" popper-class="my-popover-content">
+                        <div>
+                          <div class="my-popover-item com-hover">查看</div>
+                          <div class="my-popover-item com-hover">编辑</div>
+                          <div class="my-popover-item com-hover">删除</div>
+                          <div class="my-popover-item com-hover">删除</div>
+                        </div>
+                        <div slot="reference">设置 <span style="float: right;line-height: 16px;" class="el-icon-arrow-right"></span></div>
+                      </el-popover>
+                    </div>
+                  </div>
+                  <i slot="reference" class="fa fa-cog com-hover"></i>
+                  <!-- <div slot="reference" style="margin: 6px 0 0 2px;" class="com-hover loc-img-form loc-opera-img"></div> -->
+                </el-popover>
+              </template>
+            </el-table-column>
+          </el-table>
+          <div class="loc-pagination">
+            <div class="my-pagination-group">
+              <div class="my-pagination-btn my-pagination-first com-hover">首页</div>
+              <el-pagination :pager-count="5" layout="prev, pager, next" :total="1000">
+              </el-pagination>
+              <div class="my-pagination-btn my-pagination-last com-hover">尾页</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <el-dialog title="资源添加" :visible.sync="dialogVisible" width="1080px" class="blue-dialog my-edit-dialog">
+      <div class="resource-dialog">
+        <div class="my-edit-group">
+          <span class="my-group-title">所有资源</span>
+          <div class="my-group-content">
+            <input type="text" />
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">资源IPD地址</span>
+          <div class="my-group-content">
+            <input type="text" />
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">端口名称</span>
+          <div class="my-group-content">
+            <input type="text" />
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">端口名称</span>
+          <div class="my-group-content">
+            <input type="text" />
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">端口描述</span>
+          <div class="my-group-content">
+            <input type="text" />
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">端口类型</span>
+          <div class="my-group-content">
+            <input type="text" />
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">MAC地址</span>
+          <div class="my-group-content">
+            <input type="text" />
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">进带宽</span>
+          <div class="my-group-content">
+            <input type="text" />
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">出带宽</span>
+          <div class="my-group-content">
+            <input type="text" />
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">进流量</span>
+          <div class="my-group-content">
+            <input type="text" />
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">出流量</span>
+          <div class="my-group-content">
+            <input type="text" />
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">出流量</span>
+          <div class="my-group-content opera-group-content">
+            <span class="img-form"><i class="fa fa-check-circle" style="color:#69F0AE;"></i></span>
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">运行状态</span>
+          <div class="my-group-content opera-group-content">
+            <span class="img-form">
+              <!-- <img src="../assets/images/icon/normal.png" /> -->
+              <i class="fa fa-check-circle" style="color:#69F0AE;"></i>
+            </span>
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">聚合端口</span>
+          <div class="my-group-content opera-group-content">
+            <span class="img-form">
+              <el-checkbox class="my-checkbox" v-model="checked"></el-checkbox>
+            </span>
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">聚合端口号</span>
+          <div class="my-group-content opera-group-content">
+            <input type="text" />
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">物理端口</span>
+          <div class="my-group-content opera-group-content">
+            <span class="img-form">
+              <el-checkbox class="my-checkbox" v-model="checked"></el-checkbox>
+            </span>
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title">以太网端口</span>
+          <div class="my-group-content opera-group-content">
+            <span class="img-form">
+              <el-checkbox class="my-checkbox" v-model="checked"></el-checkbox>
+            </span>
+          </div>
+        </div>
+        <div class="my-edit-group">
+          <span class="my-group-title"></span>
+          <div class="my-group-content opera-group-content">
+            <input type="text" />
+          </div>
+        </div>
+      </div>
+    </el-dialog>
+  </div>
+</body>
+<!-- <script src="../assets/js/lodash/lodash.js"></script> -->
+<!-- <script src="../assets/js/echart/echarts.min.js"></script> -->
+<script src="../assets/js/vue/vue.dev.js"></script>
+<!-- <script src="../assets/js/echart/vue-echart.js"></script> -->
+<script src="../assets/js/element-ui/index.js"></script>
+<script src="./port-manage/port-manage.js"></script>
+
+</html>

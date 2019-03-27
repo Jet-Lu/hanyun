@@ -1,0 +1,18 @@
+.resource-dialog {
+  padding: 5px 0;
+}
+.oper-search-form {
+  margin-bottom: 20px;
+}
+.port-table.el-table .cell {
+  padding: 0 0 0 16px;
+}
+.opera-group-content {
+  padding-left: 8px;
+}
+.opera-group-content .img-form {
+  line-height: 28px;
+}
+.opera-group-content .img-form img {
+  vertical-align: middle;
+}

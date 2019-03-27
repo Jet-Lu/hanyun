@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>瀚云智能运维管理平台</title>
+  <link href="../assets/css/base.css" rel="stylesheet" />
+  <link href="../assets/js/element-ui/index.css" rel="stylesheet" />
+  <link href="../assets/css/style.css" rel="stylesheet" />
+  <!-- <link href="../assets/css/theme/main-theme.css" rel="stylesheet" />
+    <link href="./theme/main-theme.css" rel="stylesheet" /> -->
+  <link href="../assets/css/theme/light-theme.css" rel="stylesheet" />
+  <link href="./theme/light-theme.css" rel="stylesheet" />
+  <link href="./index.css" rel="stylesheet" />
+</head>
+
+<body class="app">
+  <div id="homeIndex" style="height: 100%;">
+    <div class="loc-app-menu">
+      <div class="loc-logo-form"><img src="../assets/images/logo.png" /></div>
+      <div class="loc-menu-list">
+        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}" @click="toRoute(menu)">
+          <img class="loc-menu-default" :src="menu.img + '.png'" />
+          <img class="loc-menu-active" :src="menu.img + '-active.png'" />
+          <span class="loc-menu-name com-txt-overflow">{{ menu.name }}</span>
+        </div>
+      </div>
+      <div class="loc-user-form">
+        <div class="loc-alarm-form"><i class="fa fa-bell-o com-hover" style="color:#fff;"></i></div>
+        <div class="loc-user">
+          <img class="loc-user-icon" src="../assets/images/logo.png" />
+          <el-dropdown trigger="click">
+            <span class="el-dropdown-link">
+              {{ 'Ronin' }} <span class="menu-drop-img"></span>
+            </span>
+            <el-dropdown-menu slot="dropdown" class="home-drop">
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="loc-index-content">
+      <div class="loc-left-menu" :class="{'loc-menu-hide': !showMenu}">
+        <div class="loc-transform-left" @click="toggleShowMenu">
+          <i class="el-icon-caret-left"></i>
+          <i class="el-icon-caret-right"></i>
+        </div>
+        <div class="my-menu">
+          <div class="my-menu-item" v-for="menu of leftMenuList.list" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === menu.id || leftMenuList.openMenu.indexOf(menu.id + '-') !== -1)}">
+            <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === menu || leftMenuList.selectMenu.id.indexOf(menu.id + '-') !== -1)}"
+              @click="selectedLeftMenu(menu)">
+              <i class="loc-left-icon" :class="menu.iconClass"></i>
+              <span>{{ menu.name }}</span>
+              <i v-if="menu.children" class="loc-drop-icon el-icon-arrow-right"></i>
+            </div>
+            <div class="my-submenu-item">
+              <div class="my-menu-item" v-for="subMenu of menu.children" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === subMenu.id || leftMenuList.openMenu.indexOf(subMenu.id + '-') !== -1)}">
+                <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === subMenu || leftMenuList.selectMenu.id.indexOf(subMenu.id + '-') !== -1)}"
+                  @click="selectedLeftMenu(subMenu)">
+                  <i class="loc-left-icon"></i>
+                  <span><i class="loc-left-subicon el-icon-caret-right" v-if="subMenu.children"></i>{{ subMenu.name }}</span>
+                </div>
+                <div class="my-submenu-item">
+                  <div class="my-menu-item" v-for="mSubMenu of subMenu.children">
+                    <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === mSubMenu || leftMenuList.selectMenu.id.indexOf(mSubMenu.id + '-') !== -1)}"
+                      @click="selectedLeftMenu(mSubMenu)">
+                      <i class="loc-left-icon"></i>
+                      <span><i class="loc-left-subicon"></i>{{ mSubMenu.name }}</span>
+                      <div class="my-menu-other" v-if="mSubMenu.num">
+                        {{ mSubMenu.num }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="loc-right-content">
+        <div class="loc-manage-content">
+          <div class="loc-config-layput">
+            <div class="loc-left-layout">
+              <div class="loc-config-name com-txt-center">
+                <span>账号设置</span>
+              </div>
+            </div>
+            <div class="loc-right-layout">
+              <div class="my-edit-group my-fill-line">
+                <span class="my-group-title"><i class="required-icon">*</i>启用系统邮箱</span>
+                <div class="my-group-content loc-double-length">
+                  <span>
+                    <el-checkbox class="my-content-checkbox"></el-checkbox>
+                  </span>
+                </div>
+              </div>
+              <div class="my-edit-group my-fill-line">
+                <span class="my-group-title"><i class="required-icon">*</i>邮箱账户</span>
+                <div class="my-group-content loc-double-length">
+                  <input type="text" @blur="onBlurInput($event, '')" placeholder="邮箱账户" />
+                </div>
+              </div>
+              <div class="my-edit-group my-fill-line">
+                <span class="my-group-title"><i class="required-icon">*</i>密码</span>
+                <div class="my-group-content loc-double-length">
+                  <input type="text" @blur="onBlurInput($event, '')" placeholder="登录密码" />
+                </div>
+              </div>
+              <div class="my-edit-group my-fill-line">
+                <span class="my-group-title"><i class="required-icon">*</i>SSL登录</span>
+                <div class="my-group-content loc-double-length">
+                  <span>
+                    <el-checkbox class="my-content-checkbox"></el-checkbox>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="loc-config-layput">
+            <div class="loc-left-layout">
+              <div class="loc-config-name com-txt-center">
+                <span>服务器设置</span>
+              </div>
+            </div>
+            <div class="loc-right-layout">
+              <div class="my-edit-group my-fill-line">
+                <span class="my-group-title">SMTP服务器</span>
+                <div class="my-group-content loc-double-length">
+                  <input type="text" placeholder="SMTP服务器地址" />
+                </div>
+              </div>
+              <div class="my-edit-group my-fill-line">
+                <span class="my-group-title">SMTP端口</span>
+                <div class="my-group-content loc-double-length">
+                  <input type="text" placeholder="SMTP端口" />
+                </div>
+              </div>
+              <div class="my-edit-group my-fill-line">
+                <span class="my-group-title">收件服务器类型</span>
+                <div class="my-group-content loc-double-length">
+                  <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                    placeholder="-请选择-">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                  </el-select>
+                </div>
+              </div>
+              <div class="my-edit-group my-fill-line">
+                <span class="my-group-title">收件服务器</span>
+                <div class="my-group-content loc-double-length">
+                  <input type="text" placeholder="收件服务器" />
+                </div>
+              </div>
+              <div class="my-edit-group my-fill-line">
+                <span class="my-group-title">收件端口</span>
+                <div class="my-group-content loc-double-length">
+                  <input type="text" placeholder="收件端口" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="loc-content-footer">
+            <el-button class="loc-btn submit-btn" type="primary">保存</el-button>
+            <!-- <el-button class="loc-btn reset-btn" type="primary">重置</el-button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<!-- <script src="../assets/js/lodash/lodash.js"></script> -->
+<!-- <script src="../assets/js/echart/echarts.min.js"></script> -->
+<script src="../assets/js/vue/vue.dev.js"></script>
+<!-- <script src="../assets/js/echart/vue-echart.js"></script> -->
+<script src="../assets/js/element-ui/index.js"></script>
+<script src="./email-config/email-config.js"></script>
+
+</html>

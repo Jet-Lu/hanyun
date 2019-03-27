@@ -1,0 +1,359 @@
+body {
+  font-size: 14px;
+  * {
+    .scrollbar();
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+.app {
+  height: 100%;
+}
+
+.app {
+  min-width: 1366px;
+  min-height: 768px;
+}
+
+// 输入框
+.el-input {
+  font-size: inherit;
+}
+
+textarea,
+input[type='password'],
+input[type='text'] {
+  padding: 6px 8px;
+  &::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #ccc;
+  }
+  &:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #ccc;
+  }
+  &::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #ccc;
+  }
+  &:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #ccc;
+  }
+}
+
+.el-input__inner,
+.loc-input {
+  padding: 6px 8px;
+  width: 100%;
+  height: 28px;
+  border-radius: 0;
+  color: inherit;
+  background: none;
+  &::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: inherit;
+    opacity: 0.6;
+  }
+  &:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: inherit;
+    opacity: 0.6;
+  }
+  &::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: inherit;
+    opacity: 0.6;
+  }
+  &:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: inherit;
+    opacity: 0.6;
+  }
+}
+
+// 按钮
+.loc-btn {
+  padding: 6px 16px;
+  min-width: 64px;
+  line-height: 14px;
+  font-size: 12px;
+  color: inherit;
+  &.icon-btn {
+    img {
+      float: left;
+      margin: 2px 4px 0 0;
+    }
+  }
+}
+// 小图片的外壳
+.loc-img-form {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+// tab切换按钮
+.my-tab-btn {
+  display: inline-block;
+  width: 82px;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 12px;
+}
+
+// 左侧菜单右侧内容布局
+.loc-index-content {
+  width: 100%;
+  height: calc(100% - 80px);
+  overflow: auto;
+  .loc-left-menu {
+    position: relative;
+    float: left;
+    padding-top: 11px;
+    width: 180px;
+    height: 100%;
+    transition: margin 0.3s;
+    &:not(.loc-menu-hide) {
+      .loc-transform-left {
+        .el-icon-caret-right {
+          display: none;
+        }
+      }
+      & + .loc-right-content {
+        width: calc(100% - 180px);
+      }
+    }
+    &.loc-menu-hide {
+      margin-left: -180px;
+      .loc-transform-left {
+        .el-icon-caret-left {
+          display: none;
+        }
+      }
+      & + .loc-right-content {
+        width: 100%;
+      }
+    }
+  }
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 100%;
+    min-height: 400px;
+  }
+  .loc-transform-left {
+    position: absolute;
+    top: calc(50% - 40px);
+    right: -10px;
+    vertical-align: top;
+    width: 50px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 12px;
+    text-align: right;
+    border-radius: 20px;
+    cursor: pointer;
+    i {
+      transform: scale(0.76);
+    }
+  }
+  .loc-right-content {
+    overflow: auto;
+    vertical-align: top;
+    float: right;
+    padding: 20px;
+    transition: width 0.3s;
+    height: 100%;
+    .loc-manage-content {
+      position: relative;
+      padding: 20px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+// 表格头部搜索布局
+.loc-search-form {
+  .loc-query-form {
+    display: inline-block;
+    width: 160px;
+    margin-right: 28px;
+    font-size: 12px;
+    .loc-query-name {
+      margin-bottom: 8px;
+      line-height: 16px;
+    }
+  }
+  .loc-query-btn {
+    display: inline-block;
+    margin: 26px 0 0 4px;
+    > button {
+      margin-left: 4px;
+    }
+  }
+}
+// 表格头部操作按钮布局
+.loc-opera-group {
+  margin: 16px 0;
+  .el-button + .el-button {
+    margin-left: 4px;
+  }
+}
+// 分页外框的布局
+.loc-pagination {
+  margin-top: 22px;
+  text-align: right;
+}
+
+// 表单填写
+.my-edit-form {
+  padding-top: 16px;
+  font-size: 12px;
+  .my-edit-title {
+    padding: 0 30px 8px;
+    font-weight: 700;
+  }
+  .my-edit-group {
+    margin: 8px 11px 8px 0;
+  }
+}
+
+.my-edit-group {
+  display: inline-block;
+  margin: 12px 11px 12px 0;
+  font-size: 12px;
+  &.my-fill-line {
+    width: 100%;
+  }
+  .my-group-title {
+    vertical-align: middle;
+    margin-right: 4px;
+    display: inline-block;
+    min-width: 78px;
+    text-align: right;
+  }
+  .my-group-content {
+    vertical-align: middle;
+    margin-right: 4px;
+    width: 180px;
+    min-height: 28px;
+    display: inline-block;
+    > * {
+      width: 100%;
+    }
+  }
+  .my-group-fill {
+    width: calc(100% - 90px);
+  }
+}
+
+// 表格头部图例布局
+.loc-content-top {
+  margin: -20px -20px 16px;
+  padding: 24px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+  .loc-top-group {
+    margin-right: 8px;
+    .loc-group-icon {
+      margin: 0 6px 0 16px;
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+    }
+  }
+  .loc-right-icon {
+    margin-left: 16px;
+    float: right;
+  }
+}
+
+.loc-select-tip {
+  margin-bottom: 15px;
+  &.loc-select-tip-dialog {
+    margin-bottom: 0;
+    .loc-tip-form {
+      margin-bottom: 0;
+    }
+  }
+  .loc-tip-form {
+    margin-bottom: 1px;
+    // height: 32px;
+    font-size: 12px;
+    .loc-select-item {
+      display: inline-block;
+      padding: 0 16px;
+      // height: 100%;
+      line-height: 32px;
+    }
+  }
+}
+
+
+.my-show-list-form {
+  margin: 16px 0 8px;
+  padding: 12px 10px 12px 14px;
+  .my-show-item {
+    position: relative;
+    display: inline-block;
+    margin: 4px 2px;
+    padding: 0 18px 0 8px;
+    height: 30px;
+    line-height: 30px;
+    background: #9DB1FF;
+    font-size: 12px;
+    .my-show-icon {
+      position: absolute;
+      top: 8px;
+      right: 2px;
+      font-size: 16px;
+    }
+  }
+}
+
+.loc-progress-form {
+  margin: 20px 0;
+  padding: 20px 0 10px 0;
+  font-size: 12px;
+  .loc-progress-title {
+    padding: 0 0 18px 20px;
+  }
+  .loc-progress-group {
+    padding: 9px 0;
+    color: rgba(255, 255, 255, .6);
+    .loc-progress-name,
+    .loc-progress-content,
+    .loc-progress-detail {
+      vertical-align: middle;
+      display: inline-block;
+    }
+    .loc-progress-name {
+      margin-right: 10px;
+      width: 200px;
+      text-align: right;
+    }
+    .loc-progress-content {
+      width: calc(100% - 323px);
+    }
+    .loc-progress-detail {
+      margin-left: 12px;
+      min-width: 50px;
+
+    }
+  }
+}
+
+.my-progress {
+  .el-progress-bar__inner {
+    background: linear-gradient(270deg, #54e8ff 0%, #3760ff 100%);
+  }
+  .el-progress-bar__outer {
+    background: rgba(0, 0, 0, .2);
+  }
+}

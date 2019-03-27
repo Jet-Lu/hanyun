@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>瀚云智能运维管理平台</title>
+  <link href="../../../assets/css/base.css" rel="stylesheet" />
+  <link href="../../../assets/js/element-ui/index.css" rel="stylesheet" />
+  <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
+  <link href="../../../assets/css/style.css" rel="stylesheet" />
+  <!-- <link href="../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
+  <link rel="stylesheet" href="./../../common-business.css">
+</head>
+
+<body class="app">
+  <div id="homeIndex">
+    <div class="top-tab-toggle">
+      <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
+    </div>
+
+    <el-row>
+      <el-col>
+        <div class="grid-content bg-purple">
+          <el-table :data="connect_tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+            <el-table-column prop="name" sortable sortable label="名称" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="ip" sortable label="绑定ip地址" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="port" sortable label="端口" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="agreement" sortable label="协议" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="operator" sortable label="执行者" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="plan" sortable label="方案" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="status" sortable label="状态" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="busy_line" sortable label="正忙线程数" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="current_line" sortable label="当前线程数" class-name="com-txt-overflow"></el-table-column>
+          </el-table>
+        </div>
+      </el-col>
+    </el-row>
+
+    <div class="toggle-page">
+      <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)" :class="{active: page.active}">{{page.label}}</span>
+    </div>
+  </div>
+</body>
+<script src="../../../assets/js/vue/vue.dev.js"></script>
+<script src="../../../assets/js/echart/echarts.min.js"></script>
+<script src="../../../assets/js/echart/vue-echart.js"></script>
+<script src="../../../assets/js/element-ui/index.js"></script>
+<script src="./connection/connection.js"></script>
+
+</html>

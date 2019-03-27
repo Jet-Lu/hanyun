@@ -1,0 +1,56 @@
+.loc-right-content.sto-right-content {
+  padding: 10px;
+}
+.loc-right-content.sto-right-content .sto-chart-form {
+  vertical-align: middle;
+  float: left;
+  margin: 10px;
+  width: calc(50% - 20px);
+  height: calc(50% - 20px);
+}
+.loc-right-content.sto-right-content .sto-chart-form .sto-chart-title {
+  margin: 20px 20px 0;
+  font-weight: 700;
+}
+.loc-right-content.sto-right-content .sto-chart-form .sto-chart {
+  height: calc(100% - 40px);
+  width: 100%;
+}
+.loc-right-content.sto-right-content .sto-chart-form .sto-chart .echarts {
+  height: 100%;
+  width: 100%;
+}
+.loc-right-content.sto-right-content .sto-chart-form .sto-chart-half {
+  padding: 0 36px;
+}
+.loc-right-content.sto-right-content .sto-chart-form .sto-chart-half .sto-chart-content {
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+.loc-right-content.sto-right-content .sto-chart-form .sto-form {
+  width: auto;
+  margin: 20px 20px 0;
+}
+.loc-right-content.sto-right-content .sto-chart-form .sto-form .sto-mini-table .cell {
+  padding: 0 0 0 10px;
+}
+.sto-search-form {
+  margin-bottom: 20px;
+}
+.sto-search-form .loc-query-form {
+  width: auto;
+}
+.sto-search-form .loc-query-form .loc-query-name {
+  display: inline-block;
+}
+.sto-search-form .loc-query-form > input {
+  margin-left: 4px;
+  width: 160px;
+}
+.sto-search-form .loc-query-btn {
+  margin-top: 0;
+}
+.sto-topn-table.el-table .cell {
+  padding: 0 0 0 10px;
+}
