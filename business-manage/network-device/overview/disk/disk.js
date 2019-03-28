@@ -130,10 +130,10 @@ var app = new Vue({
       tab_array: [
         { label: '资源总览', url: './resource-overview.html', active: false },
         { label: '端口列表', url: './cpu.html', active: false },
-        { label: '地址表', url: './network.html', active: true },
+        { label: '地址表', url: './network.html', active: false },
         { label: 'APP表', url: './process.html', active: false },
         { label: '路由表', url: './service.html', active: false },
-        { label: 'MPLS VPN表', url: './disk.html', active: false },
+        { label: 'MPLS VPN表', url: './disk.html', active: true },
         { label: 'VLAN表', url: './storage.html', active: false }
       ],
       disk_tableData: [

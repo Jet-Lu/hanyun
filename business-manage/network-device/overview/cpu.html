@@ -37,65 +37,38 @@
             </el-table>
           </div>
         </div>
+
         <div v-else>
-          <div class="grid-content bg-purple">
-            <el-row style="margin-top:0;">
-              <el-col :span="8">
-                端口名称 : {{business_data.label}}
-              </el-col>
-              <el-col :span="8">
-                端口描述 : Tomcat的
-              </el-col>
-              <el-col :span="8">
-                端口别名 : {{business_data.label}}
-              </el-col>
-            </el-row>
-            <el-row style="margin-top:10px;">
-              <el-col :span="8">
-                端口类型 :8
-              </el-col>
-              <el-col :span="8">
-                MAC地址 : 工商局的
-              </el-col>
-              <el-col :span="8">
-                端口索引 : 23%
-              </el-col>
-            </el-row>
-            <el-row style="margin-top:10px;">
-              <el-col :span="8">
-                物理端口 :
-                <el-checkbox></el-checkbox>
-              </el-col>
-              <el-col :span="8">
-                以太网端口 :56MB
-              </el-col>
-              <el-col :span="8">
-                聚合端口号 :56MB
-              </el-col>
-            </el-row>
-            <el-row style="margin-top:10px;">
-              <el-col :span="8">
-                管理状态 :56MB
-              </el-col>
-              <el-col :span="8">
-                进带宽 :56MB
-              </el-col>
-              <el-col :span="8">
-                出带宽 :56MB
-              </el-col>
-            </el-row>
-            <el-row style="margin-top:10px;">
-              <el-col :span="8">
-                运行状态 :56MB
-              </el-col>
-              <el-col :span="8">
-                进流量 :56MB
-              </el-col>
-              <el-col :span="8">
-                出流量 :56MB
-              </el-col>
-            </el-row>
+          <div class="overview-header">
+            <table>
+              <tr>
+                <td>端口名称 : {{business_data.label}}</td>
+                <td>端口描述 : Tomcat的</td>
+                <td>端口别名 : {{business_data.label}}</td>
+              </tr>
+              <tr>
+                <td>端口类型 : {{business_data.label}}</td>
+                <td>MAC地址 : Tomcat的</td>
+                <td>端口索引 : {{business_data.label}}</td>
+              </tr>
+              <tr>
+                <td>物理端口 : {{business_data.label}}</td>
+                <td>以太网端口 : Tomcat的</td>
+                <td>聚合端口号 : {{business_data.label}}</td>
+              </tr>
+              <tr>
+                <td>管理状态 : {{business_data.label}}</td>
+                <td>进带宽 : Tomcat的</td>
+                <td>出带宽 : {{business_data.label}}</td>
+              </tr>
+              <tr>
+                <td>运行状态 : {{business_data.label}}</td>
+                <td>进流量 : Tomcat的</td>
+                <td>出流量 : {{business_data.label}}</td>
+              </tr>
+            </table>
           </div>
+
           <el-row :gutter="20">
             <el-col :span="6">
               <div class="grid-content bg-purple" style="height:576px;">
@@ -116,11 +89,16 @@
                     :class="{active: cpuData.isActice === time.name}">{{time.name}}</span>
                 </div>
                 <div>
-                  <v-chart v-if="cpuData.echart_title==='流量速率'" style="width:100%; height:480px" :autoresize="true" :options="multiple_pie.line"></v-chart>
-                  <v-chart v-else-if="cpuData.echart_title==='带宽利用率'" style="width:100%; height:480px" :autoresize="true" :options="multiple_pie.line2"></v-chart>
-                  <v-chart v-else-if="cpuData.echart_title==='包速率'" style="width:100%; height:480px" :autoresize="true" :options="multiple_pie.line3"></v-chart>
-                  <v-chart v-else-if="cpuData.echart_title==='错包率'" style="width:100%; height:480px" :autoresize="true" :options="multiple_pie.line4"></v-chart>
-                  <v-chart v-else style="width:100%; height:480px" :autoresize="true" :options="multiple_pie.line5"></v-chart>
+                  <v-chart v-if="cpuData.echart_title==='流量速率'" style="width:100%; height:480px" :autoresize="true"
+                    :options="multiple_pie.line"></v-chart>
+                  <v-chart v-else-if="cpuData.echart_title==='带宽利用率'" style="width:100%; height:480px"
+                    :autoresize="true" :options="multiple_pie.line2"></v-chart>
+                  <v-chart v-else-if="cpuData.echart_title==='包速率'" style="width:100%; height:480px" :autoresize="true"
+                    :options="multiple_pie.line3"></v-chart>
+                  <v-chart v-else-if="cpuData.echart_title==='错包率'" style="width:100%; height:480px" :autoresize="true"
+                    :options="multiple_pie.line4"></v-chart>
+                  <v-chart v-else style="width:100%; height:480px" :autoresize="true" :options="multiple_pie.line5">
+                  </v-chart>
                 </div>
               </div>
             </el-col>

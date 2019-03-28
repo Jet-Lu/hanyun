@@ -164,14 +164,24 @@ var app = new Vue({
       ],
       value: '',
       database_array: [
-        { id: '1', label: 'INFORMATION_SCHEMA', imgUrl: '../../../assets/images/icon/storage.png', count: 62, size: '163.23MB' },
-        { id: '2', label: 'MySQL', imgUrl: '../../../assets/images/icon/cpu.png', count: 62, size: '163.23KB' },
-        { id: '2', label: 'MySQL', imgUrl: '../../../assets/images/icon/cpu.png', count: 62, size: '163.23KB' },
-      ],
-      storage_array: [
-        { id: '1', label: 'INFORMATION_SCHEMA', imgUrl: '../../../assets/images/icon/local.png', count: 62, size: '163.23MB' },
-        { id: '2', label: 'MySQL', imgUrl: '../../../assets/images/icon/local.png', count: 62, size: '163.23KB' },
-        { id: '2', label: 'MySQL', imgUrl: '../../../assets/images/icon/local.png', count: 62, size: '163.23KB' }
+        { id: '1', label: 'INFO', status: '0', count: 62, size: '163.23MB' },
+        { id: '2', label: 'MySQL', status: '1', count: 62, size: '163.23KB' },
+        { id: '2', label: 'MySQL', status: '1', count: 62, size: '163.23KB' },
+        { id: '1', label: 'INFO', status: '0', count: 62, size: '163.23MB' },
+        { id: '1', label: 'INFO', status: '0', count: 62, size: '163.23MB' },
+        { id: '1', label: 'INFO', status: '0', count: 62, size: '163.23MB' },
+        { id: '2', label: 'MySQL', status: '1', count: 62, size: '163.23KB' },
+        { id: '2', label: 'MySQL', status: '1', count: 62, size: '163.23KB' },
+        { id: '1', label: 'INFO', status: '0', count: 62, size: '163.23MB' },
+        { id: '1', label: 'INFO', status: '0', count: 62, size: '163.23MB' },
+        { id: '2', label: 'MySQL', status: '1', count: 62, size: '163.23KB' },
+        { id: '2', label: 'MySQL', status: '1', count: 62, size: '163.23KB' },
+        { id: '1', label: 'INFO', status: '0', count: 62, size: '163.23MB' },
+        { id: '1', label: 'INFO', status: '0', count: 62, size: '163.23MB' },
+        { id: '2', label: 'MySQL', status: '1', count: 62, size: '163.23KB' },
+        { id: '2', label: 'MySQL', status: '1', count: 62, size: '163.23KB' },
+        { id: '1', label: 'INFO', status: '0', count: 62, size: '163.23MB' },
+        { id: '1', label: 'INFO', status: '0', count: 62, size: '163.23MB' },
       ],
       editTimeDialog: false,
       time: {
@@ -230,9 +240,5 @@ var app = new Vue({
           break;
       }
     },
-    goToDisk(obj) {
-      console.log(obj);
-      window.location.href = './disk.html?param=true';
-    }
   }
 });

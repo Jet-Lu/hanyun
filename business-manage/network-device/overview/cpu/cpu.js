@@ -6,7 +6,7 @@ var app = new Vue({
       business_data: null,
       multiple_pie: {
         line: {
-          color: ['#54E8FF'],
+          color: ['#5793f3', '#d14a61'],
           tooltip: {
             trigger: 'axis'
           },

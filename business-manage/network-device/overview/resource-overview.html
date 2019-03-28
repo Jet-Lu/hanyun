@@ -10,6 +10,7 @@
   <link href="../../../assets/js/element-ui/index.css" rel="stylesheet" />
   <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
   <link href="../../../assets/css/style.css" rel="stylesheet" />
+  <link href="../../../assets/css/business-style.css" rel="stylesheet" />
   <!-- <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
   <link rel="stylesheet" href="./../../common-business.css">
   <link href="./resource-overview/web-service.css" rel="stylesheet" />
@@ -157,7 +158,7 @@
       </el-col>
     </el-row>
     <el-row :gutter="20">
-      <el-col :span="8">
+      <el-col :span="12">
         <div class="grid-content bg-purple" style="height:285px">
           <div style="margin-bottom:20px;">
             <el-select v-model="value" popper-class="loc-main-selectbox" size="mini" style="width: 150px;"
@@ -173,44 +174,17 @@
           <v-chart style="width:100%; height:200px" :autoresize="true" :options="multiple_pie.line"></v-chart>
         </div>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="12">
         <div class="grid-content bg-purple" style="height:285px">
-          <p class="p-title" style="margin-bottom:20px;">内存</p>
+          <p class="p-title" style="margin-bottom:20px;">端口</p>
           <div style="height:211px; overflow:auto;">
-            <div class="left-img-right-text" v-for="(item, index) in database_array" :key="index"
-              @click="goToDisk(item);">
-              <div>
-                <img style="margin-top:25%;" :src="item.imgUrl" />
-              </div>
-              <ul>
-                <li>{{item.label}}</li>
-                <li>总内存 : {{item.count}} | 已使用 {{item.size}}</li>
-                <li>使用率 : {{item.count}}%</li>
-                <li>
-                  <el-progress :percentage="item.count" :show-text="false" color="#FFC555"></el-progress>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple" style="height:285px">
-          <p class="p-title" style="margin-bottom:20px;">硬盘</p>
-          <div style="height:211px; overflow:auto;">
-            <div class="left-img-right-text" v-for="(item, index) in storage_array" :key="index">
-              <div>
-                <img style="margin-top:25%;" :src="item.imgUrl" />
-              </div>
-              <ul>
-                <li>{{item.label}}</li>
-                <li>总内存 : {{item.count}} | 已使用 {{item.size}}</li>
-                <li>使用率 : {{item.count}}%</li>
-                <li>
-                  <el-progress :percentage="item.count" :show-text="false" color="#FFC555"></el-progress>
-                </li>
-              </ul>
-            </div>
+            <ul class="business-img-text">
+              <li v-for="(item, index) in database_array" :key="index">
+                <img v-if="item.status==='0'" src="../../../assets/images/icon/port_1.png" alt="">
+                <img v-if="item.status==='1'" src="../../../assets/images/icon/port_-1.png" alt="">
+                <p>{{item.label}}</p>
+              </li>
+            </ul>
           </div>
         </div>
       </el-col>
