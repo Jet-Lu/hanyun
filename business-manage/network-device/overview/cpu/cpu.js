@@ -5,15 +5,90 @@ var app = new Vue({
     return {
       business_data: null,
       multiple_pie: {
-        line: null
+        line: {
+          color: ['#54E8FF'],
+          tooltip: {
+            trigger: 'axis'
+          },
+          legend: {
+            data: ['进流量', '出流量'],
+            textStyle: {
+              color: '#fff'
+            },
+            bottom: '10'
+          },
+          grid: {
+            left: '50',
+            right: '20',
+            top: '20',
+            bottom: '60'
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['00:00', '02:33', '03:33', '04:33', '05:33', '06:33', '08:33'],
+            axisLabel: {
+              fontSize: 12
+            },
+            axisLine: {
+              lineStyle: {
+                color: '#fff'
+              }
+            },
+            axisTick: {
+              show: false
+            }
+          },
+          yAxis: {
+            type: 'value',
+            axisLabel: {
+              fontSize: 12,
+              formatter: '{value}'
+            },
+            axisLine: {
+              show: false,
+              lineStyle: {
+                color: '#fff'
+              }
+            },
+            splitLine: {
+              lineStyle: {
+                color: ['#eee']
+              }
+            },
+            axisTick: {
+              show: false
+            }
+          },
+          series: [
+            {
+              name: '进流量',
+              type: 'line',
+              areaStyle: {
+                color: '#304C8E'
+              },
+              data: [11, 31, 15, 23, 52, 16, 20]
+            }, {
+              name: '出流量',
+              type: 'line',
+              areaStyle: {
+                color: '#304C8E'
+              },
+              data: [21, 34, 55, 28, 50, 11, 40]
+            }
+          ]
+        },
+        line2: null,
+        line3: null,
+        line4: null,
       },
       init_page: {
         show_cpu: true
       },
       tab_array: [
         { label: '资源总览', url: './resource-overview.html', active: false },
-        { label: '端口列表', url: './cpu.html', active: false },
-        { label: '地址表', url: './network.html', active: true },
+        { label: '端口列表', url: './cpu.html', active: true },
+        { label: '地址表', url: './network.html', active: false },
         { label: 'APP表', url: './process.html', active: false },
         { label: '路由表', url: './service.html', active: false },
         { label: 'MPLS VPN表', url: './disk.html', active: false },
@@ -43,10 +118,14 @@ var app = new Vue({
         { label: '拓扑定位', url: '', active: false },
       ],
       echart_toggle: [
-        { label: 'WEB应用' },
+        { label: '流量速率' },
+        { label: '带宽利用率' },
+        { label: '包速率' },
+        { label: '错包率' },
+        { label: '丢包率' },
       ],
       cpuData: {
-        echart_title: 'WEB应用',
+        echart_title: '流量速率',
         isActice: '1H',
       },
     }
@@ -54,9 +133,7 @@ var app = new Vue({
   created() {
     this.business_data = { business_id: '11', label: 'Openstack V3', healthy: '98%', status: '1', safety_level: '2', response: '37ms', busyness: '2%', using: '100%', downtime_cs: '0', downtime_sc: '16分23秒', mttr: '16分23秒', mtbf: '16分23秒', used_capacity: '58.31GB/339.99GB', calc_capacity: '33%' }
   },
-  mounted() {
-    this.getWebApp();
-  },
+  mounted() { },
   methods: {
     togglePage(evt) {
       window.location.href = evt.url;
@@ -69,7 +146,40 @@ var app = new Vue({
       this.init_page.show_cpu = false;
     },
     toggleEcharts(evt) {
+      console.log(evt.label);
       this.cpuData.echart_title = evt.label;
+      switch (evt.label) {
+        case '流量速率':
+          this.multiple_pie.line = JSON.parse(JSON.stringify(this.multiple_pie.line));
+          console.log(this.multiple_pie.line);
+        break;
+        case '带宽利用率':
+          this.multiple_pie.line2 = JSON.parse(JSON.stringify(this.multiple_pie.line));
+          this.multiple_pie.line2.legend.data = ['进带宽', '出带宽'];
+          this.multiple_pie.line2.series[0].name = '进带宽';
+          this.multiple_pie.line2.series[1].name = '出带宽';
+          console.log(this.multiple_pie.line2);
+        break;
+        case '包速率':
+          this.multiple_pie.line3 = JSON.parse(JSON.stringify(this.multiple_pie.line));
+          this.multiple_pie.line3.legend.data = ['包速率', '非包速率'];
+          this.multiple_pie.line3.series[0].name = '包速率';
+          this.multiple_pie.line3.series[1].name = '非包速率';
+          console.log(this.multiple_pie.line3);
+        break;
+        case '错包率':
+          this.multiple_pie.line4 = JSON.parse(JSON.stringify(this.multiple_pie.line));
+          this.multiple_pie.line4.legend.data = ['错包率', '非错包率'];
+          this.multiple_pie.line4.series[0].name = '错包率';
+          this.multiple_pie.line4.series[1].name = '非错包率';
+        break;
+        case '丢包率':
+          this.multiple_pie.line5 = JSON.parse(JSON.stringify(this.multiple_pie.line));
+          this.multiple_pie.line5.legend.data = ['丢包率', '非丢包率'];
+          this.multiple_pie.line5.series[0].name = '丢包率';
+          this.multiple_pie.line5.series[1].name = '非丢包率';
+        break;
+      }
     },
     toggleTime(evt) {
       console.log(evt);
@@ -82,66 +192,5 @@ var app = new Vue({
           break;
       }
     },
-    getWebApp() {
-      this.multiple_pie.line = {
-        color: ['#54E8FF'],
-        tooltip: {
-          trigger: 'axis'
-        },
-        grid: {
-          left: '50',
-          right: '20',
-          top: '20',
-          bottom: '20'
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          data: ['00:00', '02:33', '03:33', '04:33', '05:33', '06:33', '08:33'],
-          axisLabel: {
-            fontSize: 12
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#fff'
-            }
-          },
-          axisTick: {
-            show: false
-          }
-        },
-        yAxis: {
-          type: 'value',
-          axisLabel: {
-            fontSize: 12,
-            formatter: '{value}'
-          },
-          axisLine: {
-            show: false,
-            lineStyle: {
-              color: '#fff'
-            }
-          },
-          splitLine: {
-            lineStyle: {
-              color: ['#eee']
-            }
-          },
-          axisTick: {
-            show: false
-          }
-        },
-        series: [
-          {
-            name: '模拟数据',
-            type: 'line',
-            areaStyle: {
-              color: '#304C8E'
-            },
-            data: [11, 31, 15, 23, 52, 16, 20]
-          }
-        ]
-      };
-    }
   }
 });

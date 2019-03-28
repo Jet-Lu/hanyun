@@ -18,7 +18,8 @@
 <body class="app">
   <div id="homeIndex">
     <div class="top-tab-toggle">
-      <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
+      <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)"
+        :class="{active: tab.active}">{{tab.label}}</span>
     </div>
     <el-row>
       <el-col :span="24">
@@ -29,7 +30,8 @@
               <el-table-column type="index" label="序号" width="120"></el-table-column>
               <el-table-column prop="name" sortable label="CPU名称" class-name="com-txt-overflow">
                 <template slot-scope="scope">
-                  <span @click="showPage_cpu(scope.row);" style="color:#97C1FF;cursor:pointer;">{{scope.row.name}}</span>
+                  <span @click="showPage_cpu(scope.row);"
+                    style="color:#97C1FF;cursor:pointer;">{{scope.row.name}}</span>
                 </template>
               </el-table-column>
             </el-table>
@@ -38,36 +40,59 @@
         <div v-else>
           <div class="grid-content bg-purple">
             <el-row style="margin-top:0;">
-              <el-col :span="6">
-                CPU名称 : {{business_data.label}}
+              <el-col :span="8">
+                端口名称 : {{business_data.label}}
               </el-col>
-              <el-col :span="6">
-                当前频率 : Tomcat的
+              <el-col :span="8">
+                端口描述 : Tomcat的
               </el-col>
-              <el-col :span="6">
-                最大频率 : {{business_data.label}}
-              </el-col>
-              <el-col :span="6">
-                CPU核心数 : {{business_data.mttr}}
+              <el-col :span="8">
+                端口别名 : {{business_data.label}}
               </el-col>
             </el-row>
             <el-row style="margin-top:10px;">
-              <el-col :span="6">
-                逻辑CPU个数 :8
+              <el-col :span="8">
+                端口类型 :8
               </el-col>
-              <el-col :span="6">
-                厂商 : 工商局的
+              <el-col :span="8">
+                MAC地址 : 工商局的
               </el-col>
-              <el-col :span="6">
-                使用率 : 23%
-              </el-col>
-              <el-col :span="6">
-                二级缓存 :56MB
+              <el-col :span="8">
+                端口索引 : 23%
               </el-col>
             </el-row>
             <el-row style="margin-top:10px;">
-              <el-col :span="6">
-                三级缓存 :56MB
+              <el-col :span="8">
+                物理端口 :
+                <el-checkbox></el-checkbox>
+              </el-col>
+              <el-col :span="8">
+                以太网端口 :56MB
+              </el-col>
+              <el-col :span="8">
+                聚合端口号 :56MB
+              </el-col>
+            </el-row>
+            <el-row style="margin-top:10px;">
+              <el-col :span="8">
+                管理状态 :56MB
+              </el-col>
+              <el-col :span="8">
+                进带宽 :56MB
+              </el-col>
+              <el-col :span="8">
+                出带宽 :56MB
+              </el-col>
+            </el-row>
+            <el-row style="margin-top:10px;">
+              <el-col :span="8">
+                运行状态 :56MB
+              </el-col>
+              <el-col :span="8">
+                进流量 :56MB
+              </el-col>
+              <el-col :span="8">
+                出流量 :56MB
               </el-col>
             </el-row>
           </div>
@@ -83,12 +108,20 @@
             <el-col :span="18">
               <div class="grid-content bg-purple" style="height:576px;">
                 <div class="top-tab-toggle">
-                  <span v-for="tab in echart_toggle" @click="toggleEcharts(tab)" :class="{active: tab.label == cpuData.echart_title}">{{tab.label}}</span>
+                  <span v-for="tab in echart_toggle" @click="toggleEcharts(tab)"
+                    :class="{active: tab.label == cpuData.echart_title}">{{tab.label}}</span>
                 </div>
                 <div class="time-toggle" style="float: right;margin-bottom: 20px;">
-                  <span v-for="time in time_array" @click="toggleTime(time.name)" :class="{active: cpuData.isActice === time.name}">{{time.name}}</span>
+                  <span v-for="time in time_array" @click="toggleTime(time.name)"
+                    :class="{active: cpuData.isActice === time.name}">{{time.name}}</span>
                 </div>
-                <v-chart style="width:100%; height:450px" :autoresize="true" :options="multiple_pie.line"></v-chart>
+                <div>
+                  <v-chart v-if="cpuData.echart_title==='流量速率'" style="width:100%; height:480px" :autoresize="true" :options="multiple_pie.line"></v-chart>
+                  <v-chart v-else-if="cpuData.echart_title==='带宽利用率'" style="width:100%; height:480px" :autoresize="true" :options="multiple_pie.line2"></v-chart>
+                  <v-chart v-else-if="cpuData.echart_title==='包速率'" style="width:100%; height:480px" :autoresize="true" :options="multiple_pie.line3"></v-chart>
+                  <v-chart v-else-if="cpuData.echart_title==='错包率'" style="width:100%; height:480px" :autoresize="true" :options="multiple_pie.line4"></v-chart>
+                  <v-chart v-else style="width:100%; height:480px" :autoresize="true" :options="multiple_pie.line5"></v-chart>
+                </div>
               </div>
             </el-col>
           </el-row>
@@ -96,7 +129,8 @@
       </el-col>
     </el-row>
     <div class="toggle-page">
-      <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)" :class="{active: page.active}">{{page.label}}</span>
+      <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)"
+        :class="{active: page.active}">{{page.label}}</span>
     </div>
 
     <el-dialog title="自定义时间段" :visible.sync="editTimeDialog" width="400px" class="blue-dialog">
