@@ -168,7 +168,8 @@ var app = new Vue({
       cpuData: {
         echart_title: '使用率',
         isActice: '1H',
-        isActice2: '1H'
+        isActice2: '1H',
+        current_name: 'C:'
       },
     }
   },
@@ -188,6 +189,10 @@ var app = new Vue({
     },
     toggleTab(evt) {
       window.location.href = evt.url;
+    },
+    hightLight(row) {
+      console.log(row);
+      this.cpuData.current_name = row.name;
     },
     showPage_disk(evt) {
       console.log(evt);

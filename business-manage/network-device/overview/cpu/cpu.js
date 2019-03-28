@@ -148,8 +148,9 @@ var app = new Vue({
       console.log(evt);
       this.init_page.show_cpu = false;
     },
-    hightLigth(row) {
+    hightLight(row) {
       console.log(row);
+      this.cpuData.current_name = row.name;
     },
     toggleEcharts(evt) {
       console.log(evt.label);

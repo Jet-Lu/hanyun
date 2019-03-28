@@ -139,7 +139,7 @@ var app = new Vue({
       // },
       tab_array: [
         { label: '资源总览', url: './resource-overview.html', active: true },
-        { label: '内存分析', url: '', active: false },
+        { label: '内存分析', url: './memory-analysis.html', active: false },
         { label: '表空间', url: './table-space.html', active: false },
         { label: '数据文件', url: './data-file.html', active: false },
         { label: '会话', url: './conversation.html', active: false },

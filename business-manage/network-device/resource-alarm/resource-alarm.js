@@ -14,7 +14,6 @@ var app = new Vue({
         { label: '总览', url: '../overview/resource-overview.html', active: false },
         { label: '资源告警', url: './resource-alarm.html', active: true },
         { label: '拓扑定位', url: '', active: false },
-        { label: '关注定位', url: '../focus-position/focus-position.html', active: false },
       ]
     }
   },

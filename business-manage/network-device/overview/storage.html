@@ -90,9 +90,6 @@
                 <i class="fa fa-check-circle" v-if="business_data.status === '1'" style="color:#69F0AE;"></i>
                 <i class="fa fa-exclamation-circle" v-if="business_data.status === '2'" style="color:#FF9E54;"></i>
                 <i class="fa fa-times-circle" v-if="business_data.status === '0'" style="color:#f00;"></i>
-                <!-- <img v-if="business_data.status === '1'" src="../../../assets/images/icon/normal.png" />
-                <img v-if="business_data.status === '2'" src="../../../assets/images/icon/warning.png" />
-                <img v-if="business_data.status === '0'" src="../../../assets/images/icon/error.png" /> -->
               </el-col>
             </el-row>
             <el-row style="margin-top:10px;">
@@ -107,9 +104,6 @@
                 <i class="fa fa-check-circle" v-if="business_data.status === '1'" style="color:#69F0AE;"></i>
                 <i class="fa fa-exclamation-circle" v-if="business_data.status === '2'" style="color:#FF9E54;"></i>
                 <i class="fa fa-times-circle" v-if="business_data.status === '0'" style="color:#f00;"></i>
-                <!-- <img v-if="business_data.status === '1'" src="../../../assets/images/icon/normal.png" />
-                <img v-if="business_data.status === '2'" src="../../../assets/images/icon/warning.png" />
-                <img v-if="business_data.status === '0'" src="../../../assets/images/icon/error.png" /> -->
               </el-col>
               <el-col :span="4">
                 进流量 :56MB
@@ -124,7 +118,7 @@
               <div class="grid-content bg-purple" style="height:576px;">
                 <input placeholder="搜索" suffix-icon="el-icon-search" class="loc-input" />
                 <ul class="left-list-right-echart">
-                  <li v-for="cpu in storage_tableData">{{cpu.name}}</li>
+                  <li v-for="cpu in storage_tableData" :class="{active: cpu.name===cpuData.current_name}" @click="hightLight(cpu);">{{cpu.name}}</li>
                 </ul>
               </div>
             </el-col>

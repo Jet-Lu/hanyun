@@ -108,7 +108,7 @@
               <div class="grid-content bg-purple" style="height:576px;">
                 <input placeholder="搜索" suffix-icon="el-icon-search" class="loc-input" />
                 <ul class="left-list-right-echart">
-                  <li v-for="cpu in network_tableData">{{cpu.name}}</li>
+                  <li v-for="cpu in network_tableData" :class="{active: cpu.name===cpuData.current_name}" @click="hightLight(cpu);">{{cpu.name}}</li>
                 </ul>
               </div>
             </el-col>

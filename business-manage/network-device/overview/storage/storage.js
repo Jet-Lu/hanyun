@@ -209,7 +209,7 @@ var app = new Vue({
         { name: '4C:', line_len: 5, read_times: 8, write_times: 8, read_speed: '0.00B', write_speed: '0.00B' },
         { name: '5C:', line_len: 5, read_times: 8, write_times: 8, read_speed: '0.00B', write_speed: '0.00B' },
         { name: '6C:', line_len: 5, read_times: 8, write_times: 8, read_speed: '0.00B', write_speed: '0.00B' },
-        { name: '1C:', line_len: 5, read_times: 8, write_times: 8, read_speed: '0.00B', write_speed: '0.00B' },
+        { name: '7C:', line_len: 5, read_times: 8, write_times: 8, read_speed: '0.00B', write_speed: '0.00B' },
       ],
       echart_toggle: [
         { label: '队列长度' },
@@ -224,6 +224,7 @@ var app = new Vue({
       cpuData: {
         echart_title: '队列长度',
         isActice: '1H',
+        current_name: '1C:'
       },
     }
   },
@@ -238,6 +239,10 @@ var app = new Vue({
     },
     toggleTab(evt) {
       window.location.href = evt.url;
+    },
+    hightLight(row) {
+      console.log(row);
+      this.cpuData.current_name = row.name;
     },
     toggleEcharts(evt) {
       this.cpuData.echart_title = evt.label;

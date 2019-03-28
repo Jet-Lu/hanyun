@@ -132,7 +132,8 @@ var app = new Vue({
         { name: 'WEB数据库', status: '1' },
         { name: '监控系统服务器', status: '1' },
         { name: '网络设备', status: '0' },
-        { name: '测试服务器', status: '0' }
+        { name: '测试服务器', status: '0' },
+        { name: '数据库', status: '1' }
       ],
       this_tab: '业务总览',
       tab_array: [
@@ -447,7 +448,11 @@ var app = new Vue({
           window.open(url, '_blank', `width=1366, height=668,top=0,left=0,toolbar=no,menubar=no,location=no,status=no`);
           break;
         case '测试服务器':
-          
+
+          break;
+        case '数据库':
+          url = `./database/overview/resource-overview.html?page=${obj.name}`;
+          window.open(url, '_blank', `width=1366, height=668,top=0,left=0,toolbar=no,menubar=no,location=no,status=no`);
           break;
         default:
           break;
