@@ -25,15 +25,35 @@
       <el-col :span="24">
         <div v-if="init_page.show_cpu">
           <div class="grid-content bg-purple">
-            <el-table :data="cpu_tableData" :key="1" size="mini" class="transparent-table transparent-white-table"
+            <el-table :data="cpu_tableData" :key="2" size="mini" class="transparent-table transparent-white-table"
               style="width: 100%">
-              <el-table-column type="index" label="序号" width="120"></el-table-column>
-              <el-table-column prop="name" sortable label="CPU名称" class-name="com-txt-overflow">
+              <el-table-column prop="name" sortable label="端口名称" class-name="com-txt-overflow">
                 <template slot-scope="scope">
                   <span @click="showPage_cpu(scope.row);"
                     style="color:#97C1FF;cursor:pointer;">{{scope.row.name}}</span>
                 </template>
               </el-table-column>
+              <el-table-column prop="desc" sortable label="端口描述" class-name="com-txt-overflow"></el-table-column>
+              <el-table-column prop="nick_name" sortable label="端口别名" class-name="com-txt-overflow"></el-table-column>
+              <el-table-column prop="port_type" sortable label="端口类型" class-name="com-txt-overflow"></el-table-column>
+              <el-table-column prop="mac" sortable label="MAC地址" class-name="com-txt-overflow"></el-table-column>
+              <el-table-column prop="manage_status" sortable label="管理状态" class-name="com-txt-overflow">
+                <template slot-scope="scope">
+                  <img v-if="scope.row.manage_status === '1'" src="../../../assets/images/icon/normal.png" />
+                  <img v-if="scope.row.manage_status === '2'" src="../../../assets/images/icon/warning.png" />
+                  <img v-if="scope.row.manage_status === '0'" src="../../../assets/images/icon/error.png" />
+                </template>
+              </el-table-column>
+              <el-table-column prop="run_status" sortable label="运行状态" class-name="com-txt-overflow">
+                <template slot-scope="scope">
+                  <img v-if="scope.row.run_status === '1'" src="../../../assets/images/icon/normal.png" />
+                  <img v-if="scope.row.run_status === '2'" src="../../../assets/images/icon/warning.png" />
+                  <img v-if="scope.row.run_status === '0'" src="../../../assets/images/icon/error.png" />
+                </template>
+              </el-table-column>
+              <el-table-column prop="bandwidth" sortable label="端口带宽" class-name="com-txt-overflow"></el-table-column>
+              <el-table-column prop="in_flow" sortable label="进流量" class-name="com-txt-overflow"></el-table-column>
+              <el-table-column prop="out_flow" sortable label="出流量" class-name="com-txt-overflow"></el-table-column>
             </el-table>
           </div>
         </div>
@@ -74,7 +94,8 @@
               <div class="grid-content bg-purple" style="height:576px;">
                 <input placeholder="搜索" suffix-icon="el-icon-search" class="loc-input" />
                 <ul class="left-list-right-echart">
-                  <li v-for="cpu in cpu_tableData">{{cpu.name}}</li>
+                  <li v-for="cpu in cpu_tableData" @click="hightLigth(cpu);">{{cpu.name}}</li>
+                  <!-- :class="cpu===cpuData.current_name" -->
                 </ul>
               </div>
             </el-col>

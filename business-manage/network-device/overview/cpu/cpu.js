@@ -107,9 +107,11 @@ var app = new Vue({
         { name: '自定义', value: '自定义' },
       ],
       cpu_tableData: [
-        { name: '/', host_name: '本地主机', route: '网络服务器', servlet: '0', },
-        { name: '网络服务器', host_name: '本地主机', route: '网络服务器', servlet: '0', },
-        { name: 'Intel(R) Xeon(R) CPU E5-2682 v4 @ 2.50GHz', host_name: 'localhost', route: '/net-server', servlet: '0', },
+        { name: '红帽VirtlO以太网适配器#1', desc: '红帽VirtlO以太网适配器', nick_name: '红帽VirtlO以太网适配器#2', port_type: '以太网端口', mac: '00:16:55:3E:11:B9', manage_status: '1', run_status: '2', bandwidth: '100M', in_flow: '20', out_flow: '50' },
+        { name: '红帽VirtlO以太网适配器#2', desc: '红帽VirtlO以太网适配器', nick_name: '红帽VirtlO以太网适配器#2', port_type: '以太网端口', mac: '00:16:55:3E:11:B9', manage_status: '1', run_status: '2', bandwidth: '100M', in_flow: '20', out_flow: '50' },
+        { name: '红帽VirtlO以太网适配器#3', desc: '红帽VirtlO以太网适配器', nick_name: '红帽VirtlO以太网适配器#2', port_type: '以太网端口', mac: '00:16:55:3E:11:B9', manage_status: '1', run_status: '2', bandwidth: '100M', in_flow: '20', out_flow: '50' },
+        { name: '红帽VirtlO以太网适配器#4', desc: '红帽VirtlO以太网适配器', nick_name: '红帽VirtlO以太网适配器#2', port_type: '以太网端口', mac: '00:16:55:3E:11:B9', manage_status: '1', run_status: '2', bandwidth: '100M', in_flow: '20', out_flow: '50' },
+        { name: '红帽VirtlO以太网适配器#5', desc: '红帽VirtlO以太网适配器', nick_name: '红帽VirtlO以太网适配器#2', port_type: '以太网端口', mac: '00:16:55:3E:11:B9', manage_status: '1', run_status: '2', bandwidth: '100M', in_flow: '20', out_flow: '50' },
       ],
       editTimeDialog: false,
       page_array: [
@@ -127,6 +129,7 @@ var app = new Vue({
       cpuData: {
         echart_title: '流量速率',
         isActice: '1H',
+        current_name: '红帽VirtlO以太网适配器#1'
       },
     }
   },
@@ -144,6 +147,9 @@ var app = new Vue({
     showPage_cpu(evt) {
       console.log(evt);
       this.init_page.show_cpu = false;
+    },
+    hightLigth(row) {
+      console.log(row);
     },
     toggleEcharts(evt) {
       console.log(evt.label);
