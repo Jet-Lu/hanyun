@@ -49,6 +49,7 @@ var app = new Vue({
       cpuData: {
         echart_title: 'WEB应用',
         isActice: '1H',
+        current_name: '网络服务器'
       },
     }
   },
@@ -68,6 +69,9 @@ var app = new Vue({
     showPage_cpu(evt) {
       console.log(evt);
       this.init_page.show_cpu = false;
+    },
+    hightLight(row) {
+      this.cpuData.current_name = row.name;
     },
     toggleEcharts(evt) {
       this.cpuData.echart_title = evt.label;

@@ -11,17 +11,17 @@
   <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
   <link href="../../../assets/css/style.css" rel="stylesheet" />
   <!-- <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
-  <link rel="stylesheet" href="./../../common-business.css">
-  <!-- <link href="./resource-overview/web-service.css" rel="stylesheet" /> -->
+  <!-- <link rel="stylesheet" href="./../../common-business.css"> -->
+  <link href="../../../assets/css/business-style.css" rel="stylesheet" />
 </head>
 
 <body class="app">
-  <div id="homeIndex">
+  <div id="homeIndex" style="padding:20px 30px;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
     </div>
 
-    <div class="loc-opera-group">
+    <div class="loc-opera-group" style="margin-top:0;">
       <el-button type="primary" class="loc-btn icon-btn" @click="showAddFocusDialog"><img src="../../../assets/images/icon/btn-icon-1.png" /><span>新增关注进度</span></el-button>
       <el-button type="primary" class="loc-btn icon-btn"><img src="../../../assets/images/icon/btn-icon-j.png" /><span>返回</span></el-button>
     </div>
