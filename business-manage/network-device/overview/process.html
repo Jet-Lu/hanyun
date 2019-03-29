@@ -11,16 +11,18 @@
   <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
   <link href="../../../assets/css/style.css" rel="stylesheet" />
   <!-- <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
-  <link rel="stylesheet" href="./../../common-business.css">
-  <link href="./resource-overview/web-service.css" rel="stylesheet" />
+  <!-- <link rel="stylesheet" href="./../../common-business.css">
+  <link href="./resource-overview/web-service.css" rel="stylesheet" /> -->
+  <link href="../../../assets/css/business-style.css" rel="stylesheet" />
+  
 </head>
 
 <body class="app">
-  <div id="homeIndex">
+  <div id="homeIndex" style="padding:20px 30px;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
     </div>
-    <el-row>
+    <el-row >
       <el-col :span="24">
         <div class="grid-content bg-purple">
           <el-table :data="process_tableData" :key="3" size="mini" class="transparent-table transparent-white-table"

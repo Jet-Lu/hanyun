@@ -10,7 +10,7 @@
   <link href="../assets/css/style.css" rel="stylesheet" />
   <link href="../assets/js/element-ui/index.css" rel="stylesheet" />
   <link href="../assets/css/theme/main-theme.css" rel="stylesheet" />
-  <link rel="stylesheet" href="./business-manage.css">
+  <link rel="stylesheet" href="../assets/css/business-style.css">
   <link rel="stylesheet" href="../assets/css/font-awesome.css">
 
 </head>
@@ -20,7 +20,8 @@
     <div class="loc-app-menu">
       <div class="loc-logo-form"><img src="../assets/images/logo.png" /></div>
       <div class="loc-menu-list">
-        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}" @click="toRoute(menu)">
+        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}"
+          @click="toRoute(menu)">
           <img class="loc-menu-default" :src="menu.img + '.png'" />
           <img class="loc-menu-active" :src="menu.img + '-active.png'" />
           <span class="loc-menu-name com-txt-overflow">{{ menu.name }}</span>
@@ -92,7 +93,8 @@
                 <span class="down-triangle"></span>
               </div>
               <ul class="run-ball">
-                <li v-for="ball in business_tableData" @click="openNewWindow(ball);" :style="{left: ball.left, top: ball.top, cursor:'pointer'}">
+                <li v-for="ball in business_tableData" @click="openNewWindow(ball);"
+                  :style="{left: ball.left, top: ball.top, cursor:'pointer'}">
                   <img :src="ball.img_url" alt="" :style="{width: ball.width, height: ball.height}">
                   <p>{{ball.label}}</p>
                 </li>
@@ -118,8 +120,10 @@
                 </td>
                 <td>{{state.health}}</td>
                 <td>
-                  <i class="fa fa-check-circle" v-if="state.status === '1'" style="color:#69F0AE;" aria-hidden="true"></i>
-                  <i class="fa fa-exclamation-circle" v-if="state.status === '2'" style="color:#FF9E54;" aria-hidden="true"></i>
+                  <i class="fa fa-check-circle" v-if="state.status === '1'" style="color:#69F0AE;"
+                    aria-hidden="true"></i>
+                  <i class="fa fa-exclamation-circle" v-if="state.status === '2'" style="color:#FF9E54;"
+                    aria-hidden="true"></i>
                   <i class="fa fa-times-circle" v-if="state.status === '0'" style="color:#f00;" aria-hidden="true"></i>
                   <!-- <img v-if="state.status === '1'" src="../assets/images/icon/normal.png" />
                   <img v-if="state.status === '2'" src="../assets/images/icon/warning.png" />
@@ -158,7 +162,8 @@
     <!-- 列表 -->
     <div v-else style="padding:20px;">
       <div class="table-list">
-        <el-table :data="business_tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+        <el-table :data="business_tableData" size="mini" class="transparent-table transparent-white-table"
+          style="width: 100%">
           <el-table-column class-name="my-checkbox" type="selection" width="42px"></el-table-column>
           <el-table-column label="业务名称" class-name="com-txt-overflow">
             <template slot-scope="scope">
@@ -191,7 +196,8 @@
           <el-table-column prop="calc_capacity" label="计算容量" class-name="com-txt-overflow"></el-table-column>
           <el-table-column label="操作" class-name="com-txt-overflow">
             <template slot-scope="scope">
-              <el-popover placement="bottom" trigger="click" class="my-popover" popper-class="my-popover-content my-popover-left">
+              <el-popover placement="bottom" trigger="click" class="my-popover"
+                popper-class="my-popover-content my-popover-left">
                 <div>
                   <div class="my-popover-item com-hover">查看</div>
                   <div class="my-popover-item com-hover">编辑</div>
@@ -221,7 +227,8 @@
     <!-- dialog -->
     <!-- 新建业务 -->
     <el-dialog title="新建业务" :visible.sync="addBusiDialog" width="1080px" class="blue-dialog">
-      <el-form ref="business_form" size="mini" :model="business_form" :rules="business_rules" class="demo-ruleForm common-addForm-table">
+      <el-form ref="business_form" size="mini" :model="business_form" :rules="business_rules"
+        class="demo-ruleForm common-addForm-table">
         <el-form-item label="">
           <table>
             <tr>

@@ -240,6 +240,19 @@ var app = new Vue({
     toggleTab(evt) {
       window.location.href = evt.url;
     },
+    toggleTime(evt) {
+      this.cpuData.isActice = evt;
+      switch (evt) {
+        case '1H':
+          // this.multiple_pie.line.xAxis.data = [];
+          break;
+        case '自定义':
+          this.editTimeDialog = true;
+          break;
+        default:
+          break;
+      }
+    },
     hightLight(row) {
       console.log(row);
       this.cpuData.current_name = row.name;

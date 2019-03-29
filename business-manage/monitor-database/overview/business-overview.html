@@ -10,20 +10,21 @@
   <link href="../../../assets/js/element-ui/index.css" rel="stylesheet" />
   <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
   <link href="../../../assets/css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../assets/css/business-style.css">
   <!-- <link href="../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
-  <link rel="stylesheet" href="./../../common-business.css">
-  <link href="./business-overview/business-overview.css" rel="stylesheet" />
+  <!-- <link rel="stylesheet" href="./../../common-business.css">
+  <link href="./business-overview/business-overview.css" rel="stylesheet" /> -->
   <link rel="stylesheet" href="../../../assets/css/font-awesome.css">
 </head>
 
 <body class="app">
-  <div id="homeIndex">
+  <div id="homeIndex" style="padding:20px 30px;">
     <div>
       <div class="top-tab-toggle">
         <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
       </div>
       <div>
-        <div class="overview-header">
+        <div class="business-overview-header">
           <table>
             <tr>
               <td>业务名称 : {{business_data.label}}</td>
@@ -50,10 +51,10 @@
             </tr>
           </table>
         </div>
-        <el-row :gutter="20">
+        <el-row :gutter="20" style="margin-top:20px;">
           <el-col :span="8">
             <div class="grid-content bg-purple" style="height:285px; text-align: center;">
-              <div class="image-font">
+              <div class="business-image-font">
                 <div class="top-font">接收（秒）1.29KB</div>
                 <img src="../../../assets/images/icon/zygj.png" alt="">
                 <div class="middle-font">
@@ -66,7 +67,7 @@
               </div>
             </div>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="8" class="business-three-circle">
             <div class="grid-content bg-purple" style="height:285px; text-align: center;">
               <el-row :gutter="20" style="margin-top:83px;">
                 <el-col :span="8">
@@ -95,9 +96,6 @@
                       <i class="fa fa-check-circle" v-if="signal_info.baseInfo.status === '1'" style="color:#69F0AE;"></i>
                       <i class="fa fa-exclamation-circle" v-if="signal_info.baseInfo.status === '2'" style="color:#FF9E54;"></i>
                       <i class="fa fa-times-circle" v-if="signal_info.baseInfo.status === '0'" style="color:#f00;"></i>
-                      <!-- <img v-if="signal_info.baseInfo.status === '1'" src="../../../assets/images/icon/normal.png" />
-                      <img v-if="signal_info.baseInfo.status === '2'" src="../../../assets/images/icon/warning.png" />
-                      <img v-if="signal_info.baseInfo.status === '0'" src="../../../assets/images/icon/error.png" /> -->
                     </td>
                   </tr>
                   <tr>
@@ -237,7 +235,7 @@
             </div>
           </el-col>
         </el-row>
-        <el-row :gutter="20">
+        <el-row :gutter="20" style="margin-top:20px;">
           <el-col :span="12">
             <div class="grid-content bg-purple" style="height:285px">
               <div style="margin-bottom:20px;">

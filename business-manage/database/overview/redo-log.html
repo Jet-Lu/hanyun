@@ -11,37 +11,41 @@
   <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
   <link href="../../../assets/css/style.css" rel="stylesheet" />
   <!-- <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
-  <link rel="stylesheet" href="./../../common-business.css">
+  <!-- <link rel="stylesheet" href="./../../common-business.css">
   <link href="./resource-overview/web-service.css" rel="stylesheet" />
-  <link href="./redo-log/redo-log.css" rel="stylesheet" />
+  <link href="./redo-log/redo-log.css" rel="stylesheet" /> -->
+  <link rel="stylesheet" href="../../../assets/css/business-style.css">
 </head>
 
 <body class="app">
-  <div id="homeIndex">
+  <div id="homeIndex" style="padding:20px 30px;">
     <div class="top-tab-toggle">
-      <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
+      <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)"
+        :class="{active: tab.active}">{{tab.label}}</span>
     </div>
     <el-row>
       <el-col :span="24">
-        <el-table :data="tableData5" :class="'transparent-table warning-special-table-tree'" style="width: 100%">
-          <el-table-column type="expand" width="70px">
-            <template slot-scope="props">
-              <el-table :data="tableData5" :show-header="false" style="width: 100%">
-                <el-table-column width="70px"></el-table-column>
-                <el-table-column label="组" prop="id"></el-table-column>
-                <el-table-column label="状态" prop="name"></el-table-column>
-                <el-table-column label="成员数" prop="desc"></el-table-column>
-                <el-table-column label="已归档" prop="desc"></el-table-column>
-                <el-table-column label="大小" prop="desc"></el-table-column>
-              </el-table>
-            </template>
-          </el-table-column>
-          <el-table-column label="组" sortable prop="id"></el-table-column>
-          <el-table-column label="状态" sortable prop="name"></el-table-column>
-          <el-table-column label="成员数" sortable prop="desc"></el-table-column>
-          <el-table-column label="已归档" sortable prop="desc"></el-table-column>
-          <el-table-column label="大小" sortable prop="desc"></el-table-column>
-        </el-table>
+        <div class="grid-content bg-purple">
+          <el-table :data="tableData5" :class="'transparent-table warning-special-table-tree'" style="width: 100%">
+            <el-table-column type="expand" width="70px">
+              <template slot-scope="props">
+                <el-table :data="tableData5" :show-header="false" style="width: 100%">
+                  <el-table-column width="70px"></el-table-column>
+                  <el-table-column label="组" prop="id"></el-table-column>
+                  <el-table-column label="状态" prop="name"></el-table-column>
+                  <el-table-column label="成员数" prop="desc"></el-table-column>
+                  <el-table-column label="已归档" prop="desc"></el-table-column>
+                  <el-table-column label="大小" prop="desc"></el-table-column>
+                </el-table>
+              </template>
+            </el-table-column>
+            <el-table-column label="组" sortable prop="id"></el-table-column>
+            <el-table-column label="状态" sortable prop="name"></el-table-column>
+            <el-table-column label="成员数" sortable prop="desc"></el-table-column>
+            <el-table-column label="已归档" sortable prop="desc"></el-table-column>
+            <el-table-column label="大小" sortable prop="desc"></el-table-column>
+          </el-table>
+        </div>
       </el-col>
     </el-row>
   </div>

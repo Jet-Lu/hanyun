@@ -11,15 +11,17 @@
   <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
   <link href="../../../assets/css/style.css" rel="stylesheet" />
   <!-- <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
-  <link rel="stylesheet" href="./../../common-business.css">
-  <link href="./resource-overview/web-service.css" rel="stylesheet" />
+  <!-- <link rel="stylesheet" href="./../../common-business.css">
+  <link href="./resource-overview/web-service.css" rel="stylesheet" /> -->
   <link rel="stylesheet" href="../../../assets/css/font-awesome.css">
+  <link href="../../../assets/css/business-style.css" rel="stylesheet" />
 </head>
 
 <body class="app">
-  <div id="homeIndex">
+  <div id="homeIndex" style="padding:20px 30px;">
     <div class="top-tab-toggle">
-      <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
+      <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)"
+        :class="{active: tab.active}">{{tab.label}}</span>
     </div>
     <el-row>
       <el-col :span="24">
@@ -29,7 +31,8 @@
               style="width: 100%">
               <el-table-column prop="name" sortable label="磁盘名称" class-name="com-txt-overflow">
                 <template slot-scope="scope">
-                  <span @click="showPage_disk(scope.row);" style="color:#97C1FF;cursor:pointer;">{{scope.row.name}}</span>
+                  <span @click="showPage_disk(scope.row);"
+                    style="color:#97C1FF;cursor:pointer;">{{scope.row.name}}</span>
                 </template>
               </el-table-column>
               <el-table-column prop="type" sortable label="服务类型" class-name="com-txt-overflow"></el-table-column>
@@ -53,92 +56,68 @@
           </div>
         </div>
         <div v-else>
-          <div class="grid-content bg-purple">
-            <el-row style="margin-top:0;">
-              <el-col :span="5">
-                端口名称 : {{business_data.label}}
-              </el-col>
-              <el-col :span="5">
-                端口描述 : Tomcat的
-              </el-col>
-              <el-col :span="5">
-                端口别名 : {{business_data.label}}
-              </el-col>
-              <el-col :span="4">
-                端口类型 : {{business_data.mttr}}
-              </el-col>
-              <el-col :span="5">
-                MAC地址 : {{business_data.mttr}}
-              </el-col>
-            </el-row>
-            <el-row style="margin-top:10px;">
-              <el-col :span="5">
-                端口索引 :8
-              </el-col>
-              <el-col :span="5">
-                物理端口 :
-                <el-checkbox></el-checkbox>
-              </el-col>
-              <el-col :span="5">
-                以太网端口 : <el-checkbox></el-checkbox>
-              </el-col>
-              <el-col :span="4">
-                聚合端口号 :56MB
-              </el-col>
-              <el-col :span="5">
-                管理状态 :
-                <i class="fa fa-check-circle" v-if="business_data.status === '1'" style="color:#69F0AE;"></i>
-                <i class="fa fa-exclamation-circle" v-if="business_data.status === '2'" style="color:#FF9E54;"></i>
-                <i class="fa fa-times-circle" v-if="business_data.status === '0'" style="color:#f00;"></i>
-                <!-- <img v-if="business_data.status === '1'" src="../../../assets/images/icon/normal.png" />
-                <img v-if="business_data.status === '2'" src="../../../assets/images/icon/warning.png" />
-                <img v-if="business_data.status === '0'" src="../../../assets/images/icon/error.png" /> -->
-              </el-col>
-            </el-row>
-            <el-row style="margin-top:10px;">
-              <el-col :span="5">
-                进带宽 :56MB
-              </el-col>
-              <el-col :span="5">
-                出带宽 : 工商局的
-              </el-col>
-              <el-col :span="5">
-                运行状态 :
-                <i class="fa fa-check-circle" v-if="business_data.status === '1'" style="color:#69F0AE;"></i>
-                <i class="fa fa-exclamation-circle" v-if="business_data.status === '2'" style="color:#FF9E54;"></i>
-                <i class="fa fa-times-circle" v-if="business_data.status === '0'" style="color:#f00;"></i>
-                <!-- <img v-if="business_data.status === '1'" src="../../../assets/images/icon/normal.png" />
-                <img v-if="business_data.status === '2'" src="../../../assets/images/icon/warning.png" />
-                <img v-if="business_data.status === '0'" src="../../../assets/images/icon/error.png" /> -->
-              </el-col>
-              <el-col :span="4">
-                进流量 :56MB
-              </el-col>
-              <el-col :span="5">
-                出流量 :56MB
-              </el-col>
-            </el-row>
+          <div class="business-overview-header">
+            <table>
+              <tr>
+                <td>端口名称 : {{business_data.label}}</td>
+                <td>端口描述 : Tomcat的</td>
+                <td>端口别名 : {{business_data.label}}</td>
+                <td>端口类型 : {{business_data.mttr}}</td>
+                <td>MAC地址 : {{business_data.mttr}}</td>
+              </tr>
+              <tr>
+                <td>端口索引 : 8</td>
+                <td>物理端口 : <el-checkbox></el-checkbox>
+                </td>
+                <td>以太网端口 : <el-checkbox></el-checkbox>
+                </td>
+                <td>聚合端口号 :56MB</td>
+                <td>
+                  管理状态 :
+                  <i class="fa fa-check-circle" v-if="business_data.status === '1'" style="color:#69F0AE;"></i>
+                  <i class="fa fa-exclamation-circle" v-if="business_data.status === '2'" style="color:#FF9E54;"></i>
+                  <i class="fa fa-times-circle" v-if="business_data.status === '0'" style="color:#f00;"></i>
+                </td>
+              </tr>
+              <tr>
+                <td>进带宽 :56MB</td>
+                <td>出带宽 : 工商局的</td>
+                <td>
+                  运行状态 :
+                  <i class="fa fa-check-circle" v-if="business_data.status === '1'" style="color:#69F0AE;"></i>
+                  <i class="fa fa-exclamation-circle" v-if="business_data.status === '2'" style="color:#FF9E54;"></i>
+                  <i class="fa fa-times-circle" v-if="business_data.status === '0'" style="color:#f00;"></i>
+                </td>
+                <td>进流量 :56MB</td>
+                <td>出流量 :56MB</td>
+              </tr>
+            </table>
           </div>
           <el-row :gutter="20">
             <el-col :span="6">
               <div class="grid-content bg-purple" style="height:576px;">
                 <input placeholder="搜索" suffix-icon="el-icon-search" class="loc-input" />
                 <ul class="left-list-right-echart">
-                  <li v-for="cpu in disk_tableData" :class="{active: cpu.name===cpuData.current_name}" @click="hightLight(cpu);">{{cpu.name}}</li>
+                  <li v-for="cpu in disk_tableData" :class="{active: cpu.name===cpuData.current_name}"
+                    @click="hightLight(cpu);">{{cpu.name}}</li>
                 </ul>
               </div>
             </el-col>
             <el-col :span="18">
               <div class="grid-content bg-purple" style="height:576px;">
                 <div class="top-tab-toggle">
-                  <span v-for="tab in echart_toggle" @click="toggleEcharts(tab)" :class="{active: tab.label == cpuData.echart_title}">{{tab.label}}</span>
+                  <span v-for="tab in echart_toggle" @click="toggleEcharts(tab)"
+                    :class="{active: tab.label == cpuData.echart_title}">{{tab.label}}</span>
                 </div>
                 <div class="time-toggle" style="float: right;margin-bottom: 20px;">
-                  <span v-for="time in time_array" @click="toggleTime(time.name)" :class="{active: cpuData.isActice === time.name}">{{time.name}}</span>
+                  <span v-for="time in time_array" @click="toggleTime(time.name)"
+                    :class="{active: cpuData.isActice === time.name}">{{time.name}}</span>
                 </div>
 
-                <v-chart v-if="cpuData.echart_title==='使用率'" :autoresize="true" style="width:100%; height:450px" :options="multiple_pie.line"></v-chart>
-                <v-chart v-if="cpuData.echart_title==='使用情况'" :autoresize="true" style="width:100%; height:450px" :options="multiple_pie.line2"></v-chart>
+                <v-chart v-if="cpuData.echart_title==='使用率'" :autoresize="true" style="width:100%; height:450px"
+                  :options="multiple_pie.line"></v-chart>
+                <v-chart v-if="cpuData.echart_title==='使用情况'" :autoresize="true" style="width:100%; height:450px"
+                  :options="multiple_pie.line2"></v-chart>
               </div>
             </el-col>
           </el-row>
@@ -146,7 +125,8 @@
       </el-col>
     </el-row>
     <div class="toggle-page">
-      <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)" :class="{active: page.active}">{{page.label}}</span>
+      <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)"
+        :class="{active: page.active}">{{page.label}}</span>
     </div>
 
     <el-dialog title="自定义时间段" :visible.sync="editTimeDialog" width="400px" class="blue-dialog">

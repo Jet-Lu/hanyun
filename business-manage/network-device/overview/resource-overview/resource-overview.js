@@ -37,7 +37,6 @@ var app = new Vue({
                 show: false
               },
               detail: {
-                // show: false,
                 fontSize: 15,
                 formatter: '{value}%'
               },
@@ -69,7 +68,6 @@ var app = new Vue({
               },
               itemStyle: {
                 color: "yellow",
-                // shadowBlur: 10,
                 shadowColor: "#0aa",
               },
               markPoint: {

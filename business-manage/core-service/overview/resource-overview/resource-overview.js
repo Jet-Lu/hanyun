@@ -21,7 +21,7 @@ var app = new Vue({
               axisLine: {
                 lineStyle: {
                   width: 3,
-                  color: [[1, '#000']],
+                  color: [[0.68, '#0aa'], [1, '#000']],
                 }
               },
               pointer: {
@@ -36,7 +36,10 @@ var app = new Vue({
               axisLabel: {
                 show: false
               },
-              detail: { show: false, formatter: '{value}%' },
+              detail: {
+                fontSize: 15,
+                formatter: '{value}%'
+              },
               data: [{ value: 48, name: '' }]
             }, {
               name: '业务指标',
