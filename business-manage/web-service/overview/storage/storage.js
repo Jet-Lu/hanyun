@@ -225,6 +225,7 @@ var app = new Vue({
       cpuData: {
         echart_title: '队列长度',
         isActice: '1H',
+        current_name: '2C:'
       },
     }
   },
@@ -237,11 +238,25 @@ var app = new Vue({
     togglePage(evt) {
       window.location.href = evt.url;
     },
+    hightLight(row) {
+      this.cpuData.current_name = row.name;
+    },
     toggleTab(evt) {
       window.location.href = evt.url;
     },
     toggleEcharts(evt) {
       this.cpuData.echart_title = evt.label;
+    },
+    toggleTime(evt) {
+      console.log(evt);
+      this.cpuData.isActice = evt;
+      switch (evt) {
+        case '自定义':
+          this.editTimeDialog = true;
+          break;
+        default:
+          break;
+      }
     },
     showPage_storage(evt) {
       console.log(evt);

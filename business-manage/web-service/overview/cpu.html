@@ -11,8 +11,6 @@
   <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
   <link href="../../../assets/css/style.css" rel="stylesheet" />
   <!-- <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
-  <!-- <link rel="stylesheet" href="./../../common-business.css">
-  <link href="./resource-overview/web-service.css" rel="stylesheet" /> -->
   <link href="../../../assets/css/business-style.css" rel="stylesheet" />
 </head>
 
@@ -64,7 +62,7 @@
                 <input placeholder="搜索" suffix-icon="el-icon-search" class="loc-input" />
                 <ul class="left-list-right-echart">
                   <li v-for="cpu in cpu_tableData" :class="{active: cpu.name===cpuData.current_name}"
-                  @click="hightLight(cpu);">{{cpu.name}}</li>
+                    @click="hightLight(cpu);">{{cpu.name}}</li>
                 </ul>
               </div>
             </el-col>
