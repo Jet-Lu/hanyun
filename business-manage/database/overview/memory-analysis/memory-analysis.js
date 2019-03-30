@@ -3,7 +3,6 @@ var app = new Vue({
   el: '#homeIndex',
   data() {
     return {
-      business_data: null,
       multiple_pie: {
         bar: {
           color: ['#54E8FF'],
@@ -28,7 +27,7 @@ var app = new Vue({
               show: false
             },
             axisLabel: {
-              color: '#fff',
+              color: '#ccc',
               rotate: 30
             },
             data: ['SGA固定区域大小', '大地', 'SGA最大值', 'JAVA池', 'SGA可用内存', '重做日志缓冲区大小', '缓冲区大小', '共享池大小', '量大PGA空间', '已分配PGA大小', '正在使用PGA大小']
@@ -42,7 +41,7 @@ var app = new Vue({
               show: false
             },
             axisLabel: {
-              color: '#fff',
+              color: '#ccc',
             }
           },
           series: [{
@@ -51,7 +50,7 @@ var app = new Vue({
               show: true,
               position: 'top',
               fontSize: '12px',
-              color: '#fff',
+              color: '#ccc',
               formatter: function(param) {
                 return param.value + 'GB'
               }

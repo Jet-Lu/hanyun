@@ -13,7 +13,7 @@ var app = new Vue({
           legend: {
             data: ['进流量', '出流量'],
             textStyle: {
-              color: '#fff'
+              color: '#ccc'
             },
             bottom: '10'
           },
@@ -32,7 +32,7 @@ var app = new Vue({
             },
             axisLine: {
               lineStyle: {
-                color: '#fff'
+                color: '#ccc'
               }
             },
             axisTick: {
@@ -48,7 +48,7 @@ var app = new Vue({
             axisLine: {
               show: false,
               lineStyle: {
-                color: '#fff'
+                color: '#ccc'
               }
             },
             splitLine: {

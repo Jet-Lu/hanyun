@@ -28,7 +28,7 @@ var app = new Vue({
             },
             axisLine: {
               lineStyle: {
-                color: '#fff'
+                color: '#ccc'
               }
             },
             axisTick: {
@@ -44,7 +44,7 @@ var app = new Vue({
             axisLine: {
               show: false,
               lineStyle: {
-                color: '#fff'
+                color: '#ccc'
               }
             },
             splitLine: {
@@ -87,7 +87,7 @@ var app = new Vue({
             },
             axisLine: {
               lineStyle: {
-                color: '#fff'
+                color: '#ccc'
               }
             },
             axisTick: {
@@ -103,7 +103,7 @@ var app = new Vue({
             axisLine: {
               show: false,
               lineStyle: {
-                color: '#fff'
+                color: '#ccc'
               }
             },
             splitLine: {

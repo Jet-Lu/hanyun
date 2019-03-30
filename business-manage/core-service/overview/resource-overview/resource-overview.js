@@ -3,7 +3,6 @@ var app = new Vue({
   el: '#homeIndex',
   data() {
     return {
-      radio2: '1H',
       business_data: null,
       multiple_pie: {
         gauge: {
@@ -100,7 +99,7 @@ var app = new Vue({
             },
             axisLine: {
               lineStyle: {
-                color: '#fff'
+                color: '#ccc'
               }
             },
             axisTick: {
@@ -116,7 +115,7 @@ var app = new Vue({
             axisLine: {
               show: false,
               lineStyle: {
-                color: '#fff'
+                color: '#ccc'
               }
             },
             splitLine: {
