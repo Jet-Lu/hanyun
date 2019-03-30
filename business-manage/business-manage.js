@@ -43,7 +43,7 @@ var app = new Vue({
           top: '10',
           bottom: '40',
           containLabel: true,
-          borderColor: '#eee'
+          borderColor: '#ccc'
         },
         xAxis: {
           data: ['Openstack V3', 'vCenter5.5', 'vCenter6.0', 'SDN', '阿里云'],
@@ -51,12 +51,12 @@ var app = new Vue({
             // interval: 0,
             rotate: 40,
             textStyle: {
-              color: '#eee'
+              color: '#ccc'
             }
           },
           axisLine: {
             lineStyle: {
-              color: '#eee',
+              color: '#ccc',
             }
           }
         },
@@ -69,7 +69,7 @@ var app = new Vue({
           },
           axisLabel: {
             textStyle: {
-              color: '#eee'
+              color: '#ccc'
             }
           }
         },
@@ -102,7 +102,7 @@ var app = new Vue({
           itemHeight: 6,
           padding: [0, 10],
           textStyle: {
-            color: '#fff',
+            color: '#ccc',
             padding: [2, 14, 2, 4]
           },
           data: ['正常', '严重', '重要', '次要', '提示']
@@ -113,11 +113,11 @@ var app = new Vue({
             radius: ['50%', '70%'],
             avoidLabelOverlap: false,
             label: {
-              color: '#fff',
+              color: '#ccc',
             },
             labelLine: {
               lineStyle: {
-                color: '#fff',
+                color: '#ccc',
               }
             },
             data: [
@@ -141,7 +141,7 @@ var app = new Vue({
           left: '90',
           top: 'middle',
           textStyle: {
-            color: '#fff'
+            color: '#ccc'
           },
           selectedMode: false,
           icon: 'none',

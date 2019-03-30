@@ -7,10 +7,11 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>业务管理</title>
   <link href="../assets/css/base.css" rel="stylesheet" />
-  <link href="../assets/css/style.css" rel="stylesheet" />
   <link href="../assets/js/element-ui/index.css" rel="stylesheet" />
-  <link href="../assets/css/theme/main-theme.css" rel="stylesheet" />
+  <link href="../assets/css/style.css" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/business-style.css">
+  <!-- <link href="../assets/css/theme/main-theme.css" rel="stylesheet" /> -->
+  <link href="../assets/css/theme/light-theme.css" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/font-awesome.css">
 
 </head>
@@ -118,16 +119,13 @@
                 <td>
                   <span style="cursor:pointer;" @click="openNewWindow(state)">{{state.label}}</span>
                 </td>
-                <td>{{state.health}}</td>
+                <td>{{state.healthy}}</td>
                 <td>
                   <i class="fa fa-check-circle" v-if="state.status === '1'" style="color:#69F0AE;"
                     aria-hidden="true"></i>
                   <i class="fa fa-exclamation-circle" v-if="state.status === '2'" style="color:#FF9E54;"
                     aria-hidden="true"></i>
                   <i class="fa fa-times-circle" v-if="state.status === '0'" style="color:#f00;" aria-hidden="true"></i>
-                  <!-- <img v-if="state.status === '1'" src="../assets/images/icon/normal.png" />
-                  <img v-if="state.status === '2'" src="../assets/images/icon/warning.png" />
-                  <img v-if="state.status === '0'" src="../assets/images/icon/error.png" /> -->
                 </td>
                 <td>{{state.response}}</td>
                 <td>{{state.busyness}}</td>
@@ -161,7 +159,7 @@
 
     <!-- 列表 -->
     <div v-else style="padding:20px;">
-      <div class="table-list">
+      <div class="business-table-list">
         <el-table :data="business_tableData" size="mini" class="transparent-table transparent-white-table"
           style="width: 100%">
           <el-table-column class-name="my-checkbox" type="selection" width="42px"></el-table-column>
@@ -176,9 +174,6 @@
               <i class="fa fa-check-circle" v-if="scope.row.status === '1'" style="color:#69F0AE;"></i>
               <i class="fa fa-exclamation-circle" v-if="scope.row.status === '2'" style="color:#FF9E54;"></i>
               <i class="fa fa-times-circle" v-if="scope.row.status === '0'" style="color:#f00;"></i>
-              <!-- <img v-if="scope.row.status === '1'" src="../assets/images/icon/normal.png" />
-              <img v-if="scope.row.status === '2'" src="../assets/images/icon/warning.png" />
-              <img v-if="scope.row.status === '0'" src="../assets/images/icon/error.png" /> -->
             </template>
           </el-table-column>
           <el-table-column prop="response" label="响应时间" class-name="com-txt-overflow"></el-table-column>

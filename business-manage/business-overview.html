@@ -9,15 +9,14 @@
   <link href="../assets/css/base.css" rel="stylesheet" />
   <link href="../assets/js/element-ui/index.css" rel="stylesheet" />
   <link href="../assets/css/style.css" rel="stylesheet" />
-  <link rel="stylesheet" href="./common-business.css">
-  <link href="../assets/css/theme/main-theme.css" rel="stylesheet" />
-  <!-- <link href="../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
   <link href="../assets/css/business-style.css" rel="stylesheet" />
+  <link href="../assets/css/theme/light-theme.css" rel="stylesheet" />
+  <!-- <link href="../assets/css/theme/main-theme.css" rel="stylesheet" /> -->
   <link rel="stylesheet" href="../assets/css/font-awesome.css">
 </head>
 
 <body class="app">
-  <div id="homeIndex" style="height: 100%;">
+  <div id="homeIndex" style="height: 100%; padding:20px 30px;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)"
         :class="{active: this_tab===tab.label}">{{tab.label}}</span>
@@ -68,9 +67,9 @@
           </div>
         </el-col>
         <el-col :span="8">
-          <div class="grid-content bg-purple" style="height:294px;">
+          <div class="grid-content bg-purple" style="height:294px; overflow: auto;">
             <p class="p-title" style="margin:0 0 30px 0;">业务可用率</p>
-            <el-row  style="display:flex; align-items:center;">
+            <el-row style="display:flex; align-items:center;">
               <el-col :span="6">
                 <v-chart style="width:72px; height:72px" :autoresize="true" :options="multiple_pie.pie1"></v-chart>
               </el-col>
@@ -90,7 +89,7 @@
           </div>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row style="margin-top:20px;">
         <div class="grid-content bg-purple" style="height:294px;">
           <div class="bottom-toggle">
             <span class="p-title" style="margin:0 20px 0 0;">告警统计</span>

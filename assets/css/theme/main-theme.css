@@ -121,7 +121,10 @@ body {
 }
 #homeIndex {
   color: #fff;
+  width: 100%;
   min-height: 100%;
+  min-width: 1366px;
+  font-size: 12px;
   background: linear-gradient(334deg, #4247ba, #4364bd);
 }
 .el-menu-vertical-demo .el-submenu__title,
@@ -272,4 +275,95 @@ body {
 }
 .home-drop {
   background: #1d285d;
+}
+/* 业务总览 - header */
+.business-overview-header {
+  margin-bottom: 20px;
+  background: #2D3982;
+  padding: 8px 20px;
+}
+.business-overview-header table {
+  width: 100%;
+}
+.business-overview-header table tr td {
+  padding: 8px 0 8px 0;
+}
+/* 顶部tab切换 */
+.top-tab-toggle {
+  display: inline-block;
+  border: 1px solid #5074FF;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+.top-tab-toggle span {
+  display: inline-block;
+  border-right: 1px solid #5074FF;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.top-tab-toggle span:last-child {
+  border-right: none;
+}
+.top-tab-toggle span.active {
+  background: #5074FF;
+}
+.bg-purple {
+  background: #2D3982;
+}
+.left-right-table tr td {
+  padding: 8px;
+  border-bottom: 1px solid #2D3982;
+}
+.left-right-table tr td:first-child {
+  width: 30%;
+  color: #8190B8;
+  background: #1B2352;
+}
+.left-right-table tr td:last-child {
+  background: #222B66;
+}
+.left-img-right-text:hover {
+  background: #1B2352;
+  cursor: pointer;
+}
+.business-table-list {
+  padding: 20px;
+  background: #2D3982;
+  box-sizing: border-box;
+}
+/* 左列表-右图表 */
+.left-list-right-echart {
+  margin: 5px 0;
+}
+.left-list-right-echart li {
+  padding: 15px 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.left-list-right-echart li:hover {
+  background: #1F2B5A;
+}
+.left-list-right-echart li.active {
+  background: #1F2B5A;
+}
+/* 底部页面切换按钮 */
+.toggle-page {
+  width: 100%;
+  padding: 15px 10px;
+  margin: 20px 0 0 0;
+  background: #2E3F82;
+}
+.toggle-page span {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 8px 15px;
+  border-radius: 15px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.toggle-page span.active {
+  background: #1F2B5A;
+}
+.toggle-page span:hover {
+  background: #1F2B5A;
 }

@@ -303,3 +303,113 @@ textarea:focus,
   background: #ffffff;
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
 }
+/* 业务总览 - header */
+.business-overview-header {
+  margin-bottom: 20px;
+  background: #fff;
+  padding: 8px 20px;
+}
+.business-overview-header table {
+  width: 100%;
+}
+.business-overview-header table tr td {
+  padding: 8px 0 8px 0;
+}
+/* 顶部tab切换 */
+.top-tab-toggle {
+  display: inline-block;
+  border: 1px solid #5074FF;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+.top-tab-toggle span {
+  display: inline-block;
+  border-right: 1px solid #5074FF;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.top-tab-toggle span:last-child {
+  border-right: none;
+}
+.top-tab-toggle span.active {
+  background: #5074FF;
+}
+.business-table-list {
+  padding: 20px;
+  background: #2D3982;
+  box-sizing: border-box;
+}
+/* 左列表-右图表 */
+.left-list-right-echart {
+  margin: 5px 0;
+}
+.left-list-right-echart li {
+  padding: 15px 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.left-list-right-echart li:hover {
+  background: #1F2B5A;
+}
+.left-list-right-echart li.active {
+  background: #1F2B5A;
+}
+.left-right-table tr td {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+.left-right-table tr td:first-child {
+  width: 30%;
+  color: #666;
+  background: #ccc;
+}
+.left-right-table tr td:last-child {
+  background: #fff;
+}
+.left-img-right-text:hover {
+  background: #eee;
+}
+/* 底部页面切换按钮 */
+.toggle-page {
+  width: 100%;
+  padding: 15px 10px;
+  margin: 20px 0 0 0;
+  background: #fff;
+}
+.toggle-page span {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 8px 15px;
+  border-radius: 15px;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+}
+.toggle-page span.active {
+  color: #fff;
+  background: #5074FF;
+}
+.toggle-page span:hover {
+  color: #fff;
+  background: #5074FF;
+}
+.aside-main {
+  color: #666;
+}
+.aside-main .aside-left > div,
+.aside-main .aside-center > div,
+.aside-main .aside-right > div {
+  background: #fff;
+}
+.aside-main .aside-center .bus-health > div .big-cicle {
+  border: 1px solid #ccc;
+}
+.top-tab-toggle span.active {
+  color: #fff;
+}
+.business-table-list {
+  background: #fff;
+}
+.bg-purple {
+  background: #fff;
+}
