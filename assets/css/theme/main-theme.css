@@ -371,3 +371,16 @@ body {
   background: #4364bd;
   color: inherit;
 }
+.bus-runing-state table tr th,
+.bus-runing-state table tr td {
+  border-bottom: 1px solid #fff;
+}
+.dropdown-detail .user-info {
+  background: #4364BD;
+}
+.dropdown-detail .user-info .user-name p {
+  color: #fff;
+}
+.dropdown-detail > span {
+  border-bottom: 1px solid #fff;
+}

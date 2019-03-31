@@ -48,7 +48,6 @@
   display: flex;
   padding: 18px;
   align-items: center;
-  background: #4364BD;
 }
 .dropdown-detail .user-info img {
   width: 50px;
@@ -69,7 +68,6 @@
   padding: 16px;
   display: block;
   font-size: 12px;
-  border-bottom: 1px solid #fff;
   cursor: pointer;
 }
 .dropdown-detail > span i {

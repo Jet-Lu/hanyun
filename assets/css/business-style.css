@@ -162,11 +162,9 @@ div.echarts {
 }
 .aside-center .bus-runing-state table tr th {
   padding: 0 5px 10px;
-  border-bottom: 1px solid #fff;
 }
 .aside-center .bus-runing-state table tr td {
   padding: 7px 5px;
-  border-bottom: 1px solid #fff;
 }
 .aside-center .bus-runing-state table tr:last-child td {
   border-bottom: none;
