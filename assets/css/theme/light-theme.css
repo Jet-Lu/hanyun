@@ -416,3 +416,9 @@ textarea:focus,
 .bg-purple {
   background: #fff;
 }
+.warning-special-table-tree.warning-special-table-tree tr td {
+  background: #ddd;
+}
+.warning-special-table-tree .el-table__expand-icon > .el-icon {
+  color: #666;
+}

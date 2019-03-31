@@ -367,3 +367,7 @@ body {
 .toggle-page span:hover {
   background: #1F2B5A;
 }
+.warning-special-table-tree .business-expand-table {
+  background: #4364bd;
+  color: inherit;
+}

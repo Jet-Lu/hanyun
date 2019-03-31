@@ -3,7 +3,6 @@ var app = new Vue({
   el: '#homeIndex',
   data() {
     return {
-      business_data: null,
       tab_array: [
         { label: '资源总览', url: './resource-overview.html', active: false },
         { label: '内存分析', url: './memory-analysis.html', active: false },

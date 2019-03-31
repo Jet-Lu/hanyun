@@ -8,7 +8,7 @@ var app = new Vue({
         { label: '内存分析', url: './memory-analysis.html', active: false },
         { label: '表空间', url: './table-space.html', active: false },
         { label: '数据文件', url: './data-file.html', active: false },
-        { label: '会话', url: './Conversation.html', active: false },
+        { label: '会话', url: './conversation.html', active: false },
         { label: 'JOB', url: './job.html', active: false },
         { label: '重做日志', url: './redo-log.html', active: true },
         { label: '死锁检测', url: '', active: false },

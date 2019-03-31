@@ -42,9 +42,6 @@
 .warning-special-table-tree .el-table__expand-icon > .el-icon {
   color: #fff;
 }
-.warning-special-table-tree .el-table .cell {
-  cursor: pointer;
-}
 .grid-content {
   padding: 20px;
 }
