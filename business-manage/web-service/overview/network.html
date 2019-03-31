@@ -8,12 +8,11 @@
   <title>瀚云智能运维管理平台</title>
   <link href="../../../assets/css/base.css" rel="stylesheet" />
   <link href="../../../assets/js/element-ui/index.css" rel="stylesheet" />
-  <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
   <link href="../../../assets/css/style.css" rel="stylesheet" />
-  <!-- <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
-  <!-- <link rel="stylesheet" href="./../../common-business.css">
-  <link href="./resource-overview/web-service.css" rel="stylesheet" /> -->
   <link href="../../../assets/css/business-style.css" rel="stylesheet" />
+  <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" />
+  <!-- <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" /> -->
+  <link rel="stylesheet" href="../../../assets/css/font-awesome.css">
 </head>
 
 <body class="app">
@@ -40,16 +39,16 @@
               <el-table-column prop="mac" sortable label="MAC地址" class-name="com-txt-overflow"></el-table-column>
               <el-table-column prop="manage_status" sortable label="管理状态" class-name="com-txt-overflow">
                 <template slot-scope="scope">
-                  <img v-if="scope.row.manage_status === '1'" src="../../../assets/images/icon/normal.png" />
-                  <img v-if="scope.row.manage_status === '2'" src="../../../assets/images/icon/warning.png" />
-                  <img v-if="scope.row.manage_status === '0'" src="../../../assets/images/icon/error.png" />
+                  <i class="fa fa-check-circle" v-if="scope.row.manage_status === '1'" style="color:#69F0AE;"></i>
+                  <i class="fa fa-exclamation-circle" v-if="scope.row.manage_status === '2'" style="color:#FF9E54;"></i>
+                  <i class="fa fa-times-circle" v-if="scope.row.manage_status === '0'" style="color:#f00;"></i>
                 </template>
               </el-table-column>
               <el-table-column prop="run_status" sortable label="运行状态" class-name="com-txt-overflow">
                 <template slot-scope="scope">
-                  <img v-if="scope.row.run_status === '1'" src="../../../assets/images/icon/normal.png" />
-                  <img v-if="scope.row.run_status === '2'" src="../../../assets/images/icon/warning.png" />
-                  <img v-if="scope.row.run_status === '0'" src="../../../assets/images/icon/error.png" />
+                  <i class="fa fa-check-circle" v-if="scope.row.run_status === '1'" style="color:#69F0AE;"></i>
+                  <i class="fa fa-exclamation-circle" v-if="scope.row.run_status === '2'" style="color:#FF9E54;"></i>
+                  <i class="fa fa-times-circle" v-if="scope.row.run_status === '0'" style="color:#f00;"></i>
                 </template>
               </el-table-column>
               <el-table-column prop="bandwidth" sortable label="端口带宽" class-name="com-txt-overflow"></el-table-column>
@@ -97,7 +96,7 @@
                 <input placeholder="搜索" suffix-icon="el-icon-search" class="loc-input" />
                 <ul class="left-list-right-echart">
                   <li v-for="cpu in network_tableData" :class="{active: cpu.name===cpuData.current_name}"
-                  @click="hightLight(cpu);">{{cpu.name}}</li>
+                    @click="hightLight(cpu);">{{cpu.name}}</li>
                 </ul>
               </div>
             </el-col>

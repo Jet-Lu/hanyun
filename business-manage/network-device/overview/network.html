@@ -8,12 +8,11 @@
   <title>瀚云智能运维管理平台</title>
   <link href="../../../assets/css/base.css" rel="stylesheet" />
   <link href="../../../assets/js/element-ui/index.css" rel="stylesheet" />
-  <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
   <link href="../../../assets/css/style.css" rel="stylesheet" />
-  <!-- <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
-  <!-- <link rel="stylesheet" href="./../../common-business.css"> -->
-  <!-- <link href="./resource-overview/web-service.css" rel="stylesheet" /> -->
   <link href="../../../assets/css/business-style.css" rel="stylesheet" />
+  <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" />
+  <!-- <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" /> -->
+  <link rel="stylesheet" href="../../../assets/css/font-awesome.css">
 </head>
 
 <body class="app">
@@ -40,16 +39,24 @@
               <el-table-column prop="mac" sortable label="MAC地址" class-name="com-txt-overflow"></el-table-column>
               <el-table-column prop="manage_status" sortable label="管理状态" class-name="com-txt-overflow">
                 <template slot-scope="scope">
-                  <img v-if="scope.row.manage_status === '1'" src="../../../assets/images/icon/normal.png" />
+                    <i class="fa fa-check-circle" v-if="scope.row.manage_status === '1'" style="color:#69F0AE;"></i>
+                    <i class="fa fa-exclamation-circle" v-if="scope.row.manage_status === '2'"
+                      style="color:#FF9E54;"></i>
+                    <i class="fa fa-times-circle" v-if="scope.row.manage_status === '0'" style="color:#f00;"></i>
+                  <!-- <img v-if="scope.row.manage_status === '1'" src="../../../assets/images/icon/normal.png" />
                   <img v-if="scope.row.manage_status === '2'" src="../../../assets/images/icon/warning.png" />
-                  <img v-if="scope.row.manage_status === '0'" src="../../../assets/images/icon/error.png" />
+                  <img v-if="scope.row.manage_status === '0'" src="../../../assets/images/icon/error.png" /> -->
                 </template>
               </el-table-column>
               <el-table-column prop="run_status" sortable label="运行状态" class-name="com-txt-overflow">
                 <template slot-scope="scope">
-                  <img v-if="scope.row.run_status === '1'" src="../../../assets/images/icon/normal.png" />
+                    <i class="fa fa-check-circle" v-if="scope.row.run_status === '1'" style="color:#69F0AE;"></i>
+                    <i class="fa fa-exclamation-circle" v-if="scope.row.run_status === '2'"
+                      style="color:#FF9E54;"></i>
+                    <i class="fa fa-times-circle" v-if="scope.row.run_status === '0'" style="color:#f00;"></i>
+                  <!-- <img v-if="scope.row.run_status === '1'" src="../../../assets/images/icon/normal.png" />
                   <img v-if="scope.row.run_status === '2'" src="../../../assets/images/icon/warning.png" />
-                  <img v-if="scope.row.run_status === '0'" src="../../../assets/images/icon/error.png" />
+                  <img v-if="scope.row.run_status === '0'" src="../../../assets/images/icon/error.png" /> -->
                 </template>
               </el-table-column>
               <el-table-column prop="bandwidth" sortable label="端口带宽" class-name="com-txt-overflow"></el-table-column>
@@ -90,42 +97,7 @@
               </tr>
             </table>
           </div>
-<!-- 
-          <div class="grid-content bg-purple">
-            <el-row style="margin-top:0;">
-              <el-col :span="6">
-                CPU名称 : {{business_data.label}}
-              </el-col>
-              <el-col :span="6">
-                当前频率 : Tomcat的
-              </el-col>
-              <el-col :span="6">
-                最大频率 : {{business_data.label}}
-              </el-col>
-              <el-col :span="6">
-                CPU核心数 : {{business_data.mttr}}
-              </el-col>
-            </el-row>
-            <el-row style="margin-top:10px;">
-              <el-col :span="6">
-                逻辑CPU个数 :8
-              </el-col>
-              <el-col :span="6">
-                厂商 : 工商局的
-              </el-col>
-              <el-col :span="6">
-                使用率 : 23%
-              </el-col>
-              <el-col :span="6">
-                二级缓存 :56MB
-              </el-col>
-            </el-row>
-            <el-row style="margin-top:10px;">
-              <el-col :span="6">
-                三级缓存 :56MB
-              </el-col>
-            </el-row>
-          </div> -->
+
           <el-row :gutter="20">
             <el-col :span="6">
               <div class="grid-content bg-purple" style="height:576px;">

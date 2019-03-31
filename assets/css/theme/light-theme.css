@@ -310,6 +310,7 @@ textarea:focus,
 .business-overview-header {
   margin-bottom: 20px;
   background: #fff;
+  color: #666;
   padding: 8px 20px;
 }
 .business-overview-header table {
