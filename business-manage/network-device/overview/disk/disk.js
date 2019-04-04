@@ -171,16 +171,25 @@ var app = new Vue({
         isActice2: '1H',
         current_name: 'C:'
       },
+      marginTop_togglePage: '',
     }
   },
   created() {
     this.business_data = { business_id: '11', label: 'Openstack V3', healthy: '98%', status: '1', safety_level: '2', response: '37ms', busyness: '2%', using: '100%', downtime_cs: '0', downtime_sc: '16分23秒', mttr: '16分23秒', mtbf: '16分23秒', used_capacity: '58.31GB/339.99GB', calc_capacity: '33%' }
   },
+  watch: { },
   mounted() {
     if (window.location.href.indexOf('?param') !== -1) {
       if (window.location.href.split('?param=')[1] === 'true') {
         this.init_page.show_disk = false;
       }
+    }
+    const calcHeight = this.$refs.homePage.clientHeight - this.$refs.main_row.$el.clientHeight - 240;
+    // console.log(calcHeight, this.$refs.homePage.clientHeight, this.$refs.main_row.$el.clientHeight);
+    if (calcHeight < 0) {
+      this.marginTop_togglePage = '20px';
+    } else {
+      this.marginTop_togglePage = calcHeight + 'px';
     }
   },
   methods: {

@@ -16,179 +16,179 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" style="padding:20px 30px;">
+  <div id="homeIndex" ref="homePage" style="padding:20px 30px;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)"
         :class="{active: tab.active}">{{tab.label}}</span>
     </div>
-
-    <div class="business-overview-header">
-      <table>
-        <tr>
-          <td>资源名称 : {{business_data.label}}</td>
-          <td>资源类型 : Tomcat的</td>
-          <td>资源类型 : {{business_data.label}}</td>
-          <td>监控周期 : {{business_data.mttr}}</td>
-        </tr>
-        <tr>
-          <td>管理状态 :
-            <i class="fa fa-check-circle" v-if="business_data.safety_level === '1'" style="color:#69F0AE;"></i>
-            <i class="fa fa-exclamation-circle" v-if="business_data.safety_level === '2'" style="color:#FF9E54;"></i>
-            <i class="fa fa-times-circle" v-if="business_data.safety_level === '0'" style="color:#f00;"></i>
-          </td>
-          <td>通断状态 :
-            <i class="fa fa-check-circle" v-if="business_data.safety_level === '1'" style="color:#69F0AE;"></i>
-            <i class="fa fa-exclamation-circle" v-if="business_data.safety_level === '2'" style="color:#FF9E54;"></i>
-            <i class="fa fa-times-circle" v-if="business_data.safety_level === '0'" style="color:#f00;"></i>
-          </td>
-          <td>所属域 : {{business_data.label}}</td>
-          <td>最后采集时间 : {{business_data.mttr}}</td>
-        </tr>
-      </table>
-    </div>
-
-    <el-row :gutter="20">
-      <el-col :span="8">
-        <div class="grid-content bg-purple" style="height:285px;">
-          <p class="p-title" style="margin-bottom:20px;">CPU使用率</p>
-          <v-chart style="width:100%; height:200px" :autoresize="true" :options="multiple_pie.gauge"></v-chart>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple" style="height:285px;">
-          <p class="p-title" style="margin-bottom:20px;">内存使用率</p>
-          <v-chart style="width:100%; height:200px" :autoresize="true" :options="multiple_pie.gauge"></v-chart>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple" style="height:285px;">
-          <p class="p-title" style="margin-bottom:20px;">指示信息</p>
-          <div style="height:211px; overflow:auto;">
-            <table class="left-right-table" border="1" width="100%">
-              <tr>
-                <td>健康状态</td>
-                <td>
-                  <i class="fa fa-check-circle" v-if="signal_info.baseInfo.status === '1'" style="color:#69F0AE;"></i>
-                  <i class="fa fa-exclamation-circle" v-if="signal_info.baseInfo.status === '2'"
-                    style="color:#FF9E54;"></i>
-                  <i class="fa fa-times-circle" v-if="signal_info.baseInfo.status === '0'" style="color:#f00;"></i>
-                </td>
-              </tr>
-              <tr>
-                <td>响应时长</td>
-                <td>70毫秒</td>
-              </tr>
-              <tr>
-                <td>主机名</td>
-                <td>iZ23pp5i4djZ</td>
-              </tr>
-              <tr>
-                <td>版本</td>
-                <td>CentOS release 6.5 (Final)</td>
-              </tr>
-              <tr>
-                <td>持续运行</td>
-                <td>{{signal_info.baseInfo.main_name}}</td>
-              </tr>
-              <tr>
-                <td>内部版本</td>
-                <td>2.6.32-573.22.1.el6.i686</td>
-              </tr>
-              <tr>
-                <td>系统时间</td>
-                <td>2019-02-21 15:31:18</td>
-              </tr>
-              <tr>
-                <td>用户CPU使用情况</td>
-                <td>0.30%</td>
-              </tr>
-              <tr>
-                <td>系统CPU使用情况 </td>
-                <td>0.31</td>
-              </tr>
-              <tr>
-                <td>1分钟平均负载</td>
-                <td>2019-02-21 15:31:18</td>
-              </tr>
-              <tr>
-                <td>5分钟平均负载 </td>
-                <td>2019-02-21 15:31:18</td>
-              </tr>
-              <tr>
-                <td>15分钟平均负载 </td>
-                <td>2019-02-21 15:31:18</td>
-              </tr>
-              <tr>
-                <td>Pages si</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>Pages so</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>打开文件数</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>当前用户数</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>进程数</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>僵死进程数</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>僵死进程信息</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>hosts</td>
-                <td>127.0.0.1 localhost ::1 localhost local</td>
-              </tr>
-            </table>
+    <div ref="main_row">
+      <div class="business-overview-header">
+        <table>
+          <tr>
+            <td>资源名称 : {{business_data.label}}</td>
+            <td>资源类型 : Tomcat的</td>
+            <td>资源类型 : {{business_data.label}}</td>
+            <td>监控周期 : {{business_data.mttr}}</td>
+          </tr>
+          <tr>
+            <td>管理状态 :
+              <i class="fa fa-check-circle" v-if="business_data.safety_level === '1'" style="color:#69F0AE;"></i>
+              <i class="fa fa-exclamation-circle" v-if="business_data.safety_level === '2'" style="color:#FF9E54;"></i>
+              <i class="fa fa-times-circle" v-if="business_data.safety_level === '0'" style="color:#f00;"></i>
+            </td>
+            <td>通断状态 :
+              <i class="fa fa-check-circle" v-if="business_data.safety_level === '1'" style="color:#69F0AE;"></i>
+              <i class="fa fa-exclamation-circle" v-if="business_data.safety_level === '2'" style="color:#FF9E54;"></i>
+              <i class="fa fa-times-circle" v-if="business_data.safety_level === '0'" style="color:#f00;"></i>
+            </td>
+            <td>所属域 : {{business_data.label}}</td>
+            <td>最后采集时间 : {{business_data.mttr}}</td>
+          </tr>
+        </table>
+      </div>
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <div class="grid-content bg-purple" style="height:285px;">
+            <p class="p-title" style="margin-bottom:20px;">CPU使用率</p>
+            <v-chart style="width:100%; height:200px" :autoresize="true" :options="multiple_pie.gauge"></v-chart>
           </div>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20" style="margin-top:20px;">
-      <el-col :span="12">
-        <div class="grid-content bg-purple" style="height:285px">
-          <div style="margin-bottom:20px;">
-            <el-select v-model="value" popper-class="loc-main-selectbox" size="mini" style="width: 150px;"
-              class="loc-main-select" placeholder="请选择">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-            <div class="time-toggle" style="float: right;">
-              <span v-for="time in time_array" @click="toggleTime(time.name)"
-                :class="{active: isActice === time.name}">{{time.name}}</span>
+        </el-col>
+        <el-col :span="8">
+          <div class="grid-content bg-purple" style="height:285px;">
+            <p class="p-title" style="margin-bottom:20px;">内存使用率</p>
+            <v-chart style="width:100%; height:200px" :autoresize="true" :options="multiple_pie.gauge"></v-chart>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="grid-content bg-purple" style="height:285px;">
+            <p class="p-title" style="margin-bottom:20px;">指示信息</p>
+            <div style="height:211px; overflow:auto;">
+              <table class="left-right-table" border="1" width="100%">
+                <tr>
+                  <td>健康状态</td>
+                  <td>
+                    <i class="fa fa-check-circle" v-if="signal_info.baseInfo.status === '1'" style="color:#69F0AE;"></i>
+                    <i class="fa fa-exclamation-circle" v-if="signal_info.baseInfo.status === '2'"
+                      style="color:#FF9E54;"></i>
+                    <i class="fa fa-times-circle" v-if="signal_info.baseInfo.status === '0'" style="color:#f00;"></i>
+                  </td>
+                </tr>
+                <tr>
+                  <td>响应时长</td>
+                  <td>70毫秒</td>
+                </tr>
+                <tr>
+                  <td>主机名</td>
+                  <td>iZ23pp5i4djZ</td>
+                </tr>
+                <tr>
+                  <td>版本</td>
+                  <td>CentOS release 6.5 (Final)</td>
+                </tr>
+                <tr>
+                  <td>持续运行</td>
+                  <td>{{signal_info.baseInfo.main_name}}</td>
+                </tr>
+                <tr>
+                  <td>内部版本</td>
+                  <td>2.6.32-573.22.1.el6.i686</td>
+                </tr>
+                <tr>
+                  <td>系统时间</td>
+                  <td>2019-02-21 15:31:18</td>
+                </tr>
+                <tr>
+                  <td>用户CPU使用情况</td>
+                  <td>0.30%</td>
+                </tr>
+                <tr>
+                  <td>系统CPU使用情况 </td>
+                  <td>0.31</td>
+                </tr>
+                <tr>
+                  <td>1分钟平均负载</td>
+                  <td>2019-02-21 15:31:18</td>
+                </tr>
+                <tr>
+                  <td>5分钟平均负载 </td>
+                  <td>2019-02-21 15:31:18</td>
+                </tr>
+                <tr>
+                  <td>15分钟平均负载 </td>
+                  <td>2019-02-21 15:31:18</td>
+                </tr>
+                <tr>
+                  <td>Pages si</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Pages so</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>打开文件数</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>当前用户数</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>进程数</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>僵死进程数</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>僵死进程信息</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>hosts</td>
+                  <td>127.0.0.1 localhost ::1 localhost local</td>
+                </tr>
+              </table>
             </div>
           </div>
-          <v-chart style="width:100%; height:200px" :autoresize="true" :options="multiple_pie.line"></v-chart>
-        </div>
-      </el-col>
-      <el-col :span="12">
-        <div class="grid-content bg-purple" style="height:285px">
-          <p class="p-title" style="margin-bottom:20px;">端口</p>
-          <div style="height:211px; overflow:auto;">
-            <ul class="business-img-text">
-              <li v-for="(item, index) in database_array" :key="index">
-                <img v-if="item.status==='0'" src="../../../assets/images/icon/port_1.png" alt="">
-                <img v-if="item.status==='1'" src="../../../assets/images/icon/port_-1.png" alt="">
-                <p>{{item.label}}</p>
-              </li>
-            </ul>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20" style="margin-top:20px;">
+        <el-col :span="12">
+          <div class="grid-content bg-purple" style="height:285px">
+            <div style="margin-bottom:20px;">
+              <el-select v-model="value" popper-class="loc-main-selectbox" size="mini" style="width: 150px;"
+                class="loc-main-select" placeholder="请选择">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+              <div class="time-toggle" style="float: right;">
+                <span v-for="time in time_array" @click="toggleTime(time.name)"
+                  :class="{active: isActice === time.name}">{{time.name}}</span>
+              </div>
+            </div>
+            <v-chart style="width:100%; height:200px" :autoresize="true" :options="multiple_pie.line"></v-chart>
           </div>
-        </div>
-      </el-col>
-    </el-row>
+        </el-col>
+        <el-col :span="12">
+          <div class="grid-content bg-purple" style="height:285px">
+            <p class="p-title" style="margin-bottom:20px;">端口</p>
+            <div style="height:211px; overflow:auto;">
+              <ul class="business-img-text">
+                <li v-for="(item, index) in database_array" :key="index">
+                  <img v-if="item.status==='0'" src="../../../assets/images/icon/port_1.png" alt="">
+                  <img v-if="item.status==='1'" src="../../../assets/images/icon/port_-1.png" alt="">
+                  <p>{{item.label}}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
 
-    <div class="toggle-page">
+    <div class="toggle-page" :style="{'margin-top': marginTop_togglePage}">
       <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)"
         :class="{active: page.active}">{{page.label}}</span>
     </div>
