@@ -16,7 +16,7 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" ref="homePage" style="padding:20px 30px; height:100%;">
+  <div id="homeIndex" style="padding:20px 30px; height:100%;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)"
         :class="{active: tab.active}">{{tab.label}}</span>
@@ -188,7 +188,7 @@
       </el-row>
     </div>
 
-    <div class="toggle-page" style="margin-top: 20px">
+    <div class="toggle-page">
       <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)"
         :class="{active: page.active}">{{page.label}}</span>
     </div>

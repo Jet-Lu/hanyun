@@ -22,7 +22,7 @@
         :class="{active: this_tab===tab.label}">{{tab.label}}</span>
     </div>
 
-    <div v-if="radio1==='业务总览'">
+    <div v-if="radio1==='业务总览'" style="height:calc(100% - 90px);">
       <div class="business-overview-header">
         <table>
           <tr>
@@ -39,13 +39,13 @@
         </table>
       </div>
 
-      <el-row :gutter="20">
-        <el-col :span="8">
-          <div class="grid-content bg-purple" style="height:294px;">
+      <el-row :gutter="20" style="height:calc(50% - 65px)">
+        <el-col :span="8" style="height:100%;">
+          <div class="grid-content bg-purple" style="height:100%;">
             <p class="p-title">告警统计</p>
-            <el-row>
-              <el-col :span="12">
-                <v-chart style="widows: 100%; height:204px" :autoresize="true" :options="alarm_statics"></v-chart>
+            <el-row style="height:calc(100% - 34px)">
+              <el-col :span="12" style="height:100%">
+                <v-chart :autoresize="true" :options="alarm_statics"></v-chart>
               </el-col>
               <el-col :span="12">
                 <ul class="open-btn">
@@ -60,14 +60,14 @@
             </el-row>
           </div>
         </el-col>
-        <el-col :span="8">
-          <div class="grid-content bg-purple" style="height:294px;">
+        <el-col :span="8" style="height:100%;">
+          <div class="grid-content bg-purple" style="height:100%;">
             <p class="p-title">业务可用率</p>
-            <v-chart style="width:100%; height:200px" :autoresize="true" :options="business_using"></v-chart>
+            <v-chart :autoresize="true" :options="business_using"></v-chart>
           </div>
         </el-col>
-        <el-col :span="8">
-          <div class="grid-content bg-purple" style="height:294px; overflow: auto;">
+        <el-col :span="8" style="height:100%;">
+          <div class="grid-content bg-purple" style="height:100%; overflow: auto;">
             <p class="p-title" style="margin:0 0 30px 0;">业务可用率</p>
             <el-row style="display:flex; align-items:center;">
               <el-col :span="6">
@@ -89,14 +89,14 @@
           </div>
         </el-col>
       </el-row>
-      <el-row style="margin-top:20px;">
-        <div class="grid-content bg-purple" style="height:294px;">
+      <el-row style="margin-top:20px; height:calc(50% - 65px)">
+        <div class="grid-content bg-purple" style="height:100%">
           <div class="bottom-toggle">
             <span class="p-title" style="margin:0 20px 0 0;">告警统计</span>
             <button @click="alarmToggle('healthy');" :class="{active: isActice === '0'}">健康度</button>
             <button @click="alarmToggle('storage');" :class="{active: isActice === '1'}">储存容量</button>
           </div>
-          <el-col :span="4">
+          <el-col :span="4" style="height:100%">
             <div class="bottom-text">
               <ul v-if="isActice === '0'">
                 <li>
@@ -124,10 +124,9 @@
               </ul>
             </div>
           </el-col>
-          <el-col :span="20">
-            <v-chart v-if="isActice === '0'" :autoresize="true" style="width:100%; height:200px"
-              :options="multiple_pie.line1"></v-chart>
-            <v-chart v-else style="width:100%; height:200px" :autoresize="true" :options="multiple_pie.line2">
+          <el-col :span="20" style="height:calc(100% - 20px)">
+            <v-chart v-if="isActice === '0'" :autoresize="true" :options="multiple_pie.line1"></v-chart>
+            <v-chart v-else :autoresize="true" :options="multiple_pie.line2">
             </v-chart>
           </el-col>
         </div>

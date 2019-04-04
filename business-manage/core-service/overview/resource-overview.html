@@ -16,7 +16,7 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" style="padding:20px 30px;">
+  <div id="homeIndex" style="padding:20px 30px; height:100%;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
     </div>
@@ -48,232 +48,238 @@
       </table>
     </div>
 
-    <el-row :gutter="20" >
-      <el-col :span="8">
-        <div class="grid-content bg-purple" style="height:285px;">
-          <p class="p-title" style="margin-bottom:20px;">CPU使用率</p>
-          <v-chart style="width:100%; height:200px" :autoresize="true" :options="multiple_pie.gauge"></v-chart>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple" style="height:285px; position: relative;">
-          <svg x="0px" y="0px" style="display: none;">
-            <symbol id="wave1">
-              <path d="M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z"></path>
-              <path d="M420,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C326,6.5,322,4.7,311.5,2.7C304.3,1.4,293.6-0.1,280,0c0,0,0,0,0,0v20H420z"></path>
-              <path d="M140,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C234,6.5,238,4.7,248.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H140z"></path>
-              <path d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z"></path>
-            </symbol>
-          </svg>
-          <svg x="0px" y="0px" style="display: none;">
-            <symbol id="wave2">
-              <path d="M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z"></path>
-              <path d="M420,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C326,6.5,322,4.7,311.5,2.7C304.3,1.4,293.6-0.1,280,0c0,0,0,0,0,0v20H420z"></path>
-              <path d="M140,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C234,6.5,238,4.7,248.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H140z"></path>
-              <path d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z"></path>
-            </symbol>
-          </svg>
-          <!-- 波浪水球 -->
-          <div class="wave-box" style="left:15%;">
-            <div class="percent">
-              <div class="percentNum" id="count1">0</div>
-              <div class="percentB">%</div>
-            </div>
-            <div id="water1" class="water">
-              <svg viewBox="0 0 560 20" class="water_wave water_wave_back">
-                <use xlink:href="#wave1"></use>
-              </svg>
-              <svg viewBox="0 0 560 20" class="water_wave water_wave_front">
-                <use xlink:href="#wave1"></use>
-              </svg>
-            </div>
+    <div style="height:calc(100% - 183px)">
+      <el-row :gutter="20" style="height:calc(50% - 20px)">
+        <el-col :span="8" style="height:100%;">
+          <div class="grid-content bg-purple" style="height:100%;">
+            <p class="p-title" style="margin-bottom:20px;">CPU使用率</p>
+            <v-chart style="height:calc(100% - 34px)" :autoresize="true" :options="multiple_pie.gauge"></v-chart>
           </div>
-          <div style="position: relative; display: inline-block; text-align: center; width: 115px; left: 11%; top: 25px;">
-            <p style="margin-bottom:140px;">堆</p>
-            <div style="line-height:20px;">
-              <p>已使用：167.44MB</p>
-              <p>已分配：167.44MB</p>
-              <p>最大值：167.44MB</p>
-            </div>
-          </div>
-          <div class="wave-box" style="left:60%;">
-            <div class="percent">
-              <div class="percentNum" id="count2">0</div>
-              <div class="percentB">%</div>
-            </div>
-            <div id="water2" class="water">
-              <svg viewBox="0 0 560 20" class="water_wave water_wave_back">
-                <use xlink:href="#wave2"></use>
-              </svg>
-              <svg viewBox="0 0 560 20" class="water_wave water_wave_front">
-                <use xlink:href="#wave2"></use>
-              </svg>
-            </div>
-          </div>
-          <div style="position: relative; display: inline-block; text-align: center; width: 115px; left: 30%; top: 25px;">
-            <p style="margin-bottom:140px;">Pemgen</p>
-            <div style="line-height:20px;">
-              <p>已使用：167.44MB</p>
-              <p>已分配：167.44MB</p>
-              <p>最大值：167.44MB</p>
-            </div>
-          </div>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple" style="height:285px;">
-          <p class="p-title" style="margin-bottom:20px;">指示信息</p>
-          <div style="height:211px; overflow:auto;">
-            <table class="left-right-table" border="1" width="100%">
-              <tr>
-                <td>健康状态</td>
-                <td>
-                  <i class="fa fa-check-circle" v-if="signal_info.baseInfo.status === '1'" style="color:#69F0AE;"></i>
-                  <i class="fa fa-exclamation-circle" v-if="signal_info.baseInfo.status === '2'" style="color:#FF9E54;"></i>
-                  <i class="fa fa-times-circle" v-if="signal_info.baseInfo.status === '0'" style="color:#f00;"></i>
-                </td>
-              </tr>
-              <tr>
-                <td>版本</td>
-                <td>{{signal_info.baseInfo.version}}</td>
-              </tr>
-              <tr>
-                <td>JVM版本</td>
-                <td>{{signal_info.baseInfo.start_time}}</td>
-              </tr>
-              <tr>
-                <td>操作系统</td>
-                <td>{{signal_info.baseInfo.system}}</td>
-              </tr>
-              <tr>
-                <td>持续运行</td>
-                <td>{{signal_info.baseInfo.main_name}}</td>
-              </tr>
-              <tr>
-                <td>启动时间</td>
-                <td>{{signal_info.baseInfo.setup_folder}}</td>
-              </tr>
-              <tr>
-                <td>当前会话数</td>
-                <td>{{signal_info.baseInfo.system}}</td>
-              </tr>
-            </table>
-
-            <p style="margin:8px 0;">用户请求</p>
-            <table class="left-right-table" border="1" width="100%">
-              <tr>
-                <td>最大应答时间</td>
-                <td>1分5秒</td>
-              </tr>
-              <tr>
-                <td>平均应答时间</td>
-                <td>50.11000061035156毫秒</td>
-              </tr>
-              <tr>
-                <td>总请求次数</td>
-                <td>105467</td>
-              </tr>
-              <tr>
-                <td>请求次数（秒）</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>发送字节数（秒）</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>接收字节数（秒）</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>总发送字节数</td>
-                <td>319.15MB</td>
-              </tr>
-              <tr>
-                <td>总接收字节数</td>
-                <td>864.36KB</td>
-              </tr>
-            </table>
-
-            <p style="margin:8px 0;">线程池</p>
-            <table class="left-right-table" border="1" width="100%">
-              <tr>
-                <td>活动线程数</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>线程峰值</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>守护线程数</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>总线程数</td>
-                <td>138970</td>
-              </tr>
-            </table>
-
-            <p style="margin:8px 0;">类</p>
-            <table class="left-right-table" border="1" width="100%">
-              <tr>
-                <td>已装入数</td>
-                <td>13443</td>
-              </tr>
-              <tr>
-                <td>已经卸载总数</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>已装入总数</td>
-                <td>16565</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20" style="margin-top:20px;">
-      <el-col :span="12">
-        <div class="grid-content bg-purple" style="height:285px">
-          <div style="margin-bottom:20px;">
-            <el-select v-model="value" popper-class="loc-main-selectbox" size="mini" class="loc-main-select"
-              placeholder="请选择">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-            <div class="time-toggle" style="float: right;">
-              <span v-for="time in time_array" @click="toggleTime(time.name)" :class="{active: isActice === time.name}">{{time.name}}</span>
-            </div>
-          </div>
-          <v-chart style="width:100%; height:200px" :autoresize="true" :options="multiple_pie.pie"></v-chart>
-        </div>
-      </el-col>
-      <el-col :span="12">
-        <div class="grid-content bg-purple" style="height:285px">
-          <p class="p-title" style="margin-bottom:20px;">提示信息</p>
-          <div style="height:211px; overflow:auto;">
-            <el-row :gutter="20">
-              <el-col :span="8" v-for="(item, index) in database_array" :key="index">
-                <div class="left-img-right-text">
-                  <div>
-                    <img style="margin-top:50%;" src="../../../assets/images/icon/database.png" />
-                  </div>
-                  <ul>
-                    <li>{{item.label}}</li>
-                    <li>路径 : {{item.count}}</li>
-                    <li>主机名 : {{item.size}}</li>
-                    <li>当前会话数 : {{item.size}}</li>
-                    <li>Servlet总数 : {{item.size}}</li>
-                  </ul>
+        </el-col>
+        <el-col :span="8" style="height:100%;">
+          <div class="grid-content bg-purple" style="height:100%; position: relative;">
+            <svg x="0px" y="0px" style="display: none;">
+              <symbol id="wave1">
+                <path d="M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z"></path>
+                <path d="M420,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C326,6.5,322,4.7,311.5,2.7C304.3,1.4,293.6-0.1,280,0c0,0,0,0,0,0v20H420z"></path>
+                <path d="M140,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C234,6.5,238,4.7,248.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H140z"></path>
+                <path d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z"></path>
+              </symbol>
+            </svg>
+            <svg x="0px" y="0px" style="display: none;">
+              <symbol id="wave2">
+                <path d="M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z"></path>
+                <path d="M420,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C326,6.5,322,4.7,311.5,2.7C304.3,1.4,293.6-0.1,280,0c0,0,0,0,0,0v20H420z"></path>
+                <path d="M140,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C234,6.5,238,4.7,248.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H140z"></path>
+                <path d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z"></path>
+              </symbol>
+            </svg>
+            <!-- 波浪水球 -->
+            <div style="position: relative;display:inline-block">
+              <div class="wave-box" style="left:15%;">
+                <div class="percent">
+                  <div class="percentNum" id="count1">0</div>
+                  <div class="percentB">%</div>
                 </div>
-              </el-col>
-            </el-row>
+                <div id="water1" class="water">
+                  <svg viewBox="0 0 560 20" class="water_wave water_wave_back">
+                    <use xlink:href="#wave1"></use>
+                  </svg>
+                  <svg viewBox="0 0 560 20" class="water_wave water_wave_front">
+                    <use xlink:href="#wave1"></use>
+                  </svg>
+                </div>
+              </div>
+              <div style="position: relative; display: inline-block; text-align: center; width: 115px; left: 15%; top: 25px;">
+                <p style="margin-bottom:140px;">堆</p>
+                <div style="line-height:20px;">
+                  <p>已使用：167.44MB</p>
+                  <p>已分配：167.44MB</p>
+                  <p>最大值：167.44MB</p>
+                </div>
+              </div>
+            </div>
+            <div style="position: relative;display:inline-block">
+              <div class="wave-box" style="left:60%;">
+                <div class="percent">
+                  <div class="percentNum" id="count2">0</div>
+                  <div class="percentB">%</div>
+                </div>
+                <div id="water2" class="water">
+                  <svg viewBox="0 0 560 20" class="water_wave water_wave_back">
+                    <use xlink:href="#wave2"></use>
+                  </svg>
+                  <svg viewBox="0 0 560 20" class="water_wave water_wave_front">
+                    <use xlink:href="#wave2"></use>
+                  </svg>
+                </div>
+              </div>
+              <div style="position: relative; display: inline-block; text-align: center; width: 115px; left: 60%; top: 25px;">
+                <p style="margin-bottom:140px;">Pemgen</p>
+                <div style="line-height:20px;">
+                  <p>已使用：167.44MB</p>
+                  <p>已分配：167.44MB</p>
+                  <p>最大值：167.44MB</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </el-col>
-    </el-row>
+        </el-col>
+        <el-col :span="8" style="height:100%">
+          <div class="grid-content bg-purple" style="height:100%;">
+            <p class="p-title" style="margin-bottom:20px;">指示信息</p>
+            <div style="height:calc(100% - 34px); overflow:auto;">
+              <table class="left-right-table" border="1" width="100%">
+                <tr>
+                  <td>健康状态</td>
+                  <td>
+                    <i class="fa fa-check-circle" v-if="signal_info.baseInfo.status === '1'" style="color:#69F0AE;"></i>
+                    <i class="fa fa-exclamation-circle" v-if="signal_info.baseInfo.status === '2'" style="color:#FF9E54;"></i>
+                    <i class="fa fa-times-circle" v-if="signal_info.baseInfo.status === '0'" style="color:#f00;"></i>
+                  </td>
+                </tr>
+                <tr>
+                  <td>版本</td>
+                  <td>{{signal_info.baseInfo.version}}</td>
+                </tr>
+                <tr>
+                  <td>JVM版本</td>
+                  <td>{{signal_info.baseInfo.start_time}}</td>
+                </tr>
+                <tr>
+                  <td>操作系统</td>
+                  <td>{{signal_info.baseInfo.system}}</td>
+                </tr>
+                <tr>
+                  <td>持续运行</td>
+                  <td>{{signal_info.baseInfo.main_name}}</td>
+                </tr>
+                <tr>
+                  <td>启动时间</td>
+                  <td>{{signal_info.baseInfo.setup_folder}}</td>
+                </tr>
+                <tr>
+                  <td>当前会话数</td>
+                  <td>{{signal_info.baseInfo.system}}</td>
+                </tr>
+              </table>
+  
+              <p style="margin:8px 0;">用户请求</p>
+              <table class="left-right-table" border="1" width="100%">
+                <tr>
+                  <td>最大应答时间</td>
+                  <td>1分5秒</td>
+                </tr>
+                <tr>
+                  <td>平均应答时间</td>
+                  <td>50.11000061035156毫秒</td>
+                </tr>
+                <tr>
+                  <td>总请求次数</td>
+                  <td>105467</td>
+                </tr>
+                <tr>
+                  <td>请求次数（秒）</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>发送字节数（秒）</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>接收字节数（秒）</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>总发送字节数</td>
+                  <td>319.15MB</td>
+                </tr>
+                <tr>
+                  <td>总接收字节数</td>
+                  <td>864.36KB</td>
+                </tr>
+              </table>
+  
+              <p style="margin:8px 0;">线程池</p>
+              <table class="left-right-table" border="1" width="100%">
+                <tr>
+                  <td>活动线程数</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>线程峰值</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>守护线程数</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>总线程数</td>
+                  <td>138970</td>
+                </tr>
+              </table>
+  
+              <p style="margin:8px 0;">类</p>
+              <table class="left-right-table" border="1" width="100%">
+                <tr>
+                  <td>已装入数</td>
+                  <td>13443</td>
+                </tr>
+                <tr>
+                  <td>已经卸载总数</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>已装入总数</td>
+                  <td>16565</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20" style="height:50%; margin-top:20px;">
+        <el-col :span="12" style="height:100%">
+          <div class="grid-content bg-purple" style="height:100%">
+            <div style="margin-bottom:20px;">
+              <el-select v-model="value" popper-class="loc-main-selectbox" size="mini" class="loc-main-select"
+                placeholder="请选择">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+              <div class="time-toggle" style="float: right;">
+                <span v-for="time in time_array" @click="toggleTime(time.name)" :class="{active: isActice === time.name}">{{time.name}}</span>
+              </div>
+            </div>
+            <v-chart style="height:calc(100% - 40px)" :autoresize="true" :options="multiple_pie.pie"></v-chart>
+          </div>
+        </el-col>
+        <el-col :span="12" style="height:100%">
+          <div class="grid-content bg-purple" style="height:100%">
+            <p class="p-title" style="margin-bottom:20px;">提示信息</p>
+            <div style="height:calc(100% - 34px); overflow:auto;">
+              <el-row :gutter="20">
+                <el-col :span="8" v-for="(item, index) in database_array" :key="index">
+                  <div class="left-img-right-text">
+                    <div>
+                      <img style="margin-top:50%;" src="../../../assets/images/icon/database.png" />
+                    </div>
+                    <ul>
+                      <li>{{item.label}}</li>
+                      <li>路径 : {{item.count}}</li>
+                      <li>主机名 : {{item.size}}</li>
+                      <li>当前会话数 : {{item.size}}</li>
+                      <li>Servlet总数 : {{item.size}}</li>
+                    </ul>
+                  </div>
+                </el-col>
+              </el-row>
+            </div>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
 
     <div class="toggle-page">
       <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)" :class="{active: page.active}">{{page.label}}</span>

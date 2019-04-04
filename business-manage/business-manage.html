@@ -17,7 +17,7 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" style="position: relative;">
+  <div id="homeIndex" style="position: relative; height:100%;">
     <div class="loc-app-menu">
       <div class="loc-logo-form"><img src="../assets/images/logo.png" /></div>
       <div class="loc-menu-list">
@@ -72,18 +72,18 @@
     </div>
 
     <!-- 图表 -->
-    <div class="aside-main" v-if="page_init">
-      <div class="aside-left">
+    <div class="aside-main" v-if="page_init" style="height:calc(100% - 100px)">
+      <div class="aside-left" style="height:50%">
         <div class="bus-response-speed">
           <span>业务响应速度</span>
-          <v-chart class="single-bar" :autoresize="true" :options="bus_responseSpeed"></v-chart>
+          <v-chart class="single-bar" style="height:calc(100% - 34px)" :autoresize="true" :options="bus_responseSpeed"></v-chart>
         </div>
         <div style="margin-top:20px; padding-bottom:40px;" class="bus-alarm-time">
           <span>业务告警次数</span>
-          <v-chart class="single-pie" :autoresize="true" :options="bus_alarmTime"></v-chart>
+          <v-chart class="single-pie" style="height:calc(100% - 34px)" :autoresize="true" :options="bus_alarmTime"></v-chart>
         </div>
       </div>
-      <div class="aside-center">
+      <div class="aside-center" style="height:50%">
         <div class="bus-health" style="padding:0px;">
           <span>业务健康</span>
           <div style="position:relative;">
@@ -105,7 +105,7 @@
         </div>
         <div style="margin-top:20px;" class="bus-runing-state">
           <span>业务运行情况</span>
-          <div style="height:240px; overflow:auto;">
+          <div style="height:calc(100% - 34px); overflow:auto;">
             <table>
               <tr>
                 <th>名称</th>
@@ -135,7 +135,7 @@
           </div>
         </div>
       </div>
-      <div class="aside-right">
+      <div class="aside-right" style="height:100%;">
         <div class="alarm-statics">
           <span>告警统计</span>
           <div class="toggle-btn">
