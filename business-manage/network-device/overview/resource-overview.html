@@ -16,13 +16,13 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" ref="homePage" style="padding:20px 30px;">
+  <div id="homeIndex" ref="homePage" style="padding:20px 30px; height:100%;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)"
         :class="{active: tab.active}">{{tab.label}}</span>
     </div>
-    <div ref="main_row">
-      <div class="business-overview-header" ref="overvie_header">
+    <div style="height: calc(100% - 80px);">
+      <div class="business-overview-header">
         <table>
           <tr>
             <td>资源名称 : {{business_data.label}}</td>
@@ -46,23 +46,23 @@
           </tr>
         </table>
       </div>
-      <el-row :gutter="20">
-        <el-col :span="8">
-          <div class="grid-content bg-purple" :style="{'min-height':'285px', 'height': page_height.average_height}">
+      <el-row :gutter="20" style="height:calc(50% - 20px)">
+        <el-col :span="8" style="height: 100%;">
+          <div class="grid-content bg-purple" style="height: 100%;">
             <p class="p-title" style="margin-bottom:20px;">CPU使用率</p>
-            <v-chart :style="{'width':'100%', 'height':page_height.content_height}" :autoresize="true" :options="multiple_pie.gauge"></v-chart>
+            <v-chart :autoresize="true" style="height:calc(100% - 34px)" :options="multiple_pie.gauge"></v-chart>
           </div>
         </el-col>
-        <el-col :span="8">
-          <div class="grid-content bg-purple" :style="{'min-height':'285px', 'height': page_height.average_height}">
+        <el-col :span="8" style="height: 100%;">
+          <div class="grid-content bg-purple" style="height: 100%;">
             <p class="p-title" style="margin-bottom:20px;">内存使用率</p>
-            <v-chart :style="{'width':'100%', 'height':page_height.content_height}" :autoresize="true" :options="multiple_pie.gauge"></v-chart>
+            <v-chart :autoresize="true" style="height:calc(100% - 34px)" :options="multiple_pie.gauge"></v-chart>
           </div>
         </el-col>
-        <el-col :span="8">
-          <div class="grid-content bg-purple" :style="{'min-height':'285px', 'height': page_height.average_height}">
+        <el-col :span="8" style="height: 100%;">
+          <div class="grid-content bg-purple" style="height: 100%;">
             <p class="p-title" style="margin-bottom:20px;">指示信息</p>
-            <div :style="{'height': page_height.content_height, 'overflow':'auto'}">
+            <div style="height: calc(100% - 34px); overflow:auto">
               <table class="left-right-table" border="1" width="100%">
                 <tr>
                   <td>健康状态</td>
@@ -154,9 +154,9 @@
           </div>
         </el-col>
       </el-row>
-      <el-row :gutter="20" style="margin-top:20px;">
-        <el-col :span="12">
-          <div class="grid-content bg-purple" :style="{'min-height':'285px', 'height': page_height.average_height}">
+      <el-row :gutter="20" style="margin-top:20px;height:calc(50% - 20px)">
+        <el-col :span="12" style="height: 100%;">
+          <div class="grid-content bg-purple" style="height: 100%;">
             <div style="margin-bottom:20px;">
               <el-select v-model="value" popper-class="loc-main-selectbox" size="mini" style="width: 150px;"
                 class="loc-main-select" placeholder="请选择">
@@ -168,13 +168,13 @@
                   :class="{active: isActice === time.name}">{{time.name}}</span>
               </div>
             </div>
-            <v-chart :style="{'width':'100%', 'height':page_height.content_height}" :autoresize="true" :options="multiple_pie.line"></v-chart>
+            <v-chart :autoresize="true" style="height:calc(100% - 88px)" :options="multiple_pie.line"></v-chart>
           </div>
         </el-col>
-        <el-col :span="12">
-          <div class="grid-content bg-purple" :style="{'min-height':'285px', 'height': page_height.average_height}">
+        <el-col :span="12" style="height: 100%;">
+          <div class="grid-content bg-purple">
             <p class="p-title" style="margin-bottom:20px;">端口</p>
-            <div :style="{'height':page_height.content_height, 'overflow':'auto'}">
+            <div style="height:calc(100% - 74px); overflow:auto">
               <ul class="business-img-text">
                 <li v-for="(item, index) in database_array" :key="index">
                   <img v-if="item.status==='0'" src="../../../assets/images/icon/port_1.png" alt="">
@@ -188,7 +188,7 @@
       </el-row>
     </div>
 
-    <div class="toggle-page" :style="{'margin-top': page_height.marginTop_togglePage}">
+    <div class="toggle-page" style="margin-top: 20px">
       <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)"
         :class="{active: page.active}">{{page.label}}</span>
     </div>

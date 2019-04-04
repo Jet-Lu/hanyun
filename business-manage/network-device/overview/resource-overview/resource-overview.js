@@ -211,7 +211,6 @@ var app = new Vue({
       page_height: {
         marginTop_togglePage: '',
         average_height: '',
-        // gauge_height: '',
         content_height: ''
       }
     }
@@ -222,18 +221,18 @@ var app = new Vue({
     this.multiple_pie.gauge.series[1].data[0].value = (48 / 100) * 100;
   },
   mounted() {
-    console.log(document.body.clientHeight, this.$refs.homePage, this.$refs.main_row, this.$refs.overvie_header.clientHeight);
-    const calcHeight = this.$refs.homePage.clientHeight - this.$refs.main_row.clientHeight - 240;
-    const calcMainHeight = this.$refs.homePage.clientHeight - this.$refs.overvie_header.clientHeight - 240;
-    console.log(calcHeight, this.$refs.homePage.clientHeight, this.$refs.main_row.clientHeight);
-    if (calcHeight < 0) {
-      this.page_height.marginTop_togglePage = '20px';
-    } else {
-      this.page_height.marginTop_togglePage = calcHeight + 'px';
-    }
-    this.page_height.average_height = (calcMainHeight / 2) + 'px';
-    this.page_height.content_height = (calcMainHeight / 2) - 74 + 'px';
-    console.log(calcMainHeight, this.page_height.average_height, this.page_height.content_height);
+    // console.log(document.body.clientHeight, this.$refs.homePage, this.$refs.main_row);
+    // const calcHeight = document.body.clientHeight - this.$refs.main_row.clientHeight - 120;
+    // const calcMainHeight = document.body.clientHeight - this.$refs.overvie_header.clientHeight - 300;
+    // console.log(calcHeight, document.body.clientHeight, this.$refs.main_row.clientHeight);
+    // if (calcHeight < 0) {
+    //   this.page_height.marginTop_togglePage = '20px';
+    // } else {
+    //   this.page_height.marginTop_togglePage = calcHeight + 'px';
+    // }
+    // this.page_height.average_height = (calcMainHeight / 2) + 'px';
+    // this.page_height.content_height = (calcMainHeight / 2) - 74 + 'px';
+    // console.log(calcMainHeight, this.page_height.average_height, this.page_height.content_height);
   },
   methods: {
     togglePage(evt) {

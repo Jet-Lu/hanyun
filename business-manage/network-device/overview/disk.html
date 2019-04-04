@@ -16,12 +16,12 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" ref="homePage" style="padding:20px 30px;">
+  <div id="homeIndex" style="padding:20px 30px;height:100%;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)"
         :class="{active: tab.active}">{{tab.label}}</span>
     </div>
-    <el-row ref="main_row">
+    <el-row>
       <el-col :span="24">
         <div v-if="init_page.show_disk">
           <div class="grid-content bg-purple">
@@ -122,7 +122,7 @@
         </div>
       </el-col>
     </el-row>
-    <div class="toggle-page" :style="{'margin-top': marginTop_togglePage}">
+    <div class="toggle-page">
       <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)"
         :class="{active: page.active}">{{page.label}}</span>
     </div>

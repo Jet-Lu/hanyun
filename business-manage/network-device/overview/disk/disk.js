@@ -171,7 +171,7 @@ var app = new Vue({
         isActice2: '1H',
         current_name: 'C:'
       },
-      marginTop_togglePage: '',
+      // marginTop_togglePage: '',
     }
   },
   created() {
@@ -184,13 +184,13 @@ var app = new Vue({
         this.init_page.show_disk = false;
       }
     }
-    const calcHeight = this.$refs.homePage.clientHeight - this.$refs.main_row.$el.clientHeight - 240;
+    // const calcHeight = this.$refs.homePage.clientHeight - this.$refs.main_row.$el.clientHeight - 240;
     // console.log(calcHeight, this.$refs.homePage.clientHeight, this.$refs.main_row.$el.clientHeight);
-    if (calcHeight < 0) {
-      this.marginTop_togglePage = '20px';
-    } else {
-      this.marginTop_togglePage = calcHeight + 'px';
-    }
+    // if (calcHeight < 0) {
+    //   this.marginTop_togglePage = '20px';
+    // } else {
+    //   this.marginTop_togglePage = calcHeight + 'px';
+    // }
   },
   methods: {
     togglePage(evt) {
