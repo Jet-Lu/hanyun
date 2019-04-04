@@ -208,25 +208,32 @@ var app = new Vue({
         echart_title: 'WEB应用',
         isActice: '1H',
       },
-      marginTop_togglePage: '',
+      page_height: {
+        marginTop_togglePage: '',
+        average_height: '',
+        // gauge_height: '',
+        content_height: ''
+      }
     }
   },
   created() {
     this.business_data = { business_id: '11', label: 'Openstack V3', healthy: '98%', status: '1', safety_level: '2', response: '37ms', busyness: '2%', using: '100%', downtime_cs: '0', downtime_sc: '16分23秒', mttr: '16分23秒', mtbf: '16分23秒', used_capacity: '58.31GB/339.99GB', calc_capacity: '33%' }
-    // console.log(this.multiple_pie.gauge.series[0].axisLine.lineStyle.color);
-    // console.log(this.multiple_pie.gauge.series[0].data);
     this.multiple_pie.gauge.series[1].axisLine.lineStyle.color[0][0] = 48 / 100;
     this.multiple_pie.gauge.series[1].data[0].value = (48 / 100) * 100;
   },
   mounted() {
-    console.log(this.$refs.homePage, this.$refs.main_row);
+    console.log(document.body.clientHeight, this.$refs.homePage, this.$refs.main_row, this.$refs.overvie_header.clientHeight);
     const calcHeight = this.$refs.homePage.clientHeight - this.$refs.main_row.clientHeight - 240;
+    const calcMainHeight = this.$refs.homePage.clientHeight - this.$refs.overvie_header.clientHeight - 240;
     console.log(calcHeight, this.$refs.homePage.clientHeight, this.$refs.main_row.clientHeight);
     if (calcHeight < 0) {
-      this.marginTop_togglePage = '20px';
+      this.page_height.marginTop_togglePage = '20px';
     } else {
-      this.marginTop_togglePage = calcHeight + 'px';
+      this.page_height.marginTop_togglePage = calcHeight + 'px';
     }
+    this.page_height.average_height = (calcMainHeight / 2) + 'px';
+    this.page_height.content_height = (calcMainHeight / 2) - 74 + 'px';
+    console.log(calcMainHeight, this.page_height.average_height, this.page_height.content_height);
   },
   methods: {
     togglePage(evt) {

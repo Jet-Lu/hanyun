@@ -16,8 +16,8 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" style="padding:20px 30px;">
-    <el-row>
+  <div id="homeIndex" ref="homePage" style="padding:20px 30px;">
+    <el-row ref="main_row">
       <el-col>
         <div class="grid-content bg-purple">
           <el-table :data="alarm_tableData" size="mini" class="transparent-table transparent-white-table"
@@ -57,7 +57,7 @@
       </el-col>
     </el-row>
 
-    <div class="toggle-page">
+    <div class="toggle-page" :style="{'margin-top': page_height.marginTop_togglePage}">
       <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)"
         :class="{active: page.active}">{{page.label}}</span>
     </div>
