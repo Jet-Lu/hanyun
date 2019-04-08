@@ -26,7 +26,7 @@ var app = new Vue({
             },
             axisLine: {
               lineStyle: {
-                color: '#fff'
+                color: '#ccc'
               }
             },
             axisTick: {
@@ -42,7 +42,7 @@ var app = new Vue({
             axisLine: {
               show: false,
               lineStyle: {
-                color: '#fff'
+                color: '#ccc'
               }
             },
             splitLine: {
@@ -123,6 +123,7 @@ var app = new Vue({
   created() {
     this.business_data = { business_id: '11', label: 'Openstack V3', healthy: '98%', status: '1', safety_level: '2', response: '37ms', busyness: '2%', using: '100%', downtime_cs: '0', downtime_sc: '16分23秒', mttr: '16分23秒', mtbf: '16分23秒', used_capacity: '58.31GB/339.99GB', calc_capacity: '33%' }
   },
+  mounted() { },
   methods: {
     togglePage(evt) {
       window.location.href = evt.url;

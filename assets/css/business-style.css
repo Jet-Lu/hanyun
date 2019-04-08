@@ -25,7 +25,6 @@
   background: #1CEFEF;
 }
 .business-image-font {
-  margin-top: 43px;
   position: relative;
 }
 .business-image-font .middle-font {
@@ -176,6 +175,12 @@ div.echarts {
 }
 .aside-right .alarm-statics {
   width: 100%;
+  text-align: center;
+}
+.flex-center-middle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 .full-height-style {
