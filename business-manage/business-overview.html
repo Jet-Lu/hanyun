@@ -22,7 +22,7 @@
         :class="{active: this_tab===tab.label}">{{tab.label}}</span>
     </div>
 
-    <div v-if="radio1==='业务总览'" style="height:calc(100% - 90px);">
+    <div v-if="radio1==='业务总览'" style="height:calc(100% - 110px);">
       <div class="business-overview-header">
         <table>
           <tr>
@@ -39,98 +39,100 @@
         </table>
       </div>
 
-      <el-row :gutter="20" style="height:calc(50% - 65px)">
-        <el-col :span="8" style="height:100%;">
-          <div class="grid-content bg-purple" style="height:100%;">
-            <p class="p-title">告警统计</p>
-            <el-row style="height:calc(100% - 34px)">
-              <el-col :span="12" style="height:100%">
-                <v-chart :autoresize="true" :options="alarm_statics"></v-chart>
-              </el-col>
-              <el-col :span="12">
-                <ul class="open-btn">
-                  <li v-for="item in alarm_object" @click="openNewPage(item)">
-                    <i class="fa fa-check-circle" v-if="item.status === '1'" style="color:#69F0AE;"></i>
-                    <i class="fa fa-exclamation-circle" v-if="item.status === '2'" style="color:#FF9E54;"></i>
-                    <i class="fa fa-times-circle" v-if="item.status === '0'" style="color:#f00;"></i>
-                    <span>{{item.name}}</span>
-                  </li>
-                </ul>
-              </el-col>
-            </el-row>
-          </div>
-        </el-col>
-        <el-col :span="8" style="height:100%;">
-          <div class="grid-content bg-purple" style="height:100%;">
-            <p class="p-title">业务可用率</p>
-            <v-chart :autoresize="true" :options="business_using"></v-chart>
-          </div>
-        </el-col>
-        <el-col :span="8" style="height:100%;">
-          <div class="grid-content bg-purple" style="height:100%; overflow: auto;">
-            <p class="p-title" style="margin:0 0 30px 0;">业务可用率</p>
-            <el-row style="display:flex; align-items:center;">
-              <el-col :span="6">
-                <v-chart style="width:72px; height:72px" :autoresize="true" :options="multiple_pie.pie1"></v-chart>
-              </el-col>
-              <el-col :span="18">
-                <p>计算容量 47%</p>
-              </el-col>
-            </el-row>
-            <el-row style="display:flex; align-items:center;">
-              <el-col :span="6">
-                <v-chart style="width:72px; height:72px" :autoresize="true" :options="multiple_pie.pie2"></v-chart>
-              </el-col>
-              <el-col :span="18">
-                <p>计算容量 47%</p>
-                <p>总容量 338.9GB</span> <span>总容量 338.9GB</p>
-              </el-col>
-            </el-row>
-          </div>
-        </el-col>
-      </el-row>
-      <el-row style="margin-top:20px; height:calc(50% - 65px)">
-        <div class="grid-content bg-purple" style="height:100%">
-          <div class="bottom-toggle">
-            <span class="p-title" style="margin:0 20px 0 0;">告警统计</span>
-            <button @click="alarmToggle('healthy');" :class="{active: isActice === '0'}">健康度</button>
-            <button @click="alarmToggle('storage');" :class="{active: isActice === '1'}">储存容量</button>
-          </div>
-          <el-col :span="4" style="height:100%">
-            <div class="bottom-text">
-              <ul v-if="isActice === '0'">
-                <li>
-                  当前状态：
-                  <i class="fa fa-check-circle" v-if="business_data.status === '1'" style="color:#69F0AE;"></i>
-                  <i class="fa fa-exclamation-circle" v-if="business_data.status === '2'" style="color:#FF9E54;"></i>
-                  <i class="fa fa-times-circle" v-if="business_data.status === '0'" style="color:#f00;"></i>
-                </li>
-                <li>
-                  当前健康等级：1 &lt; 1 &lt; 1 &lt; 1 </li>
-                <li>
-                  当前值：0%
-                </li>
-                <li>
-                  最新采集时间：2018-11-05 15:33:22
-                </li>
-              </ul>
-              <ul v-else>
-                <li>
-                  当前值：14ms
-                </li>
-                <li>
-                  最新采集时间：2018-11-05 15:33:22
-                </li>
-              </ul>
+      <div style="height: calc(100% - 55px)">
+        <el-row :gutter="20" style="height:calc(50%)">
+          <el-col :span="8" style="height:100%;">
+            <div class="grid-content bg-purple" style="height:100%;">
+              <p class="p-title">告警统计</p>
+              <el-row style="height:calc(100% - 34px)">
+                <el-col :span="12" style="height:100%">
+                  <v-chart :autoresize="true" :options="alarm_statics"></v-chart>
+                </el-col>
+                <el-col :span="12">
+                  <ul class="open-btn">
+                    <li v-for="item in alarm_object" @click="openNewPage(item)">
+                      <i class="fa fa-check-circle" v-if="item.status === '1'" style="color:#69F0AE;"></i>
+                      <i class="fa fa-exclamation-circle" v-if="item.status === '2'" style="color:#FF9E54;"></i>
+                      <i class="fa fa-times-circle" v-if="item.status === '0'" style="color:#f00;"></i>
+                      <span>{{item.name}}</span>
+                    </li>
+                  </ul>
+                </el-col>
+              </el-row>
             </div>
           </el-col>
-          <el-col :span="20" style="height:calc(100% - 20px)">
-            <v-chart v-if="isActice === '0'" :autoresize="true" :options="multiple_pie.line1"></v-chart>
-            <v-chart v-else :autoresize="true" :options="multiple_pie.line2">
-            </v-chart>
+          <el-col :span="8" style="height:100%;">
+            <div class="grid-content bg-purple" style="height:100%;">
+              <p class="p-title">业务可用率</p>
+              <v-chart :autoresize="true" :options="business_using"></v-chart>
+            </div>
           </el-col>
-        </div>
-      </el-row>
+          <el-col :span="8" style="height:100%;">
+            <div class="grid-content bg-purple" style="height:100%; overflow: auto;">
+              <p class="p-title" style="margin:0 0 30px 0;">业务可用率</p>
+              <el-row style="display:flex; align-items:center;">
+                <el-col :span="6">
+                  <v-chart style="width:72px; height:72px" :autoresize="true" :options="multiple_pie.pie1"></v-chart>
+                </el-col>
+                <el-col :span="18">
+                  <p>计算容量 47%</p>
+                </el-col>
+              </el-row>
+              <el-row style="display:flex; align-items:center;">
+                <el-col :span="6">
+                  <v-chart style="width:72px; height:72px" :autoresize="true" :options="multiple_pie.pie2"></v-chart>
+                </el-col>
+                <el-col :span="18">
+                  <p>计算容量 47%</p>
+                  <p>总容量 338.9GB</span> <span>总容量 338.9GB</p>
+                </el-col>
+              </el-row>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row style="margin-top:20px; height:calc(55%)">
+          <div class="grid-content bg-purple" style="height:100%">
+            <div class="bottom-toggle">
+              <span class="p-title" style="margin:0 20px 0 0;">告警统计</span>
+              <button @click="alarmToggle('healthy');" :class="{active: isActice === '0'}">健康度</button>
+              <button @click="alarmToggle('storage');" :class="{active: isActice === '1'}">储存容量</button>
+            </div>
+            <el-col :span="4">
+              <div class="bottom-text">
+                <ul v-if="isActice === '0'">
+                  <li>
+                    当前状态：
+                    <i class="fa fa-check-circle" v-if="business_data.status === '1'" style="color:#69F0AE;"></i>
+                    <i class="fa fa-exclamation-circle" v-if="business_data.status === '2'" style="color:#FF9E54;"></i>
+                    <i class="fa fa-times-circle" v-if="business_data.status === '0'" style="color:#f00;"></i>
+                  </li>
+                  <li>
+                    当前健康等级：1 &lt; 1 &lt; 1 &lt; 1 </li>
+                  <li>
+                    当前值：0%
+                  </li>
+                  <li>
+                    最新采集时间：2018-11-05 15:33:22
+                  </li>
+                </ul>
+                <ul v-else>
+                  <li>
+                    当前值：14ms
+                  </li>
+                  <li>
+                    最新采集时间：2018-11-05 15:33:22
+                  </li>
+                </ul>
+              </div>
+            </el-col>
+            <el-col :span="20" style="height:calc(100% - 60px)">
+              <v-chart v-if="isActice === '0'" :autoresize="true" :options="multiple_pie.line1"></v-chart>
+              <v-chart v-else :autoresize="true" :options="multiple_pie.line2">
+              </v-chart>
+            </el-col>
+          </div>
+        </el-row>
+      </div>
     </div>
 
     <div v-else-if="radio1==='资源告警'">
