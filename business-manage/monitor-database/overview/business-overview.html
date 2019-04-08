@@ -16,42 +16,44 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" style="padding:20px 30px;">
-    <div>
-      <div class="top-tab-toggle">
-        <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
-      </div>
-      <div>
-        <div class="business-overview-header">
-          <table>
-            <tr>
-              <td>业务名称 : {{business_data.label}}</td>
-              <td>
-                当前健康等级 :
+  <div id="homeIndex" class="full-height-style" style="padding:20px 30px;">
+    <div class="top-tab-toggle">
+      <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)"
+        :class="{active: tab.active}">{{tab.label}}</span>
+    </div>
+    <div style="height: calc(100% - 110px)">
+      <div class="business-overview-header">
+        <table>
+          <tr>
+            <td>业务名称 : {{business_data.label}}</td>
+            <td>
+              当前健康等级 :
               <i class="fa fa-check-circle" v-if="business_data.safety_level === '1'" style="color:#69F0AE;"></i>
               <i class="fa fa-exclamation-circle" v-if="business_data.safety_level === '2'" style="color:#FF9E54;"></i>
               <i class="fa fa-times-circle" v-if="business_data.safety_level === '0'" style="color:#f00;"></i>
-              </td>
-              <td>宕机次数 : {{business_data.label}}</td>
-              <td>MTTR : {{business_data.mttr}}</td>
-              <td>MTBF : {{business_data.mtbf}}</td>
-            </tr>
-            <tr>
-              <td>业务名称 : {{business_data.label}}</td>
-              <td>当前健康等级 :
-                <i class="fa fa-check-circle" v-if="business_data.safety_level === '1'" style="color:#69F0AE;"></i>
-                <i class="fa fa-exclamation-circle" v-if="business_data.safety_level === '2'" style="color:#FF9E54;"></i>
-                <i class="fa fa-times-circle" v-if="business_data.safety_level === '0'" style="color:#f00;"></i>
-              </td>
-              <td>宕机次 : {{business_data.label}}</td>
-              <td>MTTR : {{business_data.mttr}}</td>
-              <td> MTBF : {{business_data.mtbf}}</td>
-            </tr>
-          </table>
-        </div>
-        <el-row :gutter="20" style="margin-top:20px;">
-          <el-col :span="8">
-            <div class="grid-content bg-purple" style="height:calc(70% - 80px); text-align: center;">
+            </td>
+            <td>宕机次数 : {{business_data.label}}</td>
+            <td>MTTR : {{business_data.mttr}}</td>
+            <td>MTBF : {{business_data.mtbf}}</td>
+          </tr>
+          <tr>
+            <td>业务名称 : {{business_data.label}}</td>
+            <td>当前健康等级 :
+              <i class="fa fa-check-circle" v-if="business_data.safety_level === '1'" style="color:#69F0AE;"></i>
+              <i class="fa fa-exclamation-circle" v-if="business_data.safety_level === '2'" style="color:#FF9E54;"></i>
+              <i class="fa fa-times-circle" v-if="business_data.safety_level === '0'" style="color:#f00;"></i>
+            </td>
+            <td>宕机次 : {{business_data.label}}</td>
+            <td>MTTR : {{business_data.mttr}}</td>
+            <td> MTBF : {{business_data.mtbf}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div style="height: calc(100% - 94px)">
+        <el-row :gutter="20" style="margin-top:20px; height: calc(50% - 10px)">
+          <el-col :span="8" class="full-height-style">
+            <div class="grid-content bg-purple full-height-style" style="text-align: center;">
               <div class="business-image-font">
                 <div class="top-font">接收（秒）1.29KB</div>
                 <img src="../../../assets/images/icon/zygj.png" alt="">
@@ -65,8 +67,8 @@
               </div>
             </div>
           </el-col>
-          <el-col :span="8" class="business-three-circle">
-            <div class="grid-content bg-purple" style="height:285px; text-align: center;">
+          <el-col :span="8" class="business-three-circle full-height-style">
+            <div class="grid-content bg-purple full-height-style" style="text-align: center;">
               <el-row :gutter="20" style="margin-top:83px;">
                 <el-col :span="8">
                   <div class="circle bg-green">55</div>
@@ -83,16 +85,18 @@
               </el-row>
             </div>
           </el-col>
-          <el-col :span="8">
-            <div class="grid-content bg-purple" style="height:285px;">
+          <el-col :span="8" class="full-height-style">
+            <div class="grid-content bg-purple full-height-style">
               <p class="p-title" style="margin-bottom:20px;">指示信息</p>
-              <div style="height:211px; overflow:auto;">
+              <div style="overflow:auto; height: calc(100% - 34px)">
                 <table class="left-right-table" border="1" width="100%">
                   <tr>
                     <td>健康状态</td>
                     <td>
-                      <i class="fa fa-check-circle" v-if="signal_info.baseInfo.status === '1'" style="color:#69F0AE;"></i>
-                      <i class="fa fa-exclamation-circle" v-if="signal_info.baseInfo.status === '2'" style="color:#FF9E54;"></i>
+                      <i class="fa fa-check-circle" v-if="signal_info.baseInfo.status === '1'"
+                        style="color:#69F0AE;"></i>
+                      <i class="fa fa-exclamation-circle" v-if="signal_info.baseInfo.status === '2'"
+                        style="color:#FF9E54;"></i>
                       <i class="fa fa-times-circle" v-if="signal_info.baseInfo.status === '0'" style="color:#f00;"></i>
                     </td>
                   </tr>
@@ -233,9 +237,9 @@
             </div>
           </el-col>
         </el-row>
-        <el-row :gutter="20" style="margin-top:20px;">
-          <el-col :span="12">
-            <div class="grid-content bg-purple" style="height:285px">
+        <el-row :gutter="20" style="margin-top:20px; height: calc(50% - 10px)">
+          <el-col :span="12" class="full-height-style">
+            <div class="grid-content bg-purple full-height-style">
               <div style="margin-bottom:20px;">
                 <el-select v-model="value" popper-class="loc-main-selectbox" size="mini" class="loc-main-select"
                   placeholder="请选择">
@@ -243,16 +247,17 @@
                   </el-option>
                 </el-select>
                 <div class="time-toggle" style="float: right;">
-                  <span v-for="time in time_array" @click="toggleTime(time.name)" :class="{active: isActice === time.name}">{{time.name}}</span>
+                  <span v-for="time in time_array" @click="toggleTime(time.name)"
+                    :class="{active: isActice === time.name}">{{time.name}}</span>
                 </div>
               </div>
-              <v-chart style="width:100%; height:200px" :autoresize="true" :options="multiple_pie.line"></v-chart>
+              <v-chart style="height: calc(100% - 48px)" :autoresize="true" :options="multiple_pie.line"></v-chart>
             </div>
           </el-col>
-          <el-col :span="12">
-            <div class="grid-content bg-purple" style="height:285px">
+          <el-col :span="12" class="full-height-style">
+            <div class="grid-content bg-purple full-height-style">
               <p class="p-title" style="margin-bottom:20px;">提示信息</p>
-              <div style="height:211px; overflow:auto;">
+              <div style="height: calc(100% - 34px); overflow:auto;">
                 <el-row :gutter="20">
                   <el-col :span="8" v-for="(item, index) in database_array" :key="index">
                     <div class="left-img-right-text">
@@ -272,7 +277,8 @@
       </div>
     </div>
     <div class="toggle-page">
-      <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)" :class="{active: page.active}">{{page.label}}</span>
+      <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)"
+        :class="{active: page.active}">{{page.label}}</span>
     </div>
 
     <el-dialog title="自定义时间段" :visible.sync="editTimeDialog" width="400px" class="blue-dialog">

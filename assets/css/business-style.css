@@ -178,6 +178,12 @@ div.echarts {
   width: 100%;
   text-align: center;
 }
+.full-height-style {
+  height: 100%;
+}
+.half-height-style {
+  height: 50%;
+}
 div.echarts {
   width: 100%;
   height: 100%;
