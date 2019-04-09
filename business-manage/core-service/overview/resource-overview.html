@@ -10,17 +10,18 @@
   <link href="../../../assets/js/element-ui/index.css" rel="stylesheet" />
   <link href="../../../assets/css/style.css" rel="stylesheet" />
   <link rel="stylesheet" href="../../../assets/css/business-style.css">
-  <!-- <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
-  <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" />
+  <link href="../../../assets/css/theme/light-theme.css" rel="stylesheet" />
+  <!-- <link href="../../../assets/css/theme/main-theme.css" rel="stylesheet" /> -->
   <link rel="stylesheet" href="../../../assets/css/font-awesome.css">
 </head>
 
 <body class="app">
-  <div id="homeIndex" style="padding:20px 30px; height:100%;">
+  <div id="homeIndex" class="full-height-style" style="padding:20px 30px;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
     </div>
 
+    <!-- <div style="height: calc(100% - 50px)"></div> -->
     <div class="business-overview-header">
       <table>
         <tr>
@@ -50,14 +51,14 @@
 
     <div style="height:calc(100% - 183px)">
       <el-row :gutter="20" style="height:calc(50% - 20px)">
-        <el-col :span="8" style="height:100%;">
-          <div class="grid-content bg-purple" style="height:100%;">
+        <el-col :span="8" class="full-height-style">
+          <div class="grid-content bg-purple full-height-style">
             <p class="p-title" style="margin-bottom:20px;">CPU使用率</p>
             <v-chart style="height:calc(100% - 34px)" :autoresize="true" :options="multiple_pie.gauge"></v-chart>
           </div>
         </el-col>
-        <el-col :span="8" style="height:100%;">
-          <div class="grid-content bg-purple" style="height:100%; position: relative;">
+        <el-col :span="8" class="full-height-style">
+          <div class="grid-content bg-purple full-height-style" style="position: relative;">
             <svg x="0px" y="0px" style="display: none;">
               <symbol id="wave1">
                 <path d="M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z"></path>
@@ -76,7 +77,7 @@
             </svg>
             <!-- 波浪水球 -->
             <div style="position: relative;display:inline-block">
-              <div class="wave-box" style="left:15%;">
+              <div class="wave-box">
                 <div class="percent">
                   <div class="percentNum" id="count1">0</div>
                   <div class="percentB">%</div>
@@ -90,7 +91,7 @@
                   </svg>
                 </div>
               </div>
-              <div style="position: relative; display: inline-block; text-align: center; width: 115px; left: 15%; top: 25px;">
+              <div style="position: relative; display: inline-block; text-align: center; width: 115px; top: 25px;">
                 <p style="margin-bottom:140px;">堆</p>
                 <div style="line-height:20px;">
                   <p>已使用：167.44MB</p>
@@ -114,7 +115,7 @@
                   </svg>
                 </div>
               </div>
-              <div style="position: relative; display: inline-block; text-align: center; width: 115px; left: 60%; top: 25px;">
+              <div style="position: relative; display: inline-block; text-align: center; width: 115px; top: 25px;">
                 <p style="margin-bottom:140px;">Pemgen</p>
                 <div style="line-height:20px;">
                   <p>已使用：167.44MB</p>
@@ -125,8 +126,8 @@
             </div>
           </div>
         </el-col>
-        <el-col :span="8" style="height:100%">
-          <div class="grid-content bg-purple" style="height:100%;">
+        <el-col :span="8" class="full-height-style">
+          <div class="grid-content bg-purple full-height-style">
             <p class="p-title" style="margin-bottom:20px;">指示信息</p>
             <div style="height:calc(100% - 34px); overflow:auto;">
               <table class="left-right-table" border="1" width="100%">
@@ -239,9 +240,9 @@
           </div>
         </el-col>
       </el-row>
-      <el-row :gutter="20" style="height:50%; margin-top:20px;">
-        <el-col :span="12" style="height:100%">
-          <div class="grid-content bg-purple" style="height:100%">
+      <el-row :gutter="20" class="half-height-style" style="margin-top:20px;">
+        <el-col :span="12" class="full-height-style">
+          <div class="grid-content bg-purple full-height-style">
             <div style="margin-bottom:20px;">
               <el-select v-model="value" popper-class="loc-main-selectbox" size="mini" class="loc-main-select"
                 placeholder="请选择">
@@ -255,8 +256,8 @@
             <v-chart style="height:calc(100% - 40px)" :autoresize="true" :options="multiple_pie.pie"></v-chart>
           </div>
         </el-col>
-        <el-col :span="12" style="height:100%">
-          <div class="grid-content bg-purple" style="height:100%">
+        <el-col :span="12" class="full-height-style">
+          <div class="grid-content bg-purple full-height-style">
             <p class="p-title" style="margin-bottom:20px;">提示信息</p>
             <div style="height:calc(100% - 34px); overflow:auto;">
               <el-row :gutter="20">
