@@ -14,20 +14,10 @@ var app = new Vue({
         { label: '总览', url: './../overview/business-overview.html', active: false },
         { label: '资源告警', url: './resource-alarm.html',active: true }
       ],
-      marginTop_togglePage: ''
     }
   },
   created() {},
-  mounted() {
-    console.log(this.$refs.homePage, this.$refs.main_row);
-    const calcHeight = this.$refs.homePage.clientHeight - this.$refs.main_row.$el.clientHeight - 240;
-    console.log(calcHeight, this.$refs.homePage.clientHeight, this.$refs.main_row.$el.clientHeight);
-    if (calcHeight < 0) {
-      this.marginTop_togglePage = '20px';
-    } else {
-      this.marginTop_togglePage = calcHeight + 'px';
-    }
-  },
+  mounted() {},
   methods: {
     togglePage(evt) {
       this.this_page = evt.label;
