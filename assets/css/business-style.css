@@ -311,6 +311,11 @@ ul.run-ball li {
   box-sizing: border-box;
   outline: none;
 }
+.business-table-pagination {
+  width: 100%;
+  height: calc(100% - 50px);
+  overflow: auto;
+}
 .wave-box {
   height: 115px;
   width: 115px;

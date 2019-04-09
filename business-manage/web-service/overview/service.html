@@ -16,16 +16,15 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" style="padding:20px 30px;">
+  <div id="homeIndex" class="full-height-style" style="padding:20px 30px;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)"
         :class="{active: tab.active}">{{tab.label}}</span>
     </div>
-    <el-row>
-      <el-col :span="24">
-        <div class="grid-content bg-purple">
-          <el-table :data="service_tableData" :key="4" size="mini" class="transparent-table transparent-white-table"
-            style="width: 100%">
+    <el-row style="height: calc(100% - 110px)">
+      <el-col :span="24" class="full-height-style">
+        <div class="grid-content bg-purple full-height-style">
+          <el-table :data="service_tableData" :key="4" size="mini" class="transparent-table transparent-white-table business-table-pagination">
             <el-table-column prop="name" sortable label="服务名称" class-name="com-txt-overflow"></el-table-column>
             <el-table-column prop="desc" sortable label="服务描述" class-name="com-txt-overflow"></el-table-column>
             <el-table-column prop="current_status" sortable label="服务当前状态" class-name="com-txt-overflow">
