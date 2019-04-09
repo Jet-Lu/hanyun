@@ -15,15 +15,15 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" ref="homePage" style="padding:20px 30px;">
+  <div id="homeIndex" class="full-height-style" style="padding:20px 30px;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
     </div>
 
-    <el-row ref="main_row">
-      <el-col>
-        <div class="grid-content bg-purple">
-          <el-table :data="web_tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+    <el-row style="height: calc(100% - 110px)">
+      <el-col class="full-height-style">
+        <div class="grid-content bg-purple full-height-style">
+          <el-table :data="web_tableData" size="mini" class="transparent-table transparent-white-table business-table-pagination">
             <el-table-column prop="name" sortable sortable label="名称" class-name="com-txt-overflow"></el-table-column>
             <el-table-column prop="host_name" sortable label="Host Name" class-name="com-txt-overflow"></el-table-column>
             <el-table-column prop="route" sortable label="路径" class-name="com-txt-overflow"></el-table-column>
@@ -33,7 +33,7 @@
       </el-col>
     </el-row>
 
-    <div class="toggle-page" :style="{'margin-top': marginTop_togglePage}">
+    <div class="toggle-page">
       <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)" :class="{active: page.active}">{{page.label}}</span>
     </div>
   </div>

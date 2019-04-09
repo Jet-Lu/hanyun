@@ -15,15 +15,15 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" style="padding:20px 30px;">
+  <div id="homeIndex" class="full-height-style" style="padding:20px 30px;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
     </div>
 
-    <el-row>
-      <el-col>
-        <div class="grid-content bg-purple">
-          <el-table :data="connect_tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+    <el-row style="height: calc(100% - 110px)">
+      <el-col class="full-height-style">
+        <div class="grid-content bg-purple full-height-style">
+          <el-table :data="connect_tableData" size="mini" class="transparent-table transparent-white-table business-table-pagination">
             <el-table-column prop="name" sortable sortable label="名称" class-name="com-txt-overflow"></el-table-column>
             <el-table-column prop="ip" sortable label="绑定ip地址" class-name="com-txt-overflow"></el-table-column>
             <el-table-column prop="port" sortable label="端口" class-name="com-txt-overflow"></el-table-column>

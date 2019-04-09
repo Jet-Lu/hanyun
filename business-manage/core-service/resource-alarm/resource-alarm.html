@@ -16,19 +16,16 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" style="padding:20px 30px;">
-    <el-row>
-      <el-col>
-        <div class="grid-content bg-purple">
-          <el-table :data="alarm_tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+  <div id="homeIndex" class="full-height-style" style="padding:20px 30px;">
+    <el-row style="height: calc(100% - 60px)">
+      <el-col class="full-height-style">
+        <div class="grid-content bg-purple full-height-style">
+          <el-table :data="alarm_tableData" size="mini" class="transparent-table transparent-white-table business-table-pagination">
             <el-table-column label="级别" sortable class-name="com-txt-overflow" width="88px">
               <template slot-scope="scope">
                 <i class="fa fa-check-circle" v-if="scope.row.alarm_status === '1'" style="color:#69F0AE;"></i>
                 <i class="fa fa-exclamation-circle" v-if="scope.row.alarm_status === '2'" style="color:#FF9E54;"></i>
                 <i class="fa fa-times-circle" v-if="scope.row.alarm_status === '0'" style="color:#f00;"></i>
-                <!-- <img v-if="scope.row.alarm_status === '1'" src="../../../assets/images/icon/normal.png" />
-                <img v-if="scope.row.alarm_status === '2'" src="../../../assets/images/icon/warning.png" />
-                <img v-if="scope.row.alarm_status === '0'" src="../../../assets/images/icon/error.png" /> -->
               </template>
             </el-table-column>
             <el-table-column prop="alarm_name" sortable sortable label="告警名称" class-name="com-txt-overflow"></el-table-column>
