@@ -15,15 +15,15 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" style="padding:20px 30px;">
+  <div id="homeIndex" class="full-height-style" style="padding:20px 30px;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)"
         :class="{active: tab.active}">{{tab.label}}</span>
     </div>
-    <el-row>
-      <el-col :span="24">
-        <div class="grid-content bg-purple">
-          <el-table :data="tableData5" :class="'transparent-table warning-special-table-tree'" style="width: 100%">
+    <el-row style="height: calc(100% - 60px)">
+      <el-col :span="24" class="full-height-style">
+        <div class="grid-content bg-purple full-height-style">
+          <el-table :data="tableData5" :class="'transparent-table warning-special-table-tree business-table-pagination'">
             <el-table-column type="expand" width="70px">
               <template slot-scope="props">
                 <el-table :data="tableData5" :class="'business-expand-table'" :show-header="false" style="width: 100%">

@@ -15,15 +15,14 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" style="padding:20px 30px;">
+  <div id="homeIndex" class="full-height-style" style="padding:20px 30px;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)" :class="{active: tab.active}">{{tab.label}}</span>
     </div>
-    <el-row>
-      <el-col :span="24">
-        <div class="grid-content bg-purple">
-          <el-table :data="process_tableData" :key="3" size="mini" class="transparent-table transparent-white-table"
-            style="width: 100%">
+    <el-row style="height: calc(100% - 60px)">
+      <el-col :span="24" class="full-height-style">
+        <div class="grid-content bg-purple full-height-style">
+          <el-table :data="process_tableData" :key="3" size="mini" class="transparent-table transparent-white-table business-table-pagination">
             <el-table-column prop="pid" sortable label="ID" class-name="com-txt-overflow"></el-table-column>
             <el-table-column prop="name" sortable label="创建者" class-name="com-txt-overflow"></el-table-column>
             <el-table-column prop="cpu_using" sortable label="执行时间" class-name="com-txt-overflow"></el-table-column>

@@ -11,7 +11,7 @@ var app = new Vue({
         { label: '数据文件', url: './data-file.html', active: false },
         { label: '会话', url: './conversation.html', active: false },
         { label: 'JOB', url: './job.html', active: false },
-        { label: '重做日志', url: '', active: false },
+        { label: '重做日志', url: './redo-log.html', active: false },
         { label: '死锁检测', url: '', active: false },
         { label: '库缓存', url: './library-cache.html', active: true }
       ],
