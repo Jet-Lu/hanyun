@@ -15,21 +15,10 @@ var app = new Vue({
         { label: '资源告警', url: './resource-alarm.html', active: true },
         { label: '拓扑定位', url: '', active: false },
       ],
-      page_height: {
-        marginTop_togglePage: ''
-      }
     }
   },
   created() {},
-  mounted() {
-    console.log(this.$refs.homePage, this.$refs.main_row, this.$refs.overvie_header);
-    const calcHeight = this.$refs.homePage.clientHeight - this.$refs.main_row.$el.clientHeight - 200;
-    if (calcHeight < 0) {
-      this.page_height.marginTop_togglePage = '20px';
-    } else {
-      this.page_height.marginTop_togglePage = calcHeight + 'px';
-    }
-  },
+  mounted() { },
   methods: {
     togglePage(evt) {
       window.location.href = evt.url;

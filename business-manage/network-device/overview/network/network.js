@@ -110,7 +110,6 @@ var app = new Vue({
         isActice: '1H',
         current_name: '红帽VirtlO以太网适配器#1'
       },
-      marginTop_togglePage: '',
     }
   },
   created() {
@@ -121,13 +120,6 @@ var app = new Vue({
       if (window.location.href.split('?param=')[1] === 'true') {
         this.init_page.show_disk = false;
       }
-    }
-    const calcHeight = this.$refs.homePage.clientHeight - this.$refs.main_row.$el.clientHeight - 240;
-    // console.log(calcHeight, this.$refs.homePage.clientHeight, this.$refs.main_row.$el.clientHeight);
-    if (calcHeight < 0) {
-      this.marginTop_togglePage = '20px';
-    } else {
-      this.marginTop_togglePage = calcHeight + 'px';
     }
   },
   methods: {

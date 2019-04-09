@@ -16,116 +16,108 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" ref="homePage" style="padding:20px 30px;">
+  <div id="homeIndex" class="full-height-style" style="padding:20px 30px;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)"
         :class="{active: tab.active}">{{tab.label}}</span>
     </div>
-    <el-row ref="main_row">
-      <el-col :span="24">
-        <div v-if="init_page.show_newwork">
-          <div class="grid-content bg-purple">
-            <el-table :data="network_tableData" :key="2" size="mini" class="transparent-table transparent-white-table"
-              style="width: 100%">
-              <el-table-column prop="name" sortable label="端口名称" class-name="com-txt-overflow">
-                <template slot-scope="scope">
-                  <span @click="showPage_network(scope.row);"
-                    style="color:#97C1FF;cursor:pointer;">{{scope.row.name}}</span>
-                </template>
-              </el-table-column>
-              <el-table-column prop="desc" sortable label="端口描述" class-name="com-txt-overflow"></el-table-column>
-              <el-table-column prop="nick_name" sortable label="端口别名" class-name="com-txt-overflow"></el-table-column>
-              <el-table-column prop="port_type" sortable label="端口类型" class-name="com-txt-overflow"></el-table-column>
-              <el-table-column prop="mac" sortable label="MAC地址" class-name="com-txt-overflow"></el-table-column>
-              <el-table-column prop="manage_status" sortable label="管理状态" class-name="com-txt-overflow">
-                <template slot-scope="scope">
-                    <i class="fa fa-check-circle" v-if="scope.row.manage_status === '1'" style="color:#69F0AE;"></i>
-                    <i class="fa fa-exclamation-circle" v-if="scope.row.manage_status === '2'"
-                      style="color:#FF9E54;"></i>
-                    <i class="fa fa-times-circle" v-if="scope.row.manage_status === '0'" style="color:#f00;"></i>
-                  <!-- <img v-if="scope.row.manage_status === '1'" src="../../../assets/images/icon/normal.png" />
-                  <img v-if="scope.row.manage_status === '2'" src="../../../assets/images/icon/warning.png" />
-                  <img v-if="scope.row.manage_status === '0'" src="../../../assets/images/icon/error.png" /> -->
-                </template>
-              </el-table-column>
-              <el-table-column prop="run_status" sortable label="运行状态" class-name="com-txt-overflow">
-                <template slot-scope="scope">
-                    <i class="fa fa-check-circle" v-if="scope.row.run_status === '1'" style="color:#69F0AE;"></i>
-                    <i class="fa fa-exclamation-circle" v-if="scope.row.run_status === '2'"
-                      style="color:#FF9E54;"></i>
-                    <i class="fa fa-times-circle" v-if="scope.row.run_status === '0'" style="color:#f00;"></i>
-                  <!-- <img v-if="scope.row.run_status === '1'" src="../../../assets/images/icon/normal.png" />
-                  <img v-if="scope.row.run_status === '2'" src="../../../assets/images/icon/warning.png" />
-                  <img v-if="scope.row.run_status === '0'" src="../../../assets/images/icon/error.png" /> -->
-                </template>
-              </el-table-column>
-              <el-table-column prop="bandwidth" sortable label="端口带宽" class-name="com-txt-overflow"></el-table-column>
-              <el-table-column prop="in_flow" sortable label="进流量" class-name="com-txt-overflow"></el-table-column>
-              <el-table-column prop="out_flow" sortable label="出流量" class-name="com-txt-overflow"></el-table-column>
-            </el-table>
-            <div class="loc-pagination">
-              <div class="my-pagination-group">
-                <div class="my-pagination-btn my-pagination-first com-hover">
-                  首页
-                </div>
-                <el-pagination :pager-count="5" layout="prev, pager, next" :total="1000">
-                </el-pagination>
-                <div class="my-pagination-btn my-pagination-last com-hover">
-                  尾页
-                </div>
+    <el-row v-if="init_page.show_newwork" style="height: calc(100% - 110px)">
+      <el-col :span="24" class="full-height-style">
+        <div class="grid-content bg-purple full-height-style">
+          <el-table :data="network_tableData" :key="2" size="mini" class="transparent-table transparent-white-table business-table-pagination">
+            <el-table-column prop="name" sortable label="端口名称" class-name="com-txt-overflow">
+              <template slot-scope="scope">
+                <span @click="showPage_network(scope.row);"
+                  style="color:#97C1FF;cursor:pointer;">{{scope.row.name}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="desc" sortable label="端口描述" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="nick_name" sortable label="端口别名" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="port_type" sortable label="端口类型" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="mac" sortable label="MAC地址" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="manage_status" sortable label="管理状态" class-name="com-txt-overflow">
+              <template slot-scope="scope">
+                <i class="fa fa-check-circle" v-if="scope.row.manage_status === '1'" style="color:#69F0AE;"></i>
+                <i class="fa fa-exclamation-circle" v-if="scope.row.manage_status === '2'" style="color:#FF9E54;"></i>
+                <i class="fa fa-times-circle" v-if="scope.row.manage_status === '0'" style="color:#f00;"></i>
+              </template>
+            </el-table-column>
+            <el-table-column prop="run_status" sortable label="运行状态" class-name="com-txt-overflow">
+              <template slot-scope="scope">
+                <i class="fa fa-check-circle" v-if="scope.row.run_status === '1'" style="color:#69F0AE;"></i>
+                <i class="fa fa-exclamation-circle" v-if="scope.row.run_status === '2'" style="color:#FF9E54;"></i>
+                <i class="fa fa-times-circle" v-if="scope.row.run_status === '0'" style="color:#f00;"></i>
+              </template>
+            </el-table-column>
+            <el-table-column prop="bandwidth" sortable label="端口带宽" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="in_flow" sortable label="进流量" class-name="com-txt-overflow"></el-table-column>
+            <el-table-column prop="out_flow" sortable label="出流量" class-name="com-txt-overflow"></el-table-column>
+          </el-table>
+          <div class="loc-pagination">
+            <div class="my-pagination-group">
+              <div class="my-pagination-btn my-pagination-first com-hover">
+                首页
+              </div>
+              <el-pagination :pager-count="5" layout="prev, pager, next" :total="1000">
+              </el-pagination>
+              <div class="my-pagination-btn my-pagination-last com-hover">
+                尾页
               </div>
             </div>
           </div>
         </div>
-        <div v-else>
-          <div class="business-overview-header">
-            <table>
-              <tr>
-                <td>CPU名称 : {{business_data.label}}</td>
-                <td>当前频率 : Tomcat的</td>
-                <td>最大频率 : {{business_data.label}}</td>
-                <td>CPU核心数 : {{business_data.mttr}}</td>
-              </tr>
-              <tr>
-                <td>逻辑CPU个数 :8</td>
-                <td>厂商 : 工商局的</td>
-                <td>使用率 : 23%</td>
-                <td>二级缓存 :56MB</td>
-              </tr>
-              <tr>
-                <td>三级缓存 :56MB</td>
-              </tr>
-            </table>
-          </div>
-
-          <el-row :gutter="20">
-            <el-col :span="6">
-              <div class="grid-content bg-purple" style="height:576px;">
-                <input placeholder="搜索" suffix-icon="el-icon-search" class="loc-input" />
-                <ul class="left-list-right-echart">
-                  <li v-for="cpu in network_tableData" :class="{active: cpu.name===cpuData.current_name}"
-                    @click="hightLight(cpu);">{{cpu.name}}</li>
-                </ul>
-              </div>
-            </el-col>
-            <el-col :span="18">
-              <div class="grid-content bg-purple" style="height:576px;">
-                <div class="top-tab-toggle">
-                  <span v-for="tab in echart_toggle" @click="toggleEcharts(tab)"
-                    :class="{active: tab.label == cpuData.echart_title}">{{tab.label}}</span>
-                </div>
-                <div class="time-toggle" style="float: right;margin-bottom: 20px;">
-                  <span v-for="time in time_array" @click="toggleTime(time.name)"
-                    :class="{active: cpuData.isActice === time.name}">{{time.name}}</span>
-                </div>
-                <v-chart style="width:100%; height:450px" :autoresize="true" :options="multiple_pie.line"></v-chart>
-              </div>
-            </el-col>
-          </el-row>
-        </div>
       </el-col>
     </el-row>
-    <div class="toggle-page" :style="{'margin-top': marginTop_togglePage}">
+
+    <el-row v-else style="height: calc(100% - 120px)">
+      <el-col :span="24" class="full-height-style">
+        <div class="business-overview-header">
+          <table>
+            <tr>
+              <td>CPU名称 : {{business_data.label}}</td>
+              <td>当前频率 : Tomcat的</td>
+              <td>最大频率 : {{business_data.label}}</td>
+              <td>CPU核心数 : {{business_data.mttr}}</td>
+            </tr>
+            <tr>
+              <td>逻辑CPU个数 :8</td>
+              <td>厂商 : 工商局的</td>
+              <td>使用率 : 23%</td>
+              <td>二级缓存 :56MB</td>
+            </tr>
+            <tr>
+              <td>三级缓存 :56MB</td>
+            </tr>
+          </table>
+        </div>
+
+        <el-row :gutter="20" style="height: calc(100% - 120px)">
+          <el-col :span="6" class="full-height-style">
+            <div class="grid-content bg-purple full-height-style">
+              <input placeholder="搜索" suffix-icon="el-icon-search" class="loc-input" />
+              <ul class="left-list-right-echart">
+                <li v-for="cpu in network_tableData" :class="{active: cpu.name===cpuData.current_name}"
+                  @click="hightLight(cpu);">{{cpu.name}}</li>
+              </ul>
+            </div>
+          </el-col>
+          <el-col :span="18" class="full-height-style">
+            <div class="grid-content bg-purple full-height-style">
+              <div class="top-tab-toggle">
+                <span v-for="tab in echart_toggle" @click="toggleEcharts(tab)"
+                  :class="{active: tab.label == cpuData.echart_title}">{{tab.label}}</span>
+              </div>
+              <div class="time-toggle" style="float: right;margin-bottom: 20px;">
+                <span v-for="time in time_array" @click="toggleTime(time.name)"
+                  :class="{active: cpuData.isActice === time.name}">{{time.name}}</span>
+              </div>
+              <v-chart style="height: calc(100% - 50px)" :autoresize="true" :options="multiple_pie.line"></v-chart>
+            </div>
+          </el-col>
+        </el-row>
+      </el-col>
+    </el-row>
+    <div class="toggle-page">
       <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)"
         :class="{active: page.active}">{{page.label}}</span>
     </div>

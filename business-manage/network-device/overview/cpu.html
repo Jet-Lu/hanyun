@@ -16,17 +16,15 @@
 </head>
 
 <body class="app">
-  <div id="homeIndex" ref="homePage" style="padding:20px 30px;">
+  <div id="homeIndex" class="full-height-style" style="padding:20px 30px;">
     <div class="top-tab-toggle">
       <span v-for="(tab, index) in tab_array" :key="index" @click="toggleTab(tab)"
         :class="{active: tab.active}">{{tab.label}}</span>
     </div>
-    <el-row ref="main_row">
-      <el-col :span="24">
-        <div v-if="init_page.show_cpu">
-          <div class="grid-content bg-purple">
-            <el-table :data="cpu_tableData" :key="2" size="mini" class="transparent-table transparent-white-table"
-              style="width: 100%">
+    <el-row v-if="init_page.show_cpu" style="height: calc(100% - 110px)">
+      <el-col :span="24" class="full-height-style">
+          <div class="grid-content bg-purple full-height-style">
+            <el-table :data="cpu_tableData" :key="2" size="mini" class="transparent-table transparent-white-table business-table-pagination">
               <el-table-column prop="name" sortable label="端口名称" class-name="com-txt-overflow">
                 <template slot-scope="scope">
                   <span @click="showPage_cpu(scope.row);"
@@ -56,78 +54,77 @@
               <el-table-column prop="out_flow" sortable label="出流量" class-name="com-txt-overflow"></el-table-column>
             </el-table>
           </div>
-        </div>
-
-        <div v-else>
-          <div class="business-overview-header">
-            <table>
-              <tr>
-                <td>端口名称 : {{business_data.label}}</td>
-                <td>端口描述 : Tomcat的</td>
-                <td>端口别名 : {{business_data.label}}</td>
-              </tr>
-              <tr>
-                <td>端口类型 : {{business_data.label}}</td>
-                <td>MAC地址 : Tomcat的</td>
-                <td>端口索引 : {{business_data.label}}</td>
-              </tr>
-              <tr>
-                <td>物理端口 : {{business_data.label}}</td>
-                <td>以太网端口 : Tomcat的</td>
-                <td>聚合端口号 : {{business_data.label}}</td>
-              </tr>
-              <tr>
-                <td>管理状态 : {{business_data.label}}</td>
-                <td>进带宽 : Tomcat的</td>
-                <td>出带宽 : {{business_data.label}}</td>
-              </tr>
-              <tr>
-                <td>运行状态 : {{business_data.label}}</td>
-                <td>进流量 : Tomcat的</td>
-                <td>出流量 : {{business_data.label}}</td>
-              </tr>
-            </table>
-          </div>
-
-          <el-row :gutter="20">
-            <el-col :span="6">
-              <div class="grid-content bg-purple" style="height:576px;">
-                <input placeholder="搜索" suffix-icon="el-icon-search" class="loc-input" />
-                <ul class="left-list-right-echart">
-                  <li v-for="cpu in cpu_tableData" :class="{active: cpu.name===cpuData.current_name}"
-                    @click="hightLight(cpu);">{{cpu.name}}</li>
-                </ul>
-              </div>
-            </el-col>
-            <el-col :span="18">
-              <div class="grid-content bg-purple" style="height:576px;">
-                <div class="top-tab-toggle">
-                  <span v-for="tab in echart_toggle" @click="toggleEcharts(tab)"
-                    :class="{active: tab.label == cpuData.echart_title}">{{tab.label}}</span>
-                </div>
-                <div class="time-toggle" style="float: right;margin-bottom: 20px;">
-                  <span v-for="time in time_array" @click="toggleTime(time.name)"
-                    :class="{active: cpuData.isActice === time.name}">{{time.name}}</span>
-                </div>
-                <div>
-                  <v-chart v-if="cpuData.echart_title==='流量速率'" style="width:100%; height:480px" :autoresize="true"
-                    :options="multiple_pie.line"></v-chart>
-                  <v-chart v-else-if="cpuData.echart_title==='带宽利用率'" style="width:100%; height:480px"
-                    :autoresize="true" :options="multiple_pie.line2"></v-chart>
-                  <v-chart v-else-if="cpuData.echart_title==='包速率'" style="width:100%; height:480px" :autoresize="true"
-                    :options="multiple_pie.line3"></v-chart>
-                  <v-chart v-else-if="cpuData.echart_title==='错包率'" style="width:100%; height:480px" :autoresize="true"
-                    :options="multiple_pie.line4"></v-chart>
-                  <v-chart v-else style="width:100%; height:480px" :autoresize="true" :options="multiple_pie.line5">
-                  </v-chart>
-                </div>
-              </div>
-            </el-col>
-          </el-row>
-        </div>
       </el-col>
     </el-row>
-    <div class="toggle-page" :style="{'margin-top': marginTop_togglePage}">
+    <el-row v-else style="height: calc(100% - 110px)">
+      <el-col :span="24" class="full-height-style">
+        <div class="business-overview-header">
+          <table>
+            <tr>
+              <td>端口名称 : {{business_data.label}}</td>
+              <td>端口描述 : Tomcat的</td>
+              <td>端口别名 : {{business_data.label}}</td>
+            </tr>
+            <tr>
+              <td>端口类型 : {{business_data.label}}</td>
+              <td>MAC地址 : Tomcat的</td>
+              <td>端口索引 : {{business_data.label}}</td>
+            </tr>
+            <tr>
+              <td>物理端口 : {{business_data.label}}</td>
+              <td>以太网端口 : Tomcat的</td>
+              <td>聚合端口号 : {{business_data.label}}</td>
+            </tr>
+            <tr>
+              <td>管理状态 : {{business_data.label}}</td>
+              <td>进带宽 : Tomcat的</td>
+              <td>出带宽 : {{business_data.label}}</td>
+            </tr>
+            <tr>
+              <td>运行状态 : {{business_data.label}}</td>
+              <td>进流量 : Tomcat的</td>
+              <td>出流量 : {{business_data.label}}</td>
+            </tr>
+          </table>
+        </div>
+
+        <el-row :gutter="20" style="height: calc(100% - 176px)">
+          <el-col :span="6" class="full-height-style">
+            <div class="grid-content bg-purple full-height-style">
+              <input placeholder="搜索" suffix-icon="el-icon-search" class="loc-input" />
+              <ul class="left-list-right-echart">
+                <li v-for="cpu in cpu_tableData" :class="{active: cpu.name===cpuData.current_name}"
+                  @click="hightLight(cpu);">{{cpu.name}}</li>
+              </ul>
+            </div>
+          </el-col>
+          <el-col :span="18" class="full-height-style">
+            <div class="grid-content bg-purple full-height-style">
+              <div class="top-tab-toggle">
+                <span v-for="tab in echart_toggle" @click="toggleEcharts(tab)"
+                  :class="{active: tab.label == cpuData.echart_title}">{{tab.label}}</span>
+              </div>
+              <div class="time-toggle" style="float: right;margin-bottom: 20px;">
+                <span v-for="time in time_array" @click="toggleTime(time.name)"
+                  :class="{active: cpuData.isActice === time.name}">{{time.name}}</span>
+              </div>
+              <div class="full-height-style">
+                <v-chart v-if="cpuData.echart_title==='流量速率'" style="height: calc(100% - 50px)" :autoresize="true"
+                  :options="multiple_pie.line"></v-chart>
+                <v-chart v-else-if="cpuData.echart_title==='带宽利用率'" style="height: calc(100% - 50px)" :autoresize="true"
+                  :options="multiple_pie.line2"></v-chart>
+                <v-chart v-else-if="cpuData.echart_title==='包速率'" style="height: calc(100% - 50px)" :autoresize="true"
+                  :options="multiple_pie.line3"></v-chart>
+                <v-chart v-else-if="cpuData.echart_title==='错包率'" style="height: calc(100% - 50px)" :autoresize="true"
+                  :options="multiple_pie.line4"></v-chart>
+                <v-chart v-else style="height: calc(100% - 50px)" :autoresize="true" :options="multiple_pie.line5"></v-chart>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+      </el-col>
+    </el-row>
+    <div class="toggle-page">
       <span v-for="(page, index) in page_array" :key="index" @click="togglePage(page)"
         :class="{active: page.active}">{{page.label}}</span>
     </div>
