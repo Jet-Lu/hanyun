@@ -18,7 +18,8 @@
     <div class="loc-app-menu">
       <div class="loc-logo-form"><img src="../assets/images/logo.png" /></div>
       <div class="loc-menu-list">
-        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}" @click="toRoute(menu)">
+        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}"
+          @click="toRoute(menu)">
           <img class="loc-menu-default" :src="menu.img + '.png'" />
           <img class="loc-menu-active" :src="menu.img + '-active.png'" />
           <span class="loc-menu-name com-txt-overflow">{{ menu.name }}</span>
@@ -45,23 +46,29 @@
           <i class="el-icon-caret-right"></i>
         </div>
         <div class="my-menu">
-          <div class="my-menu-item" v-for="menu of leftMenuList.list" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === menu.id || leftMenuList.openMenu.indexOf(menu.id + '-') !== -1)}">
-            <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === menu || leftMenuList.selectMenu.id.indexOf(menu.id + '-') !== -1)}"
+          <div class="my-menu-item" v-for="menu of leftMenuList.list"
+            :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === menu.id || leftMenuList.openMenu.indexOf(menu.id + '-') !== -1)}">
+            <div class="my-menu-content"
+              :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === menu || leftMenuList.selectMenu.id.indexOf(menu.id + '-') !== -1)}"
               @click="selectedLeftMenu(menu)">
               <i class="loc-left-icon" :class="menu.iconClass"></i>
               <span>{{ menu.name }}</span>
               <i v-if="menu.children" class="loc-drop-icon el-icon-arrow-right"></i>
             </div>
             <div class="my-submenu-item">
-              <div class="my-menu-item" v-for="subMenu of menu.children" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === subMenu.id || leftMenuList.openMenu.indexOf(subMenu.id + '-') !== -1)}">
-                <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === subMenu || leftMenuList.selectMenu.id.indexOf(subMenu.id + '-') !== -1)}"
+              <div class="my-menu-item" v-for="subMenu of menu.children"
+                :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === subMenu.id || leftMenuList.openMenu.indexOf(subMenu.id + '-') !== -1)}">
+                <div class="my-menu-content"
+                  :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === subMenu || leftMenuList.selectMenu.id.indexOf(subMenu.id + '-') !== -1)}"
                   @click="selectedLeftMenu(subMenu)">
                   <i class="loc-left-icon"></i>
-                  <span><i class="loc-left-subicon el-icon-caret-right" v-if="subMenu.children"></i>{{ subMenu.name }}</span>
+                  <span><i class="loc-left-subicon el-icon-caret-right"
+                      v-if="subMenu.children"></i>{{ subMenu.name }}</span>
                 </div>
                 <div class="my-submenu-item">
                   <div class="my-menu-item" v-for="mSubMenu of subMenu.children">
-                    <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === mSubMenu || leftMenuList.selectMenu.id.indexOf(mSubMenu.id + '-') !== -1)}"
+                    <div class="my-menu-content"
+                      :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === mSubMenu || leftMenuList.selectMenu.id.indexOf(mSubMenu.id + '-') !== -1)}"
                       @click="selectedLeftMenu(mSubMenu)">
                       <i class="loc-left-icon"></i>
                       <span><i class="loc-left-subicon"></i>{{ mSubMenu.name }}</span>
@@ -80,12 +87,14 @@
         <div class="loc-manage-content">
           <div class="loc-select-tip">
             <div class="loc-tip-form">
-              <div class="loc-select-item com-hover" v-for="tip of tipSelect" @click="setSelectId(tip.id)" :class="{'active': tip.id === selectId}">
+              <div class="loc-select-item com-hover" v-for="tip of tipSelect" @click="setSelectId(tip.id)"
+                :class="{'active': tip.id === selectId}">
                 {{ tip.name }}
               </div>
             </div>
             <div class="loc-tip-form">
-              <div class="loc-select-item com-hover" v-for="tip of tipSelect1" @click="setSelectId1(tip.id)" :class="{'active': tip.id === selectId1}">
+              <div class="loc-select-item com-hover" v-for="tip of tipSelect1" @click="setSelectId1(tip.id)"
+                :class="{'active': tip.id === selectId1}">
                 {{ tip.name }}
               </div>
             </div>
@@ -93,7 +102,8 @@
           <div class="loc-opera-group alarm-opera-group">
             <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-link"></i><span>批量关联</span></el-button>
             <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-link"></i><span>批量配置阈值</span></el-button>
-            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-trash"></i><span>清除资源策略</span></el-button>
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-trash"></i><span>清除资源策略</span>
+            </el-button>
           </div>
           <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
             <el-table-column class-name="my-checkbox" type="selection" width="38px"></el-table-column>
@@ -108,13 +118,16 @@
               </template>
             </el-table-column>
             <el-table-column prop="type" label="资源类型" class-name="com-txt-overflow" min-width="137px"></el-table-column>
-            <el-table-column prop="threshold" label="阈值组策略" class-name="com-txt-overflow" min-width="148px"></el-table-column>
-            <el-table-column prop="alarm" label="告警屏蔽策略" class-name="com-txt-overflow" min-width="159px"></el-table-column>
-            <el-table-column prop="active" label="告警动作策略" class-name="com-txt-overflow" min-width="191px"></el-table-column>
+            <el-table-column prop="threshold" label="阈值组策略" class-name="com-txt-overflow" min-width="148px">
+            </el-table-column>
+            <el-table-column prop="alarm" label="告警屏蔽策略" class-name="com-txt-overflow" min-width="159px">
+            </el-table-column>
+            <el-table-column prop="active" label="告警动作策略" class-name="com-txt-overflow" min-width="191px">
+            </el-table-column>
             <el-table-column label="操作" class-name="com-txt-overflow" min-width="96px">
               <template slot-scope="scope">
                 <i class="fa fa-pencil com-hover"></i>
-                <i class="fa fa-align-justify com-hover"></i>
+                <i class="fa fa-align-justify com-hover" @click="showDialog(scope)"></i>
                 <!-- <div style="margin: 6px 0 0 2px;" class="com-hover loc-img-form loc-write-img"></div>
                 <div style="margin: 6px 0 0 2px;" class="com-hover loc-img-form loc-app-img"></div> -->
               </template>
@@ -135,6 +148,86 @@
         </div>
       </div>
     </div>
+
+    <el-dialog title="资源策略配置" :visible.sync="dialogVisible" width="1080px" :show-close="false"
+      :before-close="handleClose" class="blue-dialog my-edit-dialog">
+      <div class="alarm-dialog">
+        <div class="alarm-fieldset">
+          <p class="name">全局策略</p>
+          <el-table :data="resourceData" size="mini" class="transparent-table transparent-white-table"
+            style="width: 100%;" height="250">
+            <el-table-column prop="name" label="名称" class-name="com-txt-overflow">
+            </el-table-column>
+            <el-table-column prop="type" label="值类型" class-name="com-txt-overflow">
+            </el-table-column>
+            <el-table-column prop="connect" label="关联阀值" class-name="com-txt-overflow">
+              <template slot-scope="scope">
+                <el-select v-model="value" popper-class="loc-main-selectbox" class="loc-main-select"
+                  placeholder="-请选择-">
+                  <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </template>
+            </el-table-column>
+            <el-table-column prop="times" label="重试次数" class-name="com-txt-overflow">
+              <template slot-scope="scope">
+                <el-select v-model="value" popper-class="loc-main-selectbox" class="loc-main-select"
+                  placeholder="-请选择-">
+                  <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+        <div class="alarm-fieldset" style="margin-top:20px;">
+          <p class="name">子策略</p>
+          <el-tabs type="border-card" v-model="activeName" :tab-position="tabPosition" style="height: 250px;">
+            <el-tab-pane label="用户管理" name="first" style="display:flex;">
+              <el-tree :data="treeData" :props="defaultProps" @node-click="handleNodeClick" style="width:35%"></el-tree>
+              <el-table :data="resourceData" size="mini" class="transparent-table transparent-white-table"
+                style="width: 55%" height="200">
+                <el-table-column prop="name" label="名称" class-name="com-txt-overflow">
+                </el-table-column>
+                <el-table-column prop="type" label="值类型" class-name="com-txt-overflow">
+                </el-table-column>
+                <el-table-column prop="connect" label="关联阀值" class-name="com-txt-overflow">
+                  <template slot-scope="scope">
+                    <el-select v-model="value" popper-class="loc-main-selectbox" class="loc-main-select"
+                      placeholder="-请选择-">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="times" label="重试次数" class-name="com-txt-overflow">
+                  <template slot-scope="scope">
+                    <el-select v-model="value" popper-class="loc-main-selectbox" class="loc-main-select"
+                      placeholder="-请选择-">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </template>
+              </el-table>
+            </el-tab-pane>
+            <el-tab-pane label="配置管理" name="second">
+              second
+            </el-tab-pane>
+            <el-tab-pane label="角色管理" name="third">
+              third
+            </el-tab-pane>
+            <el-tab-pane label="定时任务补偿" name="fourth">
+              fourth
+            </el-tab-pane>
+          </el-tabs>
+        </div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button class="dialog-btn cancel-btn" @click="dialogVisible = false">取消</el-button>
+        <el-button class="dialog-btn submit-btn" type="primary" @click="submitDialog()">确认</el-button>
+      </span>
+    </el-dialog>
+
   </div>
 </body>
 <!-- <script src="../assets/js/lodash/lodash.js"></script> -->

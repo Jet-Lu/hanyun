@@ -384,3 +384,16 @@ body {
 .dropdown-detail > span {
   border-bottom: 1px solid #fff;
 }
+.alarm-fieldset {
+  position: relative;
+  border: 1px solid #2D3982;
+  padding: 20px 10px;
+}
+.alarm-fieldset > p.name {
+  position: absolute;
+  margin: 10px 0;
+  top: -18px;
+  z-index: 2;
+  display: inline-block;
+  background: #fff;
+}

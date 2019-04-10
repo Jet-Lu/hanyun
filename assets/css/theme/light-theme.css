@@ -436,3 +436,17 @@ textarea:focus,
 .dropdown-detail > span {
   border-bottom: 1px solid #eee;
 }
+.alarm-fieldset {
+  position: relative;
+  border: 1px solid #ccc;
+  padding: 20px 10px 10px 10px;
+}
+.alarm-fieldset > p.name {
+  position: absolute;
+  margin: 10px 0;
+  padding: 0 5px;
+  top: -18px;
+  z-index: 2;
+  display: inline-block;
+  background: #fff;
+}

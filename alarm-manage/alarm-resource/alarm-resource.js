@@ -31,40 +31,41 @@ var app = new Vue({
     value1: null,
     leftMenuList: null,
     selectId: 1,
+    dialogVisible: true,
     tipSelect: [{
       id: 1,
       name: '全部'
-    },{
+    }, {
       id: 2,
       name: '网络设备'
-    },{
+    }, {
       id: 3,
       name: '服务器'
-    },{
+    }, {
       id: 4,
       name: '数据库'
-    },{
+    }, {
       id: 5,
       name: '应用服务器'
-    },{
+    }, {
       id: 6,
       name: '网络服务器'
-    },{
+    }, {
       id: 7,
       name: '邮件服务器'
-    },{
+    }, {
       id: 8,
       name: '中间件'
-    },{
+    }, {
       id: 9,
       name: '存储设备'
-    },{
+    }, {
       id: 10,
       name: '光纤交换机'
-    },{
+    }, {
       id: 11,
       name: '虚拟化'
-    },{
+    }, {
       id: 12,
       name: '通用监控'
     }],
@@ -80,42 +81,94 @@ var app = new Vue({
       threshold: 'CPU使用率',
       alarm: '7*24',
       active: '通知管理员',
-    },{
+    }, {
       name: '监控系统服务器',
       IP: '172.16.154.122',
       type: 'MySql',
       threshold: 'CPU使用率',
       alarm: '7*24',
       active: '通知管理员',
-    },{
+    }, {
       name: '监控系统服务器',
       IP: '172.16.154.122',
       type: 'MySql',
       threshold: 'CPU使用率',
       alarm: '7*24',
       active: '通知管理员',
-    },{
+    }, {
       name: '监控系统服务器',
       IP: '172.16.154.122',
       type: 'MySql',
       threshold: 'CPU使用率',
       alarm: '7*24',
       active: '通知管理员',
-    },{
+    }, {
       name: '监控系统服务器',
       IP: '172.16.154.122',
       type: 'MySql',
       threshold: 'CPU使用率',
       alarm: '7*24',
       active: '通知管理员',
-    },{
+    }, {
       name: '监控系统服务器',
       IP: '172.16.154.122',
       type: 'MySql',
       threshold: 'CPU使用率',
       alarm: '7*24',
       active: '通知管理员',
-    }]
+    }],
+    resourceData: [
+      { name: '可用性', type: '状态', connect: '3', times: '4' },
+      { name: '可用性', type: '状态', connect: '3', times: '4' },
+      { name: '可用性', type: '状态', connect: '4', times: '5' },
+      { name: '可用性', type: '状态', connect: '3', times: '4' },
+      { name: '可用性', type: '状态', connect: '3', times: '4' },
+      { name: '可用性', type: '状态', connect: '4', times: '5' },
+      { name: '可用性', type: '状态', connect: '3', times: '4' },
+      { name: '可用性', type: '状态', connect: '3', times: '4' },
+      { name: '可用性', type: '状态', connect: '4', times: '5' },
+    ],
+    tabPosition: 'left',
+    activeName: 'first',
+    defaultProps: {
+      children: 'children',
+      label: 'label'
+    },
+    treeData: [{
+      label: '一级 1',
+      children: [{
+        label: '二级 1-1',
+        children: [{
+          label: '三级 1-1-1'
+        }]
+      }]
+    }, {
+      label: '一级 2',
+      children: [{
+        label: '二级 2-1',
+        children: [{
+          label: '三级 2-1-1'
+        }]
+      }, {
+        label: '二级 2-2',
+        children: [{
+          label: '三级 2-2-1'
+        }]
+      }]
+    }, {
+      label: '一级 3',
+      children: [{
+        label: '二级 3-1',
+        children: [{
+          label: '三级 3-1-1'
+        }]
+      }, {
+        label: '二级 3-2',
+        children: [{
+          label: '三级 3-2-1'
+        }]
+      }]
+    }],
   },
   created() {
     this.setMenuList();
@@ -123,12 +176,12 @@ var app = new Vue({
     this.leftMenuList.selectMenu = this.leftMenuList.list[3].children[0];
     this.leftMenuList.openMenu = this.leftMenuList.list[3].id;
   },
-  mounted() {},
+  mounted() { },
   methods: {
     toRoute(menu) {
       window.location.href = menu.url;
     },
-    setMenuList: function() {
+    setMenuList: function () {
       this.menuList = [
         {
           name: '首页',
@@ -198,7 +251,7 @@ var app = new Vue({
         }
       ];
     },
-    setLeftMenuList: function() {
+    setLeftMenuList: function () {
       this.leftMenuList = {
         openMenu: null,
         selectMenu: null,
@@ -326,6 +379,26 @@ var app = new Vue({
     },
     toggleShowMenu() {
       this.showMenu = !this.showMenu;
+    },
+    showDialog(obj) {
+      console.log(obj);
+      this.dialogVisible = true;
+    },
+    handleClose() { },
+    handleNodeClick(data) {
+      console.log(data);
+    },
+    submitDialog() {
+      if (1) {
+        this.$message.error('请完整填写输入框！');
+        return false;
+      } else {
+        this.dialogVisible = false;
+        this.$message({
+          type: 'success',
+          message: '新增成功！'
+        });
+      }
     },
     setSelectId(id) {
       this.selectId = id;
