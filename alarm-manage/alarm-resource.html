@@ -183,10 +183,10 @@
         <div class="alarm-fieldset" style="margin-top:20px;">
           <p class="name">子策略</p>
           <el-tabs type="border-card" v-model="activeName" :tab-position="tabPosition" style="height: 250px;">
-            <el-tab-pane label="用户管理" name="first" style="display:flex;">
-              <el-tree :data="treeData" :props="defaultProps" @node-click="handleNodeClick" style="width:35%"></el-tree>
+            <el-tab-pane label="用户管理" name="first">
+              <el-tree :data="treeData" :props="defaultProps" @node-click="handleNodeClick" style="display: inline-block; height:220px; overflow: auto; width:30%; vertical-align: top;"></el-tree>
               <el-table :data="resourceData" size="mini" class="transparent-table transparent-white-table"
-                style="width: 55%" height="200">
+                style="display: inline-block; width: 69%" height="220">
                 <el-table-column prop="name" label="名称" class-name="com-txt-overflow">
                 </el-table-column>
                 <el-table-column prop="type" label="值类型" class-name="com-txt-overflow">
