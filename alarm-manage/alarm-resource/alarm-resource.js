@@ -31,7 +31,7 @@ var app = new Vue({
     value1: null,
     leftMenuList: null,
     selectId: 1,
-    dialogVisible: true,
+    dialogVisible: false,
     tipSelect: [{
       id: 1,
       name: '全部'

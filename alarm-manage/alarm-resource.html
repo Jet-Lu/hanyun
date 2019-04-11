@@ -149,8 +149,7 @@
       </div>
     </div>
 
-    <el-dialog title="资源策略配置" :visible.sync="dialogVisible" width="1080px" :show-close="false"
-      :before-close="handleClose" class="blue-dialog my-edit-dialog">
+    <el-dialog title="资源策略配置" :visible.sync="dialogVisible" width="1080px" :show-close="false" class="blue-dialog my-edit-dialog">
       <div class="alarm-dialog">
         <div class="alarm-fieldset">
           <p class="name">全局策略</p>
@@ -183,8 +182,9 @@
         <div class="alarm-fieldset" style="margin-top:20px;">
           <p class="name">子策略</p>
           <el-tabs type="border-card" v-model="activeName" :tab-position="tabPosition" style="height: 250px;">
-            <el-tab-pane label="用户管理" name="first">
-              <el-tree :data="treeData" :props="defaultProps" @node-click="handleNodeClick" style="display: inline-block; height:220px; overflow: auto; width:30%; vertical-align: top;"></el-tree>
+            <el-tab-pane label="网络接口" name="first">
+              <el-tree :data="treeData" :props="defaultProps" @node-click="handleNodeClick"
+                style="display: inline-block; height:220px; overflow: auto; width:30%; vertical-align: top;"></el-tree>
               <el-table :data="resourceData" size="mini" class="transparent-table transparent-white-table"
                 style="display: inline-block; width: 69%" height="220">
                 <el-table-column prop="name" label="名称" class-name="com-txt-overflow">
@@ -210,14 +210,14 @@
                   </template>
               </el-table>
             </el-tab-pane>
-            <el-tab-pane label="配置管理" name="second">
-              second
+            <el-tab-pane label="CPU" name="second">
+              CPU
             </el-tab-pane>
-            <el-tab-pane label="角色管理" name="third">
-              third
+            <el-tab-pane label="磁盘" name="third">
+              磁盘
             </el-tab-pane>
-            <el-tab-pane label="定时任务补偿" name="fourth">
-              fourth
+            <el-tab-pane label="磁盘IO" name="fourth">
+              磁盘IO
             </el-tab-pane>
           </el-tabs>
         </div>
