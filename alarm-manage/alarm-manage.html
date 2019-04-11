@@ -18,7 +18,8 @@
     <div class="loc-app-menu">
       <div class="loc-logo-form"><img src="../assets/images/logo.png" /></div>
       <div class="loc-menu-list">
-        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}" @click="toRoute(menu)">
+        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}"
+          @click="toRoute(menu)">
           <img class="loc-menu-default" :src="menu.img + '.png'" />
           <img class="loc-menu-active" :src="menu.img + '-active.png'" />
           <span class="loc-menu-name com-txt-overflow">{{ menu.name }}</span>
@@ -45,23 +46,29 @@
           <i class="el-icon-caret-right"></i>
         </div>
         <div class="my-menu">
-          <div class="my-menu-item" v-for="menu of leftMenuList.list" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === menu.id || leftMenuList.openMenu.indexOf(menu.id + '-') !== -1)}">
-            <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === menu || leftMenuList.selectMenu.id.indexOf(menu.id + '-') !== -1)}"
+          <div class="my-menu-item" v-for="menu of leftMenuList.list"
+            :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === menu.id || leftMenuList.openMenu.indexOf(menu.id + '-') !== -1)}">
+            <div class="my-menu-content"
+              :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === menu || leftMenuList.selectMenu.id.indexOf(menu.id + '-') !== -1)}"
               @click="selectedLeftMenu(menu)">
               <i class="loc-left-icon" :class="menu.iconClass"></i>
               <span>{{ menu.name }}</span>
               <i v-if="menu.children" class="loc-drop-icon el-icon-arrow-right"></i>
             </div>
             <div class="my-submenu-item">
-              <div class="my-menu-item" v-for="subMenu of menu.children" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === subMenu.id || leftMenuList.openMenu.indexOf(subMenu.id + '-') !== -1)}">
-                <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === subMenu || leftMenuList.selectMenu.id.indexOf(subMenu.id + '-') !== -1)}"
+              <div class="my-menu-item" v-for="subMenu of menu.children"
+                :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === subMenu.id || leftMenuList.openMenu.indexOf(subMenu.id + '-') !== -1)}">
+                <div class="my-menu-content"
+                  :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === subMenu || leftMenuList.selectMenu.id.indexOf(subMenu.id + '-') !== -1)}"
                   @click="selectedLeftMenu(subMenu)">
                   <i class="loc-left-icon"></i>
-                  <span><i class="loc-left-subicon el-icon-caret-right" v-if="subMenu.children"></i>{{ subMenu.name }}</span>
+                  <span><i class="loc-left-subicon el-icon-caret-right"
+                      v-if="subMenu.children"></i>{{ subMenu.name }}</span>
                 </div>
                 <div class="my-submenu-item">
                   <div class="my-menu-item" v-for="mSubMenu of subMenu.children">
-                    <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === mSubMenu || leftMenuList.selectMenu.id.indexOf(mSubMenu.id + '-') !== -1)}"
+                    <div class="my-menu-content"
+                      :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === mSubMenu || leftMenuList.selectMenu.id.indexOf(mSubMenu.id + '-') !== -1)}"
                       @click="selectedLeftMenu(mSubMenu)">
                       <i class="loc-left-icon"></i>
                       <span><i class="loc-left-subicon"></i>{{ mSubMenu.name }}</span>
@@ -91,12 +98,14 @@
           </div>
           <div class="loc-select-tip">
             <div class="loc-tip-form">
-              <div class="loc-select-item com-hover" v-for="tip of tipSelect" @click="setSelectId(tip.id)" :class="{'active': tip.id === selectId}">
+              <div class="loc-select-item com-hover" v-for="tip of tipSelect" @click="setSelectId(tip.id)"
+                :class="{'active': tip.id === selectId}">
                 {{ tip.name }}
               </div>
             </div>
             <div class="loc-tip-form">
-              <div class="loc-select-item com-hover" v-for="tip of tipSelect1" @click="setSelectId1(tip.id)" :class="{'active': tip.id === selectId1}">
+              <div class="loc-select-item com-hover" v-for="tip of tipSelect1" @click="setSelectId1(tip.id)"
+                :class="{'active': tip.id === selectId1}">
                 {{ tip.name }}
               </div>
             </div>
@@ -136,29 +145,42 @@
             </div>
           </div>
           <div class="loc-opera-group">
-            <el-button type="primary" class="loc-btn icon-btn" @click="showDialog"><i class="fa fa-check-circle"></i><span>确认告警</span></el-button>
-            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-check-circle"></i><span>确认所有</span></el-button>
-            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-times-circle"></i><span>清除告警</span></el-button>
-            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-times-circle"></i><span>清除所有</span></el-button>
+            <el-button type="primary" class="loc-btn icon-btn" @click="showDialog"><i
+                class="fa fa-check-circle"></i><span>确认告警</span></el-button>
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-check-circle"></i><span>确认所有</span>
+            </el-button>
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-times-circle"></i><span>清除告警</span>
+            </el-button>
+            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-times-circle"></i><span>清除所有</span>
+            </el-button>
           </div>
           <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table alarm-mini-table"
             style="width: 100%">
             <el-table-column class-name="my-checkbox com-txt-center" type="selection" width="38px"></el-table-column>
             <el-table-column prop="level" label="级别" class-name="com-txt-center no-padding" sortable min-width="48px">
               <template slot-scope="scope">
-                <i class="alarm-tip" :class="'loc-icon-' + (scope.row.level === 1 ? 'red' : scope.row.level === 2 ? 'orange' : scope.row.level === 3 ? 'yellow' : 'blue')"></i>
+                <i class="alarm-tip"
+                  :class="'loc-icon-' + (scope.row.level === 1 ? 'red' : scope.row.level === 2 ? 'orange' : scope.row.level === 3 ? 'yellow' : 'blue')"></i>
               </template>
             </el-table-column>
-            <el-table-column prop="name" label="告警名称" sortable min-width="84px" class-name="com-txt-overflow"></el-table-column>
-            <el-table-column prop="origin" label="告警源" sortable class-name="com-txt-overflow" min-width="94px"></el-table-column>
-            <el-table-column prop="resType" label="资源类型" sortable class-name="com-txt-overflow" min-width="84px"></el-table-column>
-            <el-table-column prop="alarmType" label="告警类型" sortable class-name="com-txt-overflow" min-width="86px"></el-table-column>
-            <el-table-column prop="alarmStatus" label="告警状态" sortable class-name="com-txt-overflow" min-width="100px"></el-table-column>
-            <el-table-column prop="content" label="告警内容" sortable class-name="com-txt-overflow" min-width="146px"></el-table-column>
+            <el-table-column prop="name" label="告警名称" sortable min-width="84px" class-name="com-txt-overflow">
+            </el-table-column>
+            <el-table-column prop="origin" label="告警源" sortable class-name="com-txt-overflow" min-width="94px">
+            </el-table-column>
+            <el-table-column prop="resType" label="资源类型" sortable class-name="com-txt-overflow" min-width="84px">
+            </el-table-column>
+            <el-table-column prop="alarmType" label="告警类型" sortable class-name="com-txt-overflow" min-width="86px">
+            </el-table-column>
+            <el-table-column prop="alarmStatus" label="告警状态" sortable class-name="com-txt-overflow" min-width="100px">
+            </el-table-column>
+            <el-table-column prop="content" label="告警内容" sortable class-name="com-txt-overflow" min-width="146px">
+            </el-table-column>
             <el-table-column prop="time" label="产生时间" class-name="com-txt-overflow" min-width="128px"></el-table-column>
-            <el-table-column prop="time1" label="已持续时长" class-name="com-txt-overflow" min-width="126px"></el-table-column>
+            <el-table-column prop="time1" label="已持续时长" class-name="com-txt-overflow" min-width="126px">
+            </el-table-column>
             <el-table-column prop="people" label="确认人" class-name="com-txt-overflow" min-width="76px"></el-table-column>
-            <el-table-column prop="confirmTime" label="确认时间" class-name="com-txt-overflow" min-width="95px"></el-table-column>
+            <el-table-column prop="confirmTime" label="确认时间" class-name="com-txt-overflow" min-width="95px">
+            </el-table-column>
           </el-table>
           <div class="loc-pagination">
             <div class="my-pagination-group">
@@ -269,6 +291,85 @@
         <el-button class="dialog-btn submit-btn" type="primary" @click="submitDialog()">确认</el-button>
       </span>
     </el-dialog>
+
+    <!-- 告警详情 -->
+    <el-dialog title="告警详情" :visible.sync="dialogAlarmDetailVisible" width="1080px" class="blue-dialog">
+      <el-form ref="business_form" size="mini" :model="business_form" :rules="business_rules"
+        class="demo-ruleForm common-addForm-table alarm-detail-dialog">
+        <el-form-item>
+          <table>
+            <tr>
+              <td class="text-right">告警名称</td>
+              <td><div class="content">CPU使用率异常</div></td>
+              <td></td>
+              <td class="text-right">告警类型</td>
+              <td><div class="content">资源负载检测</div></td>
+            </tr>
+            <tr>
+              <td class="text-right">资源名称</td>
+              <td><div class="content">维也纳-测试</div></td>
+              <td></td>
+              <td class="text-right">资源IP地址</td>
+              <td><div class="content">1323.332.323</div></td>
+            </tr>
+            <tr>
+              <td class="text-right">资源类别</td>
+              <td><div class="content">服务器</div></td>
+              <td></td>
+              <td class="text-right">资源类型</td>
+              <td><div class="content">Centos</div></td>
+            </tr>
+            <tr>
+              <td class="text-right">告警级别</td>
+              <td><div class="content">
+                  <!-- <i class="fa fa-check-circle" v-if="scope.row.alarm_status === '1'" style="color:#69F0AE;"></i> -->
+                  <i class="fa fa-exclamation-circle" style="color:#FF9E54;"></i>重要告警
+                  <!-- <i class="fa fa-times-circle" v-if="scope.row.alarm_status === '0'" style="color:#f00;"></i> -->
+              </div></td>
+              <td></td>
+              <td class="text-right">告警状态</td>
+              <td><div class="content">未确认</div></td>
+            </tr>
+            <tr>
+              <td class="text-right">产生时间</td>
+              <td><div class="content">2018-03-03</div></td>
+              <td></td>
+              <td class="text-right">已持续时长</td>
+              <td><div class="content">35秒</div></td>
+            </tr>
+            <tr>
+              <td class="text-right">确认时间</td>
+              <td><div class="content">N/A</div></td>
+              <td></td>
+              <td class="text-right">确认人</td>
+              <td><div class="content">N/A</div></td>
+            </tr>
+            <tr>
+              <td class="text-right">原因</td>
+              <td colspan="4">
+                <div class="content long-font">
+                  告警名称：CPU使用率异常 <br>
+                  告警资源：inter <br>
+                  阀值策略：93% <br>
+                  当前数据：39% <br>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right">备注</td>
+              <td colspan="4">
+                <textarea rows="2" value="" placeholder="Enter"></textarea>
+              </td>
+            </tr>
+          </table>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogAlarmDetailVisible = false" size="small">取 消</el-button>
+        <el-button type="primary" @click="confirmAddBus" size="small">确 认</el-button>
+      </span>
+    </el-dialog>
+
   </div>
 </body>
 <!-- <script src="../assets/js/lodash/lodash.js"></script> -->

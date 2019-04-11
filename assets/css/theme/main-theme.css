@@ -387,13 +387,19 @@ body {
 .alarm-fieldset {
   position: relative;
   border: 1px solid #2D3982;
-  padding: 20px 10px;
+  padding: 20px 10px 10px 10px;
 }
 .alarm-fieldset > p.name {
   position: absolute;
   margin: 10px 0;
+  padding: 0 5px;
   top: -18px;
   z-index: 2;
   display: inline-block;
   background: #fff;
+}
+.alarm-detail-dialog table tr td div.content {
+  color: #2DCD83;
+  border: 1px solid #5a6cf7;
+  background: transparent;
 }

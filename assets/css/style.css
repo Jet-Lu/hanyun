@@ -723,9 +723,25 @@ input[type='text']:-ms-input-placeholder {
 }
 .common-addForm-table .el-form-item .el-form-item__content table tr .text-right {
   text-align: right;
+  padding: 8px 10px 8px 0;
 }
 .common-addForm-table .el-form-item .el-form-item__content table tr .text-center {
   text-align: center;
+}
+.alarm-detail-dialog table tr td {
+  vertical-align: top;
+}
+.alarm-detail-dialog table tr td div.content {
+  display: inline-block;
+  width: 220px;
+  color: #2DCD83;
+  padding: 0 8px;
+  border: 1px solid #5a6cf7;
+  background: transparent;
+}
+.alarm-detail-dialog table tr td div.long-font,
+.alarm-detail-dialog table tr td textarea {
+  width: 760px;
 }
 .my-menu .my-menu-item {
   margin: 5px 0;

@@ -146,6 +146,25 @@ var app = new Vue({
       people: '系统管理员',
       confirmTime: '2018-10-17 00:44:20'
     }],
+    dialogAlarmDetailVisible: true,
+    business_form: {
+      name: '',
+    },
+    business_rules: {
+      name: [
+        { required: true, message: '请输入名称', trigger: 'blur' }
+      ]
+    },
+    resource_list: [
+      { label1: '告警名称', value1: '', label2: '告警类型', value2: '' },
+      { label1: '资源名称', value1: '', label2: '资源IP地址', value2: '' },
+      { label1: '资源类别', value1: '', label2: '资源类型', value2: '' },
+      { label1: '告警级别', value1: '', label2: '告警状态', value2: '' },
+      { label1: '产生时间', value1: '', label2: '已持续时长', value2: '' },
+      { label1: '确认时间', value1: '', label2: '确认人', value2: '' },
+      { label1: '原因', value1: '', label2: '告警', value2: '' },
+      { label1: '备注', value1: '', label2: '告警', value2: '' },
+    ],
   },
   created() {
     this.setMenuList();
@@ -377,6 +396,18 @@ var app = new Vue({
         return false;
       } else {
         this.dialogVisible = false;
+        this.$message({
+          type: 'success',
+          message: '新增成功！'
+        });
+      }
+    },
+    /* 确认新建业务 */
+    confirmAddBus() {
+      if (this.business_form.name == '' || this.business_form.name == undefined) {
+        this.$message.error('请完整填写输入框！');
+        return false;
+      } else {
         this.$message({
           type: 'success',
           message: '新增成功！'
