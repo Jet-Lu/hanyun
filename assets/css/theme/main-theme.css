@@ -396,7 +396,10 @@ body {
   top: -18px;
   z-index: 2;
   display: inline-block;
-  background: #fff;
+  background: #3c54b1;
+}
+.alarm-fieldset .el-tabs--border-card {
+  background: #5a6cf7;
 }
 .alarm-detail-dialog table tr td div.content {
   color: #2DCD83;

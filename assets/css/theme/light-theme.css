@@ -450,6 +450,9 @@ textarea:focus,
   display: inline-block;
   background: #fff;
 }
+.alarm-fieldset .el-tabs--border-card {
+  background: #fff;
+}
 .alarm-detail-dialog table tr td div.content {
   color: #666;
   border: 1px solid #ccc;

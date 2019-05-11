@@ -80,6 +80,29 @@ var app = new Vue({
       describe: 'xxxxxxxxxxxx',
       status: 1
     }],
+    dialogConfirm: false,
+    dialogFlag: 1,
+    activeNames: ['1'],
+    dialogTable: [{
+      name: '温度',
+      describe: '机房温度，预置检查项',
+      reference: '~',
+      value: '',
+      unit: '',
+      type: '人工巡检',
+      detail: '',
+      result: 1
+    },{
+      name: '温度',
+      describe: '机房温度，预置检查项',
+      reference: '~',
+      value: '',
+      unit: '',
+      type: '人工巡检',
+      detail: '',
+      result: 2
+    }],
+    editDialogVisible: false,
   },
   created() {
     this.setMenuList();
@@ -88,6 +111,9 @@ var app = new Vue({
   },
   mounted() {},
   methods: {
+    handleChange(evt) {
+      console.log('1-', evt);
+    },
     toRoute(menu) {
       window.location.href = menu.url;
     },
@@ -180,6 +206,10 @@ var app = new Vue({
           }
         ]
       };
+    },
+    editChange(e) {
+      console.log('2-', e);
+      this.editDialogVisible = true;
     },
     selectedLeftMenu(menu) {
       if (menu.canTouch) {

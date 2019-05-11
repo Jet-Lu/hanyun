@@ -79,7 +79,7 @@
       <div class="loc-right-content">
         <div class="loc-manage-content">
           <div class="loc-opera-group patrol-top-margin">
-            <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-plus-circle"></i><span>添加计划</span></el-button>
+            <el-button type="primary" class="loc-btn icon-btn" @click="dialogVisible=true"><i class="fa fa-plus-circle"></i><span>添加计划</span></el-button>
           </div>
           <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
             <el-table-column prop="name" label="巡检计划名称" min-width="131px" class-name="com-txt-overflow">
@@ -98,12 +98,9 @@
             </el-table-column>
             <el-table-column prop="" label="操作" min-width="104px">
               <template slot-scope="scope">
-                <i class="fa fa-arrow-right com-hover" slot="reference"></i>
+                <i class="fa fa-clock-o com-hover" slot="reference" @click="dialogConfirm=true"></i>
                 <i class="fa fa-edit com-hover" slot="reference"></i>
                 <i class="fa fa-trash com-hover" slot="reference"></i>
-                <!-- <div slot="reference" style="margin: 6px 0 0 2px;" class="com-hover loc-img-form loc-right-img"></div>
-                <div slot="reference" style="margin: 6px 0 0 2px;" class="com-hover loc-img-form loc-write-img"></div>
-                <div slot="reference" style="margin: 6px 0 0 2px;" class="com-hover loc-img-form loc-del-img"></div> -->
               </template>
             </el-table-column>
           </el-table>
@@ -122,12 +119,149 @@
         </div>
       </div>
     </div>
+
+    <el-dialog title="提示" class="blue-dialog my-edit-dialog" :visible.sync="dialogConfirm" :show-close="false">
+      <div style="text-align:center; padding:20px;">确定执行该巡检计划？</div>
+      <span slot="footer" class="dialog-footer">
+        <el-button class="dialog-btn cancel-btn" @click="dialogConfirm = false">取消</el-button>
+        <el-button class="dialog-btn submit-btn" type="primary" @click="submitDialog()">确认</el-button>
+      </span>
+    </el-dialog>
+
+    <el-dialog :title="dialogFlag === 1 ? '编辑巡检计划' : '添加巡检计划'" :visible.sync="dialogVisible" width="1080px" :show-close="false"
+      class="blue-dialog my-edit-dialog">
+      <div style="padding:12px 24px;">
+        <div class="alarm-fieldset">
+          <p class="name">基本信息</p>
+          <el-form ref="business_form" size="mini" class="demo-ruleForm common-addForm-table">
+            <el-form-item>
+              <table>
+                <tr>
+                  <td width="120"></td>
+                  <td class="text-right">巡检名称</td>
+                  <td><input placeholder="巡检名称" /></td>
+                  <td class="text-right">巡检报告名称</td>
+                  <td><input placeholder="巡检报告名称" /></td>
+                </tr>
+                <tr>
+                  <td width="120"></td>
+                  <td class="text-right">巡检人</td>
+                  <td>
+                    <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                      placeholder="-请选择-">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </td>
+                  <td colspan="2"></td>
+                </tr>
+                <tr>
+                  <td width="120"></td>
+                  <td class="text-right">巡检周期</td>
+                  <td>
+                    <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                      placeholder="-请选择-">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </td>
+                  <td colspan="2"></td>
+                </tr>
+                <tr>
+                  <td width="120"></td>
+                  <td class="text-right" style="vertical-align:top;">描述</td>
+                  <td colspan="2"><textarea style="width:100%" placeholder="描述"></textarea></td>
+                </tr>
+              </table>
+            </el-form-item>
+          </el-form>
+        </div>
+      </div>
+      <div class="patrol-dialog" style="padding:12px 24px;">
+        <div class="alarm-fieldset">
+          <p class="name">巡检章节设置</p>
+          <div style="height:200px; overflow: auto;">
+            <el-collapse class="my-collapse" accordion v-model="activeNames" disabled="true" @change="handleChange">
+              <el-collapse-item class="my-collapse-item" name="1">
+                <template slot="title">
+                  <div>
+                    1.机房环境：检查机房环境相关项
+                    <i class="el-icon el-icon-edit" @click.capture.stop="editChange"></i>
+                  </div>
+                </template>
+                <el-table :data="dialogTable" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+                  <el-table-column prop="name" class-name="com-txt-overflow" label="巡检项" width="92px">
+                  </el-table-column>
+                  <el-table-column prop="describe" class-name="com-txt-overflow" label="描述" width="224px">
+                  </el-table-column>
+                  <el-table-column prop="reference" class-name="com-txt-overflow" label="参考值" width="92px">
+                  </el-table-column>
+                  <el-table-column prop="unit" label="单位" width="82px" class-name="com-txt-overflow"></el-table-column>
+                  <el-table-column prop="type" label="巡检方式" width="104px" class-name="com-txt-overflow"></el-table-column>
+                  <el-table-column prop="detail" class-name="com-txt-overflow" label="情况概要" :min-width="dialogFlag === 1 ? '80px' : '135px'">
+                    <template slot-scope="scope">
+                      <span v-if="dialogFlag === 1">{{ scope.row.value }}</span>
+                      <input v-if="dialogFlag === 2" type="text" class="patrol-input" />
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="result" label="结果" :width="dialogFlag === 1 ? '80px' : '165px'">
+                    <template slot-scope="scope">
+                      <span v-if="dialogFlag === 1 && scope.row.result === 1" style="color: #69f0ae;">正常</span>
+                      <span v-if="dialogFlag === 1 && scope.row.result === 2" style="color: #f44;">异常</span>
+                      <div v-if="dialogFlag === 2" class="patrol-table-radio">
+                        <el-radio class="my-simple-radio" v-model="scope.row.result" :label="1">正常</el-radio>
+                        <el-radio class="my-simple-radio" v-model="scope.row.result" :label="2">异常</el-radio>
+                      </div>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-collapse-item>
+              <el-collapse-item class="my-collapse-item" name="2">
+                <template slot="title">
+                  <div>
+                    2.周边设备：检查机房配套设备
+                    <i class="el-icon el-icon-edit" @click.capture.stop="editChange"></i>
+                  </div>
+                </template>
+              </el-collapse-item>
+              <el-collapse-item class="my-collapse-item" name="3">
+                <template slot="title">
+                  <div>
+                    3.网络设备：检查机房内网络设备健康情况
+                    <i class="el-icon el-icon-edit" @click.capture.stop="editChange"></i>
+                  </div>
+                </template>
+              </el-collapse-item>
+              <el-collapse-item class="my-collapse-item" name="4">
+                <template slot="title">
+                  <div>
+                    4.服务器：检查机房内服务器健康情况
+                    <i class="el-icon el-icon-edit" @click.capture.stop="editChange"></i>
+                  </div>
+                </template>
+              </el-collapse-item>
+            </el-collapse>
+          </div>
+        </div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button class="dialog-btn cancel-btn" @click="dialogVisible = false">取消</el-button>
+        <el-button class="dialog-btn submit-btn" type="primary" @click="submitDialog()">确认</el-button>
+      </span>
+    </el-dialog>
+
+    <!-- 编辑 dialog -->
+    <el-dialog title="编辑巡检项（最多支持200个巡检项/已设置8项）" :visible.sync="editDialogVisible" width="1080px" class="blue-dialog my-edit-dialog">
+      
+      <span slot="footer" class="dialog-footer">
+        <el-button class="dialog-btn cancel-btn" @click="editDialogVisible = false">取消</el-button>
+        <el-button class="dialog-btn submit-btn" type="primary" @click="editDialogVisible = false">确认</el-button>
+      </span>
+    </el-dialog>
+
   </div>
 </body>
-<!-- <script src="../assets/js/lodash/lodash.js"></script> -->
-<!-- <script src="../assets/js/echart/echarts.min.js"></script> -->
 <script src="../assets/js/vue/vue.dev.js"></script>
-<!-- <script src="../assets/js/echart/vue-echart.js"></script> -->
 <script src="../assets/js/element-ui/index.js"></script>
 <script src="./patrol-plan/patrol-plan.js"></script>
 
