@@ -136,7 +136,20 @@ var app = new Vue({
     }],
     setData: {
       len: 0,
-    }
+    },
+    addChildDialog: false,
+    childTableData: [{
+      name: '温度',
+      describe: '机房温度，预置检查项',
+      detail: '11',
+      type: '22'
+    }, {
+      name: '温度',
+      describe: '机房温度，预置检查项',
+      detail: '11',
+      type: '22'
+    }],
+    multipleSelection: [],
   },
   created() {
     this.setMenuList();
@@ -224,8 +237,6 @@ var app = new Vue({
       //   opera: null,
       // });
     },
-    addInspectChild() {
-    },
     addSetChild() {
       this.setTableData.push({
         name: '',
@@ -236,6 +247,9 @@ var app = new Vue({
     deleteSetData(index, rows) {
       console.log(index, rows);
       rows.splice(index, 1);
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
     },
     deleteOperation(index, rows) {
       rows.splice(index, 1);
