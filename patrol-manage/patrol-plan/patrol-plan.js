@@ -39,7 +39,7 @@ var app = new Vue({
       lastTime: '2018-10-17 00:44:20',
       describe: 'xxxxxxxxxxxx',
       status: 1
-    },{
+    }, {
       name: '每月巡检',
       creater: '系统管理员',
       patroler: '演示用户',
@@ -47,7 +47,7 @@ var app = new Vue({
       lastTime: '2018-10-17 00:44:20',
       describe: 'xxxxxxxxxxxx',
       status: 1
-    },{
+    }, {
       name: '每月巡检',
       creater: '系统管理员',
       patroler: '演示用户',
@@ -55,7 +55,7 @@ var app = new Vue({
       lastTime: '2018-10-17 00:44:20',
       describe: 'xxxxxxxxxxxx',
       status: 1
-    },{
+    }, {
       name: '每月巡检',
       creater: '系统管理员',
       patroler: '演示用户',
@@ -63,7 +63,7 @@ var app = new Vue({
       lastTime: '2018-10-17 00:44:20',
       describe: 'xxxxxxxxxxxx',
       status: 1
-    },{
+    }, {
       name: '每月巡检',
       creater: '系统管理员',
       patroler: '演示用户',
@@ -71,7 +71,7 @@ var app = new Vue({
       lastTime: '2018-10-17 00:44:20',
       describe: 'xxxxxxxxxxxx',
       status: 1
-    },{
+    }, {
       name: '每月巡检',
       creater: '系统管理员',
       patroler: '演示用户',
@@ -92,7 +92,7 @@ var app = new Vue({
       type: '人工巡检',
       detail: '',
       result: 1
-    },{
+    }, {
       name: '温度',
       describe: '机房温度，预置检查项',
       reference: '~',
@@ -102,22 +102,151 @@ var app = new Vue({
       detail: '',
       result: 2
     }],
+    addDialogTable: [{
+      name: '温度',
+      describe: '机房温度，预置检查项',
+      reference: '~',
+      value: '',
+      unit: '',
+      inspect_val: '',
+      type: '人工巡检',
+      detail: '',
+      result: 1
+    }, {
+      name: '温度',
+      describe: '机房温度，预置检查项',
+      reference: '~',
+      value: '',
+      unit: '',
+      inspect_val: '',
+      type: '人工巡检',
+      detail: '',
+      result: 2
+    }],
     editDialogVisible: false,
+    setDialogVisible: false,
+    setTableData: [{
+      name: '温度',
+      describe: '机房温度，预置检查项',
+      detail: ''
+    }, {
+      name: '温度',
+      describe: '机房温度，预置检查项',
+      detail: ''
+    }],
+    setData: {
+      len: 0,
+    }
   },
   created() {
     this.setMenuList();
     this.setLeftMenuList();
     this.leftMenuList.selectMenu = this.leftMenuList.list[1];
+    this.setData.len = this.setTableData.length;
   },
-  mounted() {},
+  mounted() { },
   methods: {
+    addInspect() {
+      // let cell_tr = document.createElement('tr');
+      // cell_tr.setAttribute('class', 'el-table__row');
+      // for (let i = 0; i < 7; i++) {
+      //   let td = document.createElement('td');
+      //   let input = document.createElement('input');
+      //   let input1 = document.createElement('input');
+      //   let br = document.createElement('br');
+      //   let br1 = document.createElement('br');
+      //   let text = document.createTextNode("~");
+      //   let text1 = document.createTextNode("");
+      //   let div1 = document.createElement("div");
+      //   let div2 = document.createElement("div");
+      //   let span1 = document.createElement('span');
+      //   td.setAttribute('class', 'com-txt-overflow');
+      //   td.style.padding = '2px 4px';
+      //   input.setAttribute('style', 'padding:4px;');
+      //   input1.setAttribute('style', 'padding:4px; margin-top: 5px;');
+      //   switch (i) {
+      //     case 0:
+      //       td.appendChild(input);
+      //       input.placeholder = '巡检项名称';
+      //       break;
+      //     case 1:
+      //       td.appendChild(input);
+      //       input.placeholder = '巡检项描述';
+      //       break;
+      //     case 2:
+      //       td.appendChild(input);
+      //       input.placeholder = '最小值';
+      //       td.appendChild(br);
+      //       td.appendChild(text);
+      //       td.appendChild(br1);
+      //       input1.placeholder = '最大值';
+      //       td.appendChild(input1);
+      //       break;
+      //     case 3:
+      //       td.appendChild(input);
+      //       input.placeholder = '单位';
+      //       break;
+      //     case 4:
+      //       td.appendChild(text1);
+      //       break;
+      //     case 5:
+      //       div1.innerText = '人工巡检';
+      //       div1.className = 'cell';
+      //       td.style.padding = '6px 0';
+      //       td.appendChild(div1);
+      //       break;
+      //     case 6:
+      //       div2.className = 'cell';
+      //       span1.innerHTML = '<span class="el-icon-close com-hover"></span>'
+      //       div2.appendChild(span1);
+      //       span1.click = () => {
+      //         console.log('eee')
+      //         this.$refs.addTable.bodyWrapper.firstChild.lastChild.removeChild(cell_tr);
+      //       };
+      //       td.style.padding = '6px 0';
+      //       td.appendChild(div2);
+      //       break;
+      //   }
+      //   cell_tr.appendChild(td);
+      // }
+      // this.$refs.addTable.bodyWrapper.firstChild.lastChild.appendChild(cell_tr)
+      // console.log(this.$refs.addTable, this.$refs.addTable.bodyWrapper.firstChild.lastChild);
+
+      // this.addition = true;
+
+      // this.addDialogTable.push({
+      //   name: document.createElement('input'),
+      //   describe: document.createElement('input'),
+      //   reference: document.createElement('input'),
+      //   unit: document.createElement('input'),
+      //   inspect_val: document.createElement('input'),
+      //   type: '人工巡检',
+      //   opera: null,
+      // });
+    },
+    addInspectChild() {
+    },
+    addSetChild() {
+      this.setTableData.push({
+        name: '',
+        describe: '',
+      });
+      this.setData.len = this.setTableData.length;
+    },
+    deleteSetData(index, rows) {
+      console.log(index, rows);
+      rows.splice(index, 1);
+    },
+    deleteOperation(index, rows) {
+      rows.splice(index, 1);
+    },
     handleChange(evt) {
       console.log('1-', evt);
     },
     toRoute(menu) {
       window.location.href = menu.url;
     },
-    setMenuList: function() {
+    setMenuList: function () {
       this.menuList = [
         {
           name: '首页',
@@ -187,7 +316,7 @@ var app = new Vue({
         }
       ];
     },
-    setLeftMenuList: function() {
+    setLeftMenuList: function () {
       this.leftMenuList = {
         openMenu: null,
         selectMenu: null,
@@ -208,7 +337,6 @@ var app = new Vue({
       };
     },
     editChange(e) {
-      console.log('2-', e);
       this.editDialogVisible = true;
     },
     selectedLeftMenu(menu) {

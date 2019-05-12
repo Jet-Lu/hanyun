@@ -134,7 +134,7 @@
         <div class="alarm-fieldset">
           <p class="name">基本信息</p>
           <el-form ref="business_form" size="mini" class="demo-ruleForm common-addForm-table">
-            <el-form-item>
+            <el-form-item style="margin-bottom:0">
               <table>
                 <tr>
                   <td width="120"></td>
@@ -180,13 +180,14 @@
       <div class="patrol-dialog" style="padding:12px 24px;">
         <div class="alarm-fieldset">
           <p class="name">巡检章节设置</p>
+          <p class="name fa fa-edit com-hover" style="right:20px;" @click="setDialogVisible=true"></p>
           <div style="height:200px; overflow: auto;">
             <el-collapse class="my-collapse" accordion v-model="activeNames" disabled="true" @change="handleChange">
               <el-collapse-item class="my-collapse-item" name="1">
                 <template slot="title">
                   <div>
                     1.机房环境：检查机房环境相关项
-                    <i class="el-icon el-icon-edit" @click.capture.stop="editChange"></i>
+                    <i class="el-icon el-icon-edit edit-btn" @click.capture.stop="editChange"></i>
                   </div>
                 </template>
                 <el-table :data="dialogTable" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
@@ -202,16 +203,6 @@
                     <template slot-scope="scope">
                       <span v-if="dialogFlag === 1">{{ scope.row.value }}</span>
                       <input v-if="dialogFlag === 2" type="text" class="patrol-input" />
-                    </template>
-                  </el-table-column>
-                  <el-table-column prop="result" label="结果" :width="dialogFlag === 1 ? '80px' : '165px'">
-                    <template slot-scope="scope">
-                      <span v-if="dialogFlag === 1 && scope.row.result === 1" style="color: #69f0ae;">正常</span>
-                      <span v-if="dialogFlag === 1 && scope.row.result === 2" style="color: #f44;">异常</span>
-                      <div v-if="dialogFlag === 2" class="patrol-table-radio">
-                        <el-radio class="my-simple-radio" v-model="scope.row.result" :label="1">正常</el-radio>
-                        <el-radio class="my-simple-radio" v-model="scope.row.result" :label="2">异常</el-radio>
-                      </div>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -252,10 +243,69 @@
 
     <!-- 编辑 dialog -->
     <el-dialog title="编辑巡检项（最多支持200个巡检项/已设置8项）" :visible.sync="editDialogVisible" width="1080px" class="blue-dialog my-edit-dialog">
-      
+      <div class="patrol-dialog" style="padding:12px 24px;">
+        <div class="alarm-fieldset" style="padding:20px 10px;">
+          <el-row>
+            <el-col :span="12">
+              章节名称：机房环境
+            </el-col>
+            <el-col :span="12">
+              章节描述：检查机房环境相关项
+            </el-col>
+          </el-row>
+        </div>
+        <div class="patrol-add-btns">
+          <el-button type="primary" size="mini" icon="fa fa-plus" @click="addInspect">添加巡检项</el-button>
+          <el-button type="primary" size="mini" icon="fa fa-plus-circle" @click="addInspectChild">添加巡检子项</el-button>
+        </div>
+        <el-table ref="addTable" :data="addDialogTable" size="mini" class="transparent-table transparent-white-table"
+          style="width: 100%; height:300px; overflow:auto;">
+          <el-table-column prop="name" class-name="com-txt-overflow" label="巡检项" width="92px"></el-table-column>
+          <el-table-column prop="describe" class-name="com-txt-overflow" label="描述"></el-table-column>
+          <el-table-column prop="reference" class-name="com-txt-overflow" label="参考值"></el-table-column>
+          <el-table-column prop="unit" label="单位" width="82px" class-name="com-txt-overflow"></el-table-column>
+          <el-table-column prop="inspect_val" label="巡检值" width="82px" class-name="com-txt-overflow"></el-table-column>
+          <el-table-column prop="type" label="巡检方式" width="104px" class-name="com-txt-overflow"></el-table-column>
+          <el-table-column prop="detail" class-name="com-txt-overflow" label="操作" width="92px">
+            <template slot-scope="scope">
+              <span @click="deleteOperation(scope.$index, addDialogTable)" class="el-icon-close com-hover"></span>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
       <span slot="footer" class="dialog-footer">
         <el-button class="dialog-btn cancel-btn" @click="editDialogVisible = false">取消</el-button>
         <el-button class="dialog-btn submit-btn" type="primary" @click="editDialogVisible = false">确认</el-button>
+      </span>
+    </el-dialog>
+
+    <el-dialog :title="'巡检章节设置（最多支持20个章节/已设置'+ setData.len + '章）'" :visible.sync="setDialogVisible" width="1080px"
+      class="blue-dialog my-edit-dialog">
+      <div class="patrol-dialog" style="padding:12px 24px;">
+        <div class="patrol-add-btns">
+          <el-button type="primary" size="mini" icon="fa fa-plus-circle" @click="addSetChild">添加章节</el-button>
+        </div>
+        <el-table :data="setTableData" size="mini" height="300" class="transparent-table transparent-white-table" style="width: 100%;">
+          <el-table-column type="index" width="60" label="序号"></el-table-column>
+          <el-table-column prop="name" class-name="com-txt-overflow" label="章节名称" width="92">
+            <template slot-scope="scope">
+              <el-input placeholder="章节名称" :value="scope.row.name"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column prop="describe" class-name="com-txt-overflow" label="描述">
+            <template slot-scope="scope">
+              <el-input placeholder="描述" :value="scope.row.describe"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column prop="detail" class-name="com-txt-overflow" label="操作" width="100">
+            <template slot-scope="scope">
+              <span class="fa fa-trash com-hover" @click="deleteSetData(scope.$index, setTableData)"></span>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button class="dialog-btn submit-btn" type="primary" @click="setDialogVisible=false">确认</el-button>
       </span>
     </el-dialog>
 

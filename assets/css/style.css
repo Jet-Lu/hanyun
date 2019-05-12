@@ -76,6 +76,10 @@
 .dropdown-detail > span:last-child {
   border-bottom: none;
 }
+.patrol-add-btns {
+  text-align: right;
+  padding: 10px 0;
+}
 body {
   font-size: 14px;
 }
