@@ -185,7 +185,7 @@
             <el-collapse class="my-collapse" accordion v-model="activeNames" disabled="true" @change="handleChange">
               <el-collapse-item class="my-collapse-item" name="1">
                 <template slot="title">
-                  <div>
+                  <div class="collapse-div">
                     1.机房环境：检查机房环境相关项
                     <i class="el-icon el-icon-edit edit-btn" @click.capture.stop="editChange"></i>
                   </div>
@@ -209,7 +209,7 @@
               </el-collapse-item>
               <el-collapse-item class="my-collapse-item" name="2">
                 <template slot="title">
-                  <div>
+                  <div class="collapse-div">
                     2.周边设备：检查机房配套设备
                     <i class="el-icon el-icon-edit" @click.capture.stop="editChange"></i>
                   </div>
@@ -217,7 +217,7 @@
               </el-collapse-item>
               <el-collapse-item class="my-collapse-item" name="3">
                 <template slot="title">
-                  <div>
+                  <div class="collapse-div">
                     3.网络设备：检查机房内网络设备健康情况
                     <i class="el-icon el-icon-edit" @click.capture.stop="editChange"></i>
                   </div>
@@ -225,7 +225,7 @@
               </el-collapse-item>
               <el-collapse-item class="my-collapse-item" name="4">
                 <template slot="title">
-                  <div>
+                  <div class="collapse-div">
                     4.服务器：检查机房内服务器健康情况
                     <i class="el-icon el-icon-edit" @click.capture.stop="editChange"></i>
                   </div>
@@ -242,7 +242,7 @@
     </el-dialog>
 
     <!-- 编辑 dialog -->
-    <el-dialog title="编辑巡检项（最多支持200个巡检项/已设置8项）" :visible.sync="editDialogVisible" width="1080px" class="blue-dialog my-edit-dialog">
+    <el-dialog :title="'编辑巡检项（最多支持200个巡检项/已设置8项）'" :visible.sync="editDialogVisible" width="1080px" class="blue-dialog my-edit-dialog">
       <div class="patrol-dialog" style="padding:12px 24px;">
         <div class="alarm-fieldset" style="padding:20px 10px;">
           <el-row>
@@ -289,12 +289,12 @@
           <el-table-column type="index" width="60" label="序号"></el-table-column>
           <el-table-column prop="name" class-name="com-txt-overflow" label="章节名称" width="92">
             <template slot-scope="scope">
-              <el-input placeholder="章节名称" :value="scope.row.name"></el-input>
+              <el-input placeholder="章节名称" v-model="scope.row.name"></el-input>
             </template>
           </el-table-column>
           <el-table-column prop="describe" class-name="com-txt-overflow" label="描述">
             <template slot-scope="scope">
-              <el-input placeholder="描述" :value="scope.row.describe"></el-input>
+              <el-input placeholder="描述" v-model="scope.row.describe"></el-input>
             </template>
           </el-table-column>
           <el-table-column prop="detail" class-name="com-txt-overflow" label="操作" width="100">

@@ -80,6 +80,13 @@
   text-align: right;
   padding: 10px 0;
 }
+.collapse-div {
+  width: 100%;
+}
+.collapse-div > i {
+  float: right;
+  margin: 8px 15px 0 0;
+}
 body {
   font-size: 14px;
 }
