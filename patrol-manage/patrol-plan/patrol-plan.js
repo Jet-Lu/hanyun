@@ -103,6 +103,7 @@ var app = new Vue({
       result: 2
     }],
     addDialogTable: [{
+      uuic: 1,
       name: '温度',
       describe: '机房温度，预置检查项',
       reference: '~',
@@ -113,6 +114,7 @@ var app = new Vue({
       detail: '',
       result: 1
     }, {
+      uuic: 2,
       name: '温度',
       describe: '机房温度，预置检查项',
       reference: '~',
@@ -151,6 +153,17 @@ var app = new Vue({
     }],
     multipleSelection: [],
     countNum: 0,
+    addObj: {
+      uuic: '',
+      name: '',
+      describe: '',
+      reference_min: '',
+      reference_max: '',
+      unit: '',
+      type: '',
+      inspect_val: '',
+      detail: '',
+    },
   },
   created() {
     this.setMenuList();
@@ -159,90 +172,122 @@ var app = new Vue({
     this.setData.len = this.setTableData.length;
   },
   mounted() { },
+  watch: {
+    // addObj: {
+    //   uuid: this.countNum,
+    //   name: this.addObj.name,
+    //   describe: this.addObj.describe,
+    //   reference_min: this.addObj.reference_min,
+    //   reference_max: this.addObj.reference_max,
+    //   unit: this.addObj.unit,
+    //   type: '人工巡检',
+    //   inspect_val: this.addObj.inspect_val,
+    //   detail: this.addObj.detail,
+    // }
+  },
   methods: {
+    pushDataToTable(obj) {
+      this.addDialogTable.push(obj);
+    },
     addInspect() {
       this.countNum ++;
-      console.log(this.countNum);
-      if (this.countNum % 2 == 0) {
-        this.addDialogTable.push({
-          name: '1',
-          describe: '2',
-          reference: '3',
-          unit: '4',
-          inspect_val: '5',
-          type: '人工巡检',
-          opera: null,
-        });
-      } else {
-        let cell_tr = document.createElement('tr');
-        cell_tr.setAttribute('class', 'el-table__row');
-        for (let i = 0; i < 7; i++) {
-          let td = document.createElement('td');
-          let input = document.createElement('input');
-          let input1 = document.createElement('input');
-          let br = document.createElement('br');
-          let br1 = document.createElement('br');
-          let text = document.createTextNode("~");
-          let text1 = document.createTextNode("");
-          let div1 = document.createElement("div");
-          let div2 = document.createElement("div");
-          let span1 = document.createElement('span');
-          td.setAttribute('class', 'com-txt-overflow');
-          td.style.padding = '2px 4px';
-          input.setAttribute('style', 'padding:4px;');
-          input1.setAttribute('style', 'padding:4px; margin-top: 5px;');
-          switch (i) {
-            case 0:
-              td.appendChild(input);
-              input.placeholder = '巡检项名称';
-              break;
-            case 1:
-              td.appendChild(input);
-              input.placeholder = '巡检项描述';
-              break;
-            case 2:
-              td.appendChild(input);
-              input.placeholder = '最小值';
-              td.appendChild(br);
-              td.appendChild(text);
-              td.appendChild(br1);
-              input1.placeholder = '最大值';
-              td.appendChild(input1);
-              break;
-            case 3:
-              td.appendChild(input);
-              input.placeholder = '单位';
-              break;
-            case 4:
-              td.appendChild(text1);
-              break;
-            case 5:
-              div1.innerText = '人工巡检';
-              div1.className = 'cell';
-              td.style.padding = '6px 0';
-              td.appendChild(div1);
-              break;
-            case 6:
-              div2.className = 'cell';
-              span1.innerHTML = '<span class="el-icon-close com-hover"></span>'
-              div2.appendChild(span1);
-              span1.setAttribute('onClick', 'deleteNode()');
-              // span1.onClick = (evt) => {
-              //   console.log('eee', evt)
-              //   this.$refs.addTable.bodyWrapper.firstChild.lastChild.removeChild(cell_tr);
-              // };
-              td.style.padding = '6px 0';
-              td.appendChild(div2);
-              break;
-          }
-          cell_tr.appendChild(td);
-        }
-        this.$refs.addTable.bodyWrapper.firstChild.lastChild.appendChild(cell_tr)
+      this.addDialogTable.push({
+        uuid: '',
+        name: '',
+        describe: '',
+        reference_min: '',
+        reference_max: '',
+        unit: '',
+        type: '人工巡检',
+        inspect_val: '',
+        detail: '',
+      });
+
+
+
+
+      // this.countNum ++;
+      // console.log(this.countNum);
+      // if (this.countNum % 2 == 0) {
+      //   this.addDialogTable.push({
+      //     name: '1',
+      //     describe: '2',
+      //     reference: '3',
+      //     unit: '4',
+      //     inspect_val: '5',
+      //     type: '人工巡检',
+      //     opera: null,
+      //   });
+      // } else {
+      //   let cell_tr = document.createElement('tr');
+      //   cell_tr.setAttribute('class', 'el-table__row');
+      //   for (let i = 0; i < 7; i++) {
+      //     let td = document.createElement('td');
+      //     let input = document.createElement('input');
+      //     let input1 = document.createElement('input');
+      //     let br = document.createElement('br');
+      //     let br1 = document.createElement('br');
+      //     let text = document.createTextNode("~");
+      //     let text1 = document.createTextNode("");
+      //     let div1 = document.createElement("div");
+      //     let div2 = document.createElement("div");
+      //     let span1 = document.createElement('span');
+      //     td.setAttribute('class', 'com-txt-overflow');
+      //     td.style.padding = '2px 4px';
+      //     input.setAttribute('style', 'padding:4px;');
+      //     input1.setAttribute('style', 'padding:4px; margin-top: 5px;');
+      //     switch (i) {
+      //       case 0:
+      //         td.appendChild(input);
+      //         input.placeholder = '巡检项名称';
+      //         break;
+      //       case 1:
+      //         td.appendChild(input);
+      //         input.placeholder = '巡检项描述';
+      //         break;
+      //       case 2:
+      //         td.appendChild(input);
+      //         input.placeholder = '最小值';
+      //         td.appendChild(br);
+      //         td.appendChild(text);
+      //         td.appendChild(br1);
+      //         input1.placeholder = '最大值';
+      //         td.appendChild(input1);
+      //         break;
+      //       case 3:
+      //         td.appendChild(input);
+      //         input.placeholder = '单位';
+      //         break;
+      //       case 4:
+      //         td.appendChild(text1);
+      //         break;
+      //       case 5:
+      //         div1.innerText = '人工巡检';
+      //         div1.className = 'cell';
+      //         td.style.padding = '6px 0';
+      //         td.appendChild(div1);
+      //         break;
+      //       case 6:
+      //         div2.className = 'cell';
+      //         span1.innerHTML = '<span class="el-icon-close com-hover"></span>'
+      //         div2.appendChild(span1);
+      //         span1.setAttribute('onClick', 'deleteNode()');
+      //         // span1.onClick = (evt) => {
+      //         //   console.log('eee', evt)
+      //         //   this.$refs.addTable.bodyWrapper.firstChild.lastChild.removeChild(cell_tr);
+      //         // };
+      //         td.style.padding = '6px 0';
+      //         td.appendChild(div2);
+      //         break;
+      //     }
+      //     cell_tr.appendChild(td);
+      //   }
+      //   this.$refs.addTable.bodyWrapper.firstChild.lastChild.appendChild(cell_tr)
         // console.log(this.$refs.addTable, this.$refs.addTable.bodyWrapper.firstChild.lastChild);
-      }
+      // }
     },
     deleteNode() {
-      console.log('eee', )
+      console.log('eee')
     },
     addSetChild() {
       this.setTableData.push({
