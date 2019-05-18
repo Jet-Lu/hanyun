@@ -448,10 +448,48 @@ textarea:focus,
   top: -18px;
   z-index: 2;
   display: inline-block;
+  color: #333;
   background: #fff;
 }
 .alarm-fieldset .el-tabs--border-card {
   background: #fff;
+}
+.alarm-fieldset .collapse-div {
+  color: #333;
+}
+.alarm-fieldset .el-collapse-item__arrow.is-active {
+  color: #333;
+}
+.transparent-table.el-table {
+  color: inherit;
+  background: none;
+}
+.transparent-table.el-table thead {
+  color: inherit;
+}
+.transparent-table.el-table .no-padding .cell {
+  padding: 0;
+}
+.transparent-table.el-table .cell {
+  padding: 0 0 0 24px;
+}
+.transparent-table.el-table tr {
+  height: 40px;
+  background: none;
+}
+.transparent-table.el-table tr:nth-child(odd) td {
+  background: transparent;
+}
+.transparent-table.el-table tr.el-table__row:nth-child(even):hover td,
+.transparent-table.el-table tr.el-table__row:nth-child(odd):hover td {
+  background: rgba(0, 0, 0, 0.2);
+}
+.transparent-table.el-table th.gutter {
+  background: transparent;
+}
+.transparent-table .com-txt-overflow .cell {
+  color: #333;
+  white-space: nowrap;
 }
 .alarm-detail-dialog table tr td div.content {
   color: #666;

@@ -621,10 +621,63 @@ textarea,
     top: -18px;
     z-index: 2;
     display: inline-block;
+    color: #333;
     background: #fff;
   }
   .el-tabs--border-card {
     background:#fff;
+  }
+  .collapse-div {
+    color:#333;
+  }
+  .el-collapse-item__arrow.is-active {
+    color:#333;
+  }
+}
+
+.transparent-table {
+  &.el-table {
+    color: inherit;
+    background: none;
+    thead {
+      color: inherit;
+    }
+    .no-padding {
+      .cell {
+        padding: 0;
+      }
+    }
+    .cell {
+      padding: 0 0 0 24px;
+    }
+    tr {
+      height: 40px;
+      background: none;
+      &:nth-child(odd) {
+        td {
+          background: transparent;
+        }
+      }
+      &.el-table__row:nth-child(even),
+      &.el-table__row:nth-child(odd) {
+        &:hover {
+          td {
+            background: rgba(0, 0, 0, 0.2);
+          }
+        }
+      }
+    }
+    th {
+      &.gutter {
+        background: transparent;
+      }
+    }
+  }
+  .com-txt-overflow {
+    .cell {
+      color:#333;
+      white-space: nowrap;
+    }
   }
 }
 
