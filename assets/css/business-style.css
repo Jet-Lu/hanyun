@@ -81,6 +81,9 @@ div.echarts {
   background: linear-gradient(to bottom, #54E8FF, #2D3982);
   color: #fff;
 }
+.business-table-list {
+  height: 100%;
+}
 .aside-main {
   color: #fff;
   padding: 20px 30px;
