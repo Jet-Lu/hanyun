@@ -7,8 +7,8 @@
   <link href="../assets/css/base.css" rel="stylesheet" />
   <link href="../assets/js/element-ui/index.css" rel="stylesheet" />
   <link href="../assets/css/style.css" rel="stylesheet" />
-  <!-- <link href="../assets/css/theme/main-theme.css" rel="stylesheet" /> -->
-  <link href="../assets/css/theme/light-theme.css" rel="stylesheet" />
+  <link href="../assets/css/theme/main-theme.css" rel="stylesheet" />
+  <!-- <link href="../assets/css/theme/light-theme.css" rel="stylesheet" /> -->
   <link href="./index.css" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/font-awesome.css">
 </head>
@@ -18,8 +18,7 @@
     <div class="loc-app-menu">
       <div class="loc-logo-form"><img src="../assets/images/logo.png" /></div>
       <div class="loc-menu-list">
-        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}"
-          @click="toRoute(menu)">
+        <div class="loc-menu-form com-hover" v-for="menu of menuList" :class="{active: menu.active}" @click="toRoute(menu)">
           <img class="loc-menu-default" :src="menu.img + '.png'" />
           <img class="loc-menu-active" :src="menu.img + '-active.png'" />
           <span class="loc-menu-name com-txt-overflow">{{ menu.name }}</span>
@@ -46,29 +45,23 @@
           <i class="el-icon-caret-right"></i>
         </div>
         <div class="my-menu">
-          <div class="my-menu-item" v-for="menu of leftMenuList.list"
-            :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === menu.id || leftMenuList.openMenu.indexOf(menu.id + '-') !== -1)}">
-            <div class="my-menu-content"
-              :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === menu || leftMenuList.selectMenu.id.indexOf(menu.id + '-') !== -1)}"
+          <div class="my-menu-item" v-for="menu of leftMenuList.list" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === menu.id || leftMenuList.openMenu.indexOf(menu.id + '-') !== -1)}">
+            <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === menu || leftMenuList.selectMenu.id.indexOf(menu.id + '-') !== -1)}"
               @click="selectedLeftMenu(menu)">
               <i class="loc-left-icon" :class="menu.iconClass"></i>
               <span>{{ menu.name }}</span>
               <i v-if="menu.children" class="loc-drop-icon el-icon-arrow-right"></i>
             </div>
             <div class="my-submenu-item">
-              <div class="my-menu-item" v-for="subMenu of menu.children"
-                :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === subMenu.id || leftMenuList.openMenu.indexOf(subMenu.id + '-') !== -1)}">
-                <div class="my-menu-content"
-                  :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === subMenu || leftMenuList.selectMenu.id.indexOf(subMenu.id + '-') !== -1)}"
+              <div class="my-menu-item" v-for="subMenu of menu.children" :class="{'is-open': leftMenuList.openMenu && (leftMenuList.openMenu === subMenu.id || leftMenuList.openMenu.indexOf(subMenu.id + '-') !== -1)}">
+                <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === subMenu || leftMenuList.selectMenu.id.indexOf(subMenu.id + '-') !== -1)}"
                   @click="selectedLeftMenu(subMenu)">
                   <i class="loc-left-icon"></i>
-                  <span><i class="loc-left-subicon el-icon-caret-right"
-                      v-if="subMenu.children"></i>{{ subMenu.name }}</span>
+                  <span><i class="loc-left-subicon el-icon-caret-right" v-if="subMenu.children"></i>{{ subMenu.name }}</span>
                 </div>
                 <div class="my-submenu-item">
                   <div class="my-menu-item" v-for="mSubMenu of subMenu.children">
-                    <div class="my-menu-content"
-                      :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === mSubMenu || leftMenuList.selectMenu.id.indexOf(mSubMenu.id + '-') !== -1)}"
+                    <div class="my-menu-content" :class="{'is-active': leftMenuList.selectMenu && (leftMenuList.selectMenu === mSubMenu || leftMenuList.selectMenu.id.indexOf(mSubMenu.id + '-') !== -1)}"
                       @click="selectedLeftMenu(mSubMenu)">
                       <i class="loc-left-icon"></i>
                       <span><i class="loc-left-subicon"></i>{{ mSubMenu.name }}</span>
@@ -86,10 +79,10 @@
       <div class="loc-right-content">
         <div class="loc-manage-content">
           <div class="loc-opera-group patrol-top-margin">
-            <el-button type="primary" class="loc-btn icon-btn" @click="dialogVisible=true"><i
-                class="fa fa-plus-circle"></i><span>添加计划</span></el-button>
+            <el-button type="primary" class="loc-btn icon-btn" @click="dialogVisible=true"><i class="fa fa-plus-circle"></i><span>添加计划</span></el-button>
           </div>
-          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+          <el-table :data="tableData" size="mini" height="calc(100% - 100px)" class="transparent-table transparent-white-table"
+            style="width: 100%">
             <el-table-column prop="name" label="巡检计划名称" min-width="131px" class-name="com-txt-overflow">
             </el-table-column>
             <el-table-column prop="creater" label="创建人" min-width="119px" class-name="com-txt-overflow">
@@ -139,8 +132,8 @@
       </span>
     </el-dialog>
 
-    <el-dialog :title="dialogFlag === 1 ? '编辑巡检计划' : '添加巡检计划'" :visible.sync="dialogVisible" width="1080px"
-      :show-close="false" class="blue-dialog my-edit-dialog">
+    <el-dialog :title="dialogFlag === 1 ? '编辑巡检计划' : '添加巡检计划'" :visible.sync="dialogVisible" width="1080px" :show-close="false"
+      class="blue-dialog my-edit-dialog">
       <div style="padding:12px 24px;">
         <div class="alarm-fieldset">
           <p class="name">基本信息</p>
@@ -158,8 +151,8 @@
                   <td width="120"></td>
                   <td class="text-right">巡检人</td>
                   <td>
-                    <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox"
-                      class="loc-main-select loc-white-select" placeholder="-请选择-">
+                    <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                      placeholder="-请选择-">
                       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
@@ -170,8 +163,8 @@
                   <td width="120"></td>
                   <td class="text-right">巡检周期</td>
                   <td>
-                    <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox"
-                      class="loc-main-select loc-white-select" placeholder="-请选择-">
+                    <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                      placeholder="-请选择-">
                       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
@@ -201,8 +194,7 @@
                     <i class="el-icon el-icon-edit edit-btn" @click.capture.stop="editChange"></i>
                   </div>
                 </template>
-                <el-table :data="dialogTable" size="mini" class="transparent-table transparent-white-table"
-                  style="width: 100%">
+                <el-table :data="dialogTable" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
                   <el-table-column prop="name" class-name="com-txt-overflow" label="巡检项" width="92px">
                   </el-table-column>
                   <el-table-column prop="describe" class-name="com-txt-overflow" label="描述" width="224px">
@@ -212,8 +204,7 @@
                   <el-table-column prop="unit" label="单位" width="82px" class-name="com-txt-overflow"></el-table-column>
                   <el-table-column prop="type" label="巡检方式" width="104px" class-name="com-txt-overflow">
                   </el-table-column>
-                  <el-table-column prop="detail" class-name="com-txt-overflow" label="情况概要"
-                    :min-width="dialogFlag === 1 ? '80px' : '135px'">
+                  <el-table-column prop="detail" class-name="com-txt-overflow" label="情况概要" :min-width="dialogFlag === 1 ? '80px' : '135px'">
                     <template slot-scope="scope">
                       <span v-if="dialogFlag === 1">{{ scope.row.value }}</span>
                       <input v-if="dialogFlag === 2" type="text" class="patrol-input" />
@@ -228,6 +219,45 @@
                     <i class="el-icon el-icon-edit" @click.capture.stop="editChange"></i>
                   </div>
                 </template>
+                <el-table :data="dialogTable" size="mini" class="transparent-table transparent-white-table transform-expand-table"
+                  style="width: 100%">
+                  <el-table-column type="expand" width="70px">
+                    <el-table :data="dialogTable" size="mini" :show-header="false" class="transparent-table transparent-white-table"
+                      style="width: 100%">
+                      <el-table-column width="70px"></el-table-column>
+                      <el-table-column prop="name" class-name="com-txt-overflow" label="巡检项" width="92px">
+                      </el-table-column>
+                      <el-table-column prop="describe" class-name="com-txt-overflow" label="描述" width="224px">
+                      </el-table-column>
+                      <el-table-column prop="reference" class-name="com-txt-overflow" label="参考值" width="92px">
+                      </el-table-column>
+                      <el-table-column prop="unit" label="单位" width="82px" class-name="com-txt-overflow"></el-table-column>
+                      <el-table-column prop="type" label="巡检方式" width="104px" class-name="com-txt-overflow">
+                      </el-table-column>
+                      <el-table-column prop="detail" class-name="com-txt-overflow" label="情况概要" :min-width="dialogFlag === 1 ? '80px' : '135px'">
+                        <template slot-scope="scope">
+                          <span v-if="dialogFlag === 1">{{ scope.row.value }}</span>
+                          <input v-if="dialogFlag === 2" type="text" class="patrol-input" />
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </el-table-column>
+                  <el-table-column prop="name" class-name="com-txt-overflow" label="巡检项" width="92px">
+                  </el-table-column>
+                  <el-table-column prop="describe" class-name="com-txt-overflow" label="描述" width="224px">
+                  </el-table-column>
+                  <el-table-column prop="reference" class-name="com-txt-overflow" label="参考值" width="92px">
+                  </el-table-column>
+                  <el-table-column prop="unit" label="单位" width="82px" class-name="com-txt-overflow"></el-table-column>
+                  <el-table-column prop="type" label="巡检方式" width="104px" class-name="com-txt-overflow">
+                  </el-table-column>
+                  <el-table-column prop="detail" class-name="com-txt-overflow" label="情况概要" :min-width="dialogFlag === 1 ? '80px' : '135px'">
+                    <template slot-scope="scope">
+                      <span v-if="dialogFlag === 1">{{ scope.row.value }}</span>
+                      <input v-if="dialogFlag === 2" type="text" class="patrol-input" />
+                    </template>
+                  </el-table-column>
+                </el-table>
               </el-collapse-item>
               <el-collapse-item class="my-collapse-item" name="3">
                 <template slot="title">
@@ -256,8 +286,7 @@
     </el-dialog>
 
     <!-- 编辑 dialog -->
-    <el-dialog :title="'编辑巡检项（最多支持200个巡检项/已设置8项）'" :visible.sync="editDialogVisible" width="1080px"
-      class="blue-dialog my-edit-dialog">
+    <el-dialog :title="'编辑巡检项（最多支持200个巡检项/已设置8项）'" :visible.sync="editDialogVisible" width="1080px" class="blue-dialog my-edit-dialog">
       <div class="patrol-dialog" style="padding:12px 24px;">
         <div class="alarm-fieldset" style="padding:20px 10px;">
           <el-row>
@@ -327,8 +356,7 @@
         <div class="patrol-add-btns">
           <el-button type="primary" size="mini" icon="fa fa-plus-circle" @click="addSetChild">添加章节</el-button>
         </div>
-        <el-table :data="setTableData" size="mini" height="300" class="transparent-table transparent-white-table"
-          style="width: 100%;">
+        <el-table :data="setTableData" size="mini" height="300" class="transparent-table transparent-white-table" style="width: 100%;">
           <el-table-column type="index" width="60" label="序号"></el-table-column>
           <el-table-column prop="name" class-name="com-txt-overflow" label="章节名称" width="92">
             <template slot-scope="scope">
@@ -366,18 +394,18 @@
           <el-row style="margin-top:15px;">
             <el-col :span="24">
               资源类型：
-              <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox"
-                class="loc-main-select loc-white-select" placeholder="-请选择-">
+              <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                placeholder="-请选择-">
                 <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
-              <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox"
-                class="loc-main-select loc-white-select" placeholder="-请选择-">
+              <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                placeholder="-请选择-">
                 <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
-              <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox"
-                class="loc-main-select loc-white-select" placeholder="-请选择-">
+              <el-select v-model="value" popper-class="loc-main-selectbox loc-white-selectbox" class="loc-main-select loc-white-select"
+                placeholder="-请选择-">
                 <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -390,9 +418,8 @@
           资源过滤：<input type="text" placeholder="资源名称 | IP地址" class="patrol-input" />
           <el-row style="margin-top:15px;">
             <el-col :span="12">
-              <el-table :data="childTableData" size="mini" height="300"
-                class="transparent-table transparent-white-table" style="width: 100%;"
-                @selection-change="handleSelectionChange">
+              <el-table :data="childTableData" size="mini" height="300" class="transparent-table transparent-white-table"
+                style="width: 100%;" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column prop="name" class-name="com-txt-overflow" label="名称" width="92"></el-table-column>
                 <el-table-column prop="describe" class-name="com-txt-overflow" label="IP" width="92"></el-table-column>
@@ -401,9 +428,8 @@
               </el-table>
             </el-col>
             <el-col :span="12">
-              <el-table :data="childTableData" size="mini" height="300"
-                class="transparent-table transparent-white-table" style="width: 100%;"
-                @selection-change="handleSelectionChange">
+              <el-table :data="childTableData" size="mini" height="300" class="transparent-table transparent-white-table"
+                style="width: 100%;" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column prop="name" class-name="com-txt-overflow" label="名称" width="92"></el-table-column>
                 <el-table-column prop="describe" class-name="com-txt-overflow" label="IP" width="92"></el-table-column>

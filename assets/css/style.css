@@ -1087,3 +1087,6 @@ input[type='text']:-ms-input-placeholder {
   background: rgba(0, 0, 0, 0.2);
   color: inherit;
 }
+.transform-expand-table .el-table__body .el-table__expanded-cell {
+  padding: 0;
+}

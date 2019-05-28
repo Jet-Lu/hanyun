@@ -72,9 +72,9 @@
     </div>
 
     <!-- 图表 -->
-    <div class="aside-main" v-if="page_init" style="height:calc(100% - 100px)">
+    <div class="aside-main" v-if="page_init" style="height:calc(100% - 80px)">
       <div class="aside-left" style="height:50%">
-        <div class="bus-response-speed">
+        <div class="bus-response-speed" style="height:100%">
           <span>业务响应速度</span>
           <v-chart class="single-bar" style="height:calc(100% - 34px)" :autoresize="true" :options="bus_responseSpeed"></v-chart>
         </div>
@@ -84,7 +84,7 @@
         </div>
       </div>
       <div class="aside-center" style="height:50%">
-        <div class="bus-health" style="padding:0px;">
+        <div class="bus-health" style="padding:0px; height:100%;">
           <span>业务健康</span>
           <div style="position:relative;">
             <div class="line-path" id="line_path"></div>
@@ -136,7 +136,7 @@
         </div>
       </div>
       <div class="aside-right" style="height:100%;">
-        <div class="alarm-statics">
+        <div class="alarm-statics" style="height:100%;">
           <span>告警统计</span>
           <div class="toggle-btn">
             <el-radio-group v-model="radio1" @change="toggleBtn" size="small">

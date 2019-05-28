@@ -82,7 +82,7 @@ var app = new Vue({
     }],
     dialogConfirm: false,
     dialogFlag: 1,
-    activeNames: ['1'],
+    activeNames: ['1', '2'],
     dialogTable: [{
       name: '温度',
       describe: '机房温度，预置检查项',

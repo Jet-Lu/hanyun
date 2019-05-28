@@ -121,22 +121,19 @@ div.echarts {
   }
 }
 .aside-left {
-  width: 32%;
-  height:314px;
+  width: 31%;
   margin-right:20px;
   .bus-response-speed, .bus-alarm-time {
     width: 100%;
-    height:314px;
+    height:100%;
   }
 }
 .aside-center {
-  width: 33%;
-  height: 314px;
+  width: calc(38% - 40px);
   margin-right:20px;
   /* 业务健康 */
   .bus-health {
     width: 100%;
-    height:314px;
     >span {
       padding:20px;
     }
@@ -164,7 +161,6 @@ div.echarts {
   /* 业务运行情况 */
   .bus-runing-state {
     width: 100%;
-    height:314px;
     overflow: hidden;
     table {
       width:100%;
@@ -185,8 +181,7 @@ div.echarts {
   }
 }
 .aside-right {
-  width: 32%;
-  height:650px;
+  width: 31%;
   /* 告警统计 */
   .alarm-statics {
     width:100%;
@@ -426,24 +421,16 @@ ul.run-ball {
 }
 
 
-@media screen and (max-width: 1400px) {
-  .aside-main {
-    >div {
-      &:first-child, &:last-child {
-        width: 31%;
-      }
-      &:nth-child(2n) {
-        width: 34%;
-      }
-    }
-  }
-}
-@media screen and (max-height: 768px) {
-  .aside-main {
-    >div {
-      // height:100%;
-      // width:33%;
-    }
-  }
-}
+// @media screen and (max-width: 1400px) {
+//   .aside-main {
+//     >div {
+//       &:first-child, &:last-child {
+//         width: 31%;
+//       }
+//       &:nth-child(2n) {
+//         width: 34%;
+//       }
+//     }
+//   }
+// }
 

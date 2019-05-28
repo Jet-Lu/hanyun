@@ -406,3 +406,6 @@ body {
   border: 1px solid #5a6cf7;
   background: transparent;
 }
+.transform-expand-table .el-table__expand-column .el-table__expand-icon {
+  color: #fff;
+}
