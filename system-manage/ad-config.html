@@ -84,7 +84,7 @@
             <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-trash"></i><span>清除记录</span></el-button>
             <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-download"></i><span>导入用户</span></el-button>
           </div>
-          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+          <el-table :data="tableData" size="mini" height="calc(100% - 100px)" class="transparent-table transparent-white-table" style="width: 100%">
             <el-table-column class-name="my-checkbox" type="selection" width="62px"></el-table-column>
             <el-table-column prop="name" label="用户名" min-width="147px"></el-table-column>
             <el-table-column prop="realName" label="真实姓名" min-width="142px"></el-table-column>

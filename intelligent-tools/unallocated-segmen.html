@@ -82,7 +82,7 @@
             <el-button type="primary" class="loc-btn icon-btn" @click="showDialog"><i class="fa fa-plus-circle"></i><span>新建网段</span></el-button>
             <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-trash"></i><span>删除网段</span></el-button>
           </div>
-          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+          <el-table :data="tableData" size="mini" height="calc(100% - 100px)" class="transparent-table transparent-white-table" style="width: 100%">
             <el-table-column class-name="my-checkbox" type="selection" width="46"></el-table-column>
             <el-table-column prop="startIP" label="开始IP" min-width="100px"></el-table-column>
             <el-table-column prop="endIP" label="结束IP" min-width="100px"></el-table-column>

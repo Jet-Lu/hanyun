@@ -94,7 +94,7 @@
             <el-button type="primary" class="loc-btn icon-btn" @click="showDialog"><i class="fa fa-plus-circle"></i><span>添加阈值组方案</span></el-button>
             <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-trash"></i><span>删除所有</span></el-button>
           </div>
-          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+          <el-table :data="tableData" size="mini" height="calc(100% - 190px)" class="transparent-table transparent-white-table" style="width: 100%">
             <el-table-column class-name="my-checkbox" type="selection" width="42px"></el-table-column>
             <el-table-column prop="name" label="阈值方案名称" min-width="164px" class-name="com-txt-overflow"></el-table-column>
             <el-table-column prop="type1" label="类别" class-name="com-txt-overflow" min-width="92px"></el-table-column>

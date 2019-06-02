@@ -111,7 +111,7 @@
             <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-trash"></i><span>批量释放</span></el-button>
             <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-wrench"></i><span>批量入网重绑定</span></el-button>
           </div>
-          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+          <el-table :data="tableData" size="mini" height="calc(100% - 175px)" class="transparent-table transparent-white-table" style="width: 100%">
             <el-table-column class-name="my-checkbox" type="selection" width="46"></el-table-column>
             <el-table-column prop="IP" class-name="com-txt-overflow" label="IP地址" min-width="103px">
             </el-table-column>

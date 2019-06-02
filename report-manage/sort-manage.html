@@ -82,7 +82,7 @@
             <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-plus-circle"></i><span>新建报告</span></el-button>
             <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-trash"></i><span>删除</span></el-button>
           </div>
-          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+          <el-table :data="tableData" size="mini" height="calc(100% - 100px)" class="transparent-table transparent-white-table" style="width: 100%">
             <el-table-column class-name="my-checkbox" type="selection" width="62px"></el-table-column>
             <el-table-column prop="name" label="报告名称" min-width="466px"></el-table-column>
             <el-table-column prop="type" label="报告类型" min-width="474px"></el-table-column>

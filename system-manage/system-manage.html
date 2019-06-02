@@ -86,7 +86,7 @@
             <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-play-circle"></i><span>启用用户</span></el-button>
             <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-ban"></i><span>屏蔽用户</span></el-button>
           </div>
-          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+          <el-table :data="tableData" size="mini" height="calc(100% - 100px)" class="transparent-table transparent-white-table" style="width: 100%">
             <el-table-column class-name="my-checkbox" type="selection" width="62px"></el-table-column>
             <el-table-column prop="name" label="用户名" min-width="138px"></el-table-column>
             <el-table-column prop="realName" label="真实姓名" min-width="126px"></el-table-column>
@@ -95,7 +95,6 @@
                 <i class="fa fa-check-circle" v-if="scope.row.status === 0" style="color:#69F0AE;"></i>
                 <i class="fa fa-exclamation-circle" v-if="scope.row.status === 1" style="color:#FF9E54;"></i>
                 <i class="fa fa-times-circle" v-if="scope.row.status === 2" style="color:#f00;"></i>
-                <!-- <img :src="scope.row.status === 0 ? '../assets/images/icon/normal.png' : scope.row.status === 1 ? '../assets/images/icon/warning.png' : '../assets/images/icon/error.png'" /> -->
               </template>
             </el-table-column>
             <el-table-column prop="system" label="系统" min-width="117px"></el-table-column>

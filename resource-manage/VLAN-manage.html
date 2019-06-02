@@ -105,7 +105,7 @@
               <el-button class="loc-btn reset-btn" type="primary">重置</el-button>
             </div>
           </div>
-          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table" style="width: 100%">
+          <el-table :data="tableData" size="mini" height="calc(100% - 130px)" class="transparent-table transparent-white-table" style="width: 100%">
             <el-table-column class-name="com-txt-overflow" prop="number" label="VLAN号" sortable min-width="102px">
               <template slot-scope="scope">
                 <p class="com-txt-overflow loc-table-color" style="cursor: pointer;" @click="openWindow(scope.row)">{{ scope.row.number }}</p>

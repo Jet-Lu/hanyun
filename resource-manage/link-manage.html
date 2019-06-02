@@ -100,7 +100,7 @@
             <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-star"></i><span>添加关注</span></el-button>
             <el-button type="primary" class="loc-btn icon-btn"><i class="fa fa-star-o"></i><span>取消关注</span></el-button>
           </div>
-          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table port-table" style="width: 100%">
+          <el-table :data="tableData" size="mini" height="calc(100% - 170px)" class="transparent-table transparent-white-table port-table" style="width: 100%">
             <el-table-column class-name="my-checkbox com-txt-center" type="selection" width="46"></el-table-column>
             <el-table-column prop="name" label="链路名称" min-width="123px"></el-table-column>
             <el-table-column prop="IP" label="源端口名称" min-width="123px"></el-table-column>

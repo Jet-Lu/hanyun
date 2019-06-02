@@ -106,7 +106,7 @@
               <el-button class="loc-btn reset-btn" type="primary">重置</el-button>
             </div>
           </div>
-          <el-table :data="tableData" size="mini" class="transparent-table transparent-white-table port-table" style="width: 100%">
+          <el-table :data="tableData" size="mini" height="calc(100% - 135px)" class="transparent-table transparent-white-table port-table" style="width: 100%">
             <el-table-column class-name="com-txt-overflow" prop="name" label="名称" sortable min-width="161px">
               <template slot-scope="scope">
                 <p class="com-txt-overflow loc-table-color" style="cursor: pointer;" @click="openWindow(scope.row)">{{
